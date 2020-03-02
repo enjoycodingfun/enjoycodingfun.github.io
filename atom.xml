@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Running</title>
+  <icon>https://www.gravatar.com/avatar/4d4a481fd290e237dedc9f93763f8130</icon>
+  <subtitle>Better Late Than Never</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2020-03-02T04:51:17.620Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>enjoycodingfun</name>
+    <email>17364562230@163.com</email>
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Nginx笔记2</title>
+    <link href="http://yoursite.com/2020/03/02/Nginx%E7%AC%94%E8%AE%B02/"/>
+    <id>http://yoursite.com/2020/03/02/Nginx%E7%AC%94%E8%AE%B02/</id>
+    <published>2020-03-02T04:51:17.620Z</published>
+    <updated>2020-03-02T04:51:17.620Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="主题词-高并发下Nginx反向代理、Nginx负载均衡"><a href="#主题词-高并发下Nginx反向代理、Nginx负载均衡" class="headerlink" title="主题词: 高并发下Nginx反向代理、Nginx负载均衡"></a>主题词: 高并发下Nginx反向代理、Nginx负载均衡</h5><ul><li>需求：配置Nginx的反向代理 </li></ul><p>[<figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://i.loli.net/2017/09/10/59b5253f6bd3e.jpg" alt="fxdl.jpg](https://i.loli.net/2017/09/10/59b5253f6bd3e.jpg)" title="">                </div>                <div class="image-caption">fxdl.jpg](https://i.loli.net/2017/09/10/59b5253f6bd3e.jpg)</div>            </figure></p><ol><li><p>配置两台Tomcat服务器</p><ul><li>配置两台Tomcat的端口分别是8087和8088</li><li>保证两台Tomcat服务器的三处端口不一致才能启动</li><li>启动8087端口打开Tomcat7，启动8088端口打开Tomcat8</li></ul></li><li><p>配置Nginx反向代理服务器</p><ul><li>修改配置文件</li><li>修改配置文件注意点<ul><li>定义upstream tomcat7内的server需指向反向代理指向的服务器地址，分号结束不能忘。</li><li>定义location的proxy_pass为<a href="http://tomcat7，对应upstream的名称。" target="_blank" rel="noopener">http://tomcat7，对应upstream的名称。</a></li></ul></li></ul></li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">upstream manager&#123;</span><br><span class="line">server 192.168.31.159:8087;</span><br><span class="line">   &#125;</span><br><span class="line">   server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  manager.dhc.com;</span><br><span class="line"></span><br><span class="line">        location &#x2F; &#123;</span><br><span class="line">            proxy_pass   http:&#x2F;&#x2F;manager;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    upstream portal&#123;</span><br><span class="line">server 192.168.31.159:8088;</span><br><span class="line">   &#125;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  portal.dhc.com;</span><br><span class="line"></span><br><span class="line">        location &#x2F; &#123;</span><br><span class="line">            proxy_pass   http:&#x2F;&#x2F;portal;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure><ol start="3"><li>重启并加载配置文件，并测试是否成功</li></ol><ul><li>需求：配置Nginx的负载均衡</li></ul><ol><li>配置文件的修改，其他同上个需求</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">upstream portal&#123;</span><br><span class="line">server 192.168.31.159:8087 weight&#x3D;2;</span><br><span class="line">server 192.168.31.159:8088;</span><br><span class="line">   &#125;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  portal.dhc.com;</span><br><span class="line"></span><br><span class="line">        location &#x2F; &#123;</span><br><span class="line">            proxy_pass   http:&#x2F;&#x2F;portal;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure><ul><li>可以在upstream中配置权重weight=2（轮询）</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h5 id=&quot;主题词-高并发下Nginx反向代理、Nginx负载均衡&quot;&gt;&lt;a href=&quot;#主题词-高并发下Nginx反向代理、Nginx负载均衡&quot; class=&quot;headerlink&quot; title=&quot;主题词: 高并发下Nginx反向代理、Nginx负载均衡&quot;&gt;&lt;/a&gt;主题词:
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Nginx笔记0</title>
+    <link href="http://yoursite.com/2020/03/02/Nginx%E7%AC%94%E8%AE%B00/"/>
+    <id>http://yoursite.com/2020/03/02/Nginx%E7%AC%94%E8%AE%B00/</id>
+    <published>2020-03-02T04:48:07.304Z</published>
+    <updated>2020-03-02T04:48:07.304Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="主题词-负载均衡"><a href="#主题词-负载均衡" class="headerlink" title="主题词: 负载均衡"></a>主题词: 负载均衡</h5><ol><li>什么是负载均衡 </li></ol><blockquote><p>负载均衡，英文名称为Load Balance，其意思就是分摊到多个操作单元上进行执行，例如Web服务器、FTP服务器、企业关键应用服务器和其它关键任务服务器等，从而共同完成工作任务。</p></blockquote><blockquote><p>负载均衡是建立在现有网络结构之上，它提供了一种廉价有效透明的方法扩展网络设备和服务器的带宽、增加吞吐量、加强网络数据处理能力、提高网络的灵活性和可用性。</p></blockquote><ol start="2"><li>软件级负载均衡</li></ol><blockquote><p>常见的硬件有比较昂贵的NetScaler、F5、Radware和Array等商用的负载均衡器，它的优点就是有专业的维护团队来对这些服务进行维护、缺点就是花销太大</p></blockquote><blockquote><p>LVS/HAProxy、Nginx的基于Linux的开源免费的负载均衡软件策略,这些都是通过软件级别来实现，所以费用非常低廉，所以推荐大家采用第二种方案来实施自己网站的负载均衡需求</p></blockquote><blockquote><p>参见：<a href="http://network.51cto.com/art/201110/298992.htm" target="_blank" rel="noopener">http://network.51cto.com/art/201110/298992.htm</a></p></blockquote><ol start="3"><li>Nginx是什么？</li></ol><blockquote><p>Nginx (engine x) 是一款轻量级的高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambler.ru站点开发的。其特点是占有内存少，并发能力强，事实上nginx的并发能力确实在同类型的网页服务器中表现较好，中国大陆使用nginx网站用户有：百度、京东、新浪、网易、腾讯、淘宝等。</p></blockquote><blockquote><p>反向代理（Reverse Proxy）方式是指以代理服务器来接受互联网上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给互联网上请求连接的客户端，此时代理服务器对外就表现为一个反向代理服务器。</p></blockquote><blockquote><p>正向代理隐藏了访问者的IP等信息（服务器端–代理服务器端–客户端）</p></blockquote><blockquote><p>反向代理隐藏了被访问者的IP等信息（客户端–代理服务器端–服务器端）</p></blockquote><ol start="4"><li>Nginx的应用场景</li></ol><ul><li>HTTP服务器：可以独立提供HTTP服务器，可以做网页静态服务器。如：图片服务器</li><li>虚拟主机：可以实现在一台服务器虚拟出多个网站，例如个人网站使用的虚拟主机</li><li>反向代理：当网站的访问量上升，单台服务器不能满足用户的请求时，需要用多台服务器集群，可以使用Nginx做反向代理</li><li>负载均衡：多台服务器平均分担负载，不会因为某台服务器负载高而宕机，某台服务器闲置等情况</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h5 id=&quot;主题词-负载均衡&quot;&gt;&lt;a href=&quot;#主题词-负载均衡&quot; class=&quot;headerlink&quot; title=&quot;主题词: 负载均衡&quot;&gt;&lt;/a&gt;主题词: 负载均衡&lt;/h5&gt;&lt;ol&gt;
+&lt;li&gt;什么是负载均衡 &lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;负载
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>test</title>
+    <link href="http://yoursite.com/2020/03/02/test/"/>
+    <id>http://yoursite.com/2020/03/02/test/</id>
+    <published>2020-03-02T04:40:34.000Z</published>
+    <updated>2020-03-02T04:40:34.300Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://yoursite.com/2020/01/19/hello-world/"/>
+    <id>http://yoursite.com/2020/01/19/hello-world/</id>
+    <published>2020-01-19T02:41:36.386Z</published>
+    <updated>2020-01-19T02:41:36.386Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+</feed>
