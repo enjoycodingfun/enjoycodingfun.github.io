@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-03-02T04:51:17.620Z</updated>
+  <updated>2020-03-04T06:46:54.804Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,77 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Nginx笔记0</title>
+    <link href="http://yoursite.com/2020/03/04/Nginx%E7%AC%94%E8%AE%B00/"/>
+    <id>http://yoursite.com/2020/03/04/Nginx%E7%AC%94%E8%AE%B00/</id>
+    <published>2020-03-04T06:46:54.804Z</published>
+    <updated>2020-03-04T06:46:54.804Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="主题词-负载均衡"><a href="#主题词-负载均衡" class="headerlink" title="主题词: 负载均衡"></a>主题词: 负载均衡</h5><ol><li>什么是负载均衡 </li></ol><blockquote><p>负载均衡，英文名称为Load Balance，其意思就是分摊到多个操作单元上进行执行，例如Web服务器、FTP服务器、企业关键应用服务器和其它关键任务服务器等，从而共同完成工作任务。</p></blockquote><blockquote><p>负载均衡是建立在现有网络结构之上，它提供了一种廉价有效透明的方法扩展网络设备和服务器的带宽、增加吞吐量、加强网络数据处理能力、提高网络的灵活性和可用性。</p></blockquote><ol start="2"><li>软件级负载均衡</li></ol><blockquote><p>常见的硬件有比较昂贵的NetScaler、F5、Radware和Array等商用的负载均衡器，它的优点就是有专业的维护团队来对这些服务进行维护、缺点就是花销太大</p></blockquote><blockquote><p>LVS/HAProxy、Nginx的基于Linux的开源免费的负载均衡软件策略,这些都是通过软件级别来实现，所以费用非常低廉，所以推荐大家采用第二种方案来实施自己网站的负载均衡需求</p></blockquote><blockquote><p>参见：<a href="http://network.51cto.com/art/201110/298992.htm" target="_blank" rel="noopener">http://network.51cto.com/art/201110/298992.htm</a></p></blockquote><ol start="3"><li>Nginx是什么？</li></ol><blockquote><p>Nginx (engine x) 是一款轻量级的高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambler.ru站点开发的。其特点是占有内存少，并发能力强，事实上nginx的并发能力确实在同类型的网页服务器中表现较好，中国大陆使用nginx网站用户有：百度、京东、新浪、网易、腾讯、淘宝等。</p></blockquote><blockquote><p>反向代理（Reverse Proxy）方式是指以代理服务器来接受互联网上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给互联网上请求连接的客户端，此时代理服务器对外就表现为一个反向代理服务器。</p></blockquote><blockquote><p>正向代理隐藏了访问者的IP等信息（服务器端–代理服务器端–客户端）</p></blockquote><blockquote><p>反向代理隐藏了被访问者的IP等信息（客户端–代理服务器端–服务器端）</p></blockquote><ol start="4"><li>Nginx的应用场景</li></ol><ul><li><p>HTTP服务器：可以独立提供HTTP服务器，可以做网页静态服务器。如：图片服务器</p></li><li><p>虚拟主机：可以实现在一台服务器虚拟出多个网站，例如个人网站使用的虚拟主机</p></li><li><p>反向代理：当网站的访问量上升，单台服务器不能满足用户的请求时，需要用多台服务器集群，可以使用Nginx做反向代理</p></li><li><p>负载均衡：多台服务器平均分担负载，不会因为某台服务器负载高而宕机，某台服务器闲置等情况</p><p><img src="https://raw.githubusercontent.com/enjoycodingfun/enjoycodingfun.github.io/master/img/head.jpg" alt="功夫熊猫"></p><p><img src="http://116.62.66.183:4000/img/alipay.jpg" alt="支付宝"></p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h5 id=&quot;主题词-负载均衡&quot;&gt;&lt;a href=&quot;#主题词-负载均衡&quot; class=&quot;headerlink&quot; title=&quot;主题词: 负载均衡&quot;&gt;&lt;/a&gt;主题词: 负载均衡&lt;/h5&gt;&lt;ol&gt;
+&lt;li&gt;什么是负载均衡 &lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;负载
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>妈妈购JAVA开发代码规范 (2)</title>
+    <link href="http://yoursite.com/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%20(2)/"/>
+    <id>http://yoursite.com/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%20(2)/</id>
+    <published>2020-03-02T06:36:24.934Z</published>
+    <updated>2020-03-02T06:36:24.934Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="妈妈购JAVA开发代码规范"><a href="#妈妈购JAVA开发代码规范" class="headerlink" title="妈妈购JAVA开发代码规范"></a>妈妈购JAVA开发代码规范</h1><h3 id="1-强制约束"><a href="#1-强制约束" class="headerlink" title="1.强制约束"></a>1.强制约束</h3><p><strong>(1)实体类或DTO等中涉及到type或state的类型需要在Javadoc中注释中标明所有的已知枚举值，同时指明引用的Constant或者Enum类。</strong></p><p>示例：<br><code>/**</code><br><code>* 售后状态，其他描述....</code><br><code>*</code><br><code>* @see RefundOrderStateEnum 常量类引用</code><br><code>* @see OrderServiceApiImpl</code><br><code>*/</code><br><code>private Integer refundState;</code></p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://cdn.nlark.com/yuque/0/2019/png/567900/1573210104459-a1ec6f20-a4e6-487b-ab3b-92814cdbc445.png#align=left&display=inline&height=330&name=image.png&originHeight=330&originWidth=653&size=156927&status=done&style=none&width=653" alt="image.png" title="">                </div>                <div class="image-caption">image.png</div>            </figure><p><strong>(2)实体类或DTO等中涉及到其他表的字段，</strong><br><strong>①外键，命名为实体名 + Id （如：OrderEntity 其他的外键为 orderId）</strong><br>**<br>②冗余字段，命名为与原表字段保持一致，存在重复使用实体名+字段名，需要写出冗余数据同步机制**<br>**<br>必须注释中标明是那张表的主键或冗余字段**</p><p>/**</p><ul><li>会员Id</li><li>会员表主键：t_mem_member</li><li>会员表冗余字段：t_mem_member （同步方法：原表数据变化时及时更新当前表数据， 定时同步）</li><li>/<br>private Long memberId;</li></ul><p><strong>(3)if-elseif 中涉及到 三个及以上的判断条件时， 需要标明注释和条件换行</strong><br>**<br><strong><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://cdn.nlark.com/yuque/0/2019/png/165526/1573208450478-85ad67c2-08d3-4ab0-a87c-3ceb7d240a91.png#align=left&display=inline&height=167&name=image.png&originHeight=171&originWidth=691&size=66279&status=done&style=none&width=674" alt="image.png" title="">                </div>                <div class="image-caption">image.png</div>            </figure></strong></p><p>(4)<strong>新设计的数据库表，必须包含以下字段：（hiddenMemo、creatorId、createdTime、lastModifierId、lastModifiedTime、deletedFlag、version），<br>所有对实体表的查询必须限制deletedFlag=0 为条件</strong><br><strong>hiddenMemo在代码中不使用，只用于订数据备注。</strong></p><p><strong>(5)Lambad表达式禁止超过3个表达式，如果超出需要分成多段</strong>， 建议在项目不使用Lambad表达式</p><p>(6)一个方法中的代码行数不得多于200行，如超出需要进行封装私有方法，所有在调用该私有方法出需要写明注释该方法的用处，同时需要使用this.进行调用</p><p>(7)未被调用的private field 和private method必须删除。</p><p>(8)禁止在循环或递归中调用接口（Dao、service、api等）</p><p><strong>(9)禁止使用魔法值，统一定义为枚举或者常量类</strong></p><p>(10)全项目禁止出现System.out.print()，统一使用log</p><p>(11)SelectList &amp; selectCount（即EntityWrapper）的不允许出现在service中，需要通过repository进行中转一下</p><p>(12)reponse返回前端时不允许出现宽泛的单词，”Id”、“name”最为典型，必须使用业务对象+id，如：itemId、memberId。</p><p>也不允许多种定义规则如：商品Id，使用itemId、goodsId、productId等，统一为itemId。</p><h3 id="2-参数命名约束"><a href="#2-参数命名约束" class="headerlink" title="2.参数命名约束"></a>2.参数命名约束</h3><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://cdn.nlark.com/yuque/0/2019/jpeg/123079/1573637524500-88ecf5cc-02dd-4aa3-9f10-09aeab180b0c.jpeg#align=left&display=inline&height=2295&name=%E5%8C%85%E7%BB%93%E6%9E%84%E8%A7%84%E8%8C%83.jpg&originHeight=2295&originWidth=2085&size=463020&status=done&style=none&width=2085" alt="包结构规范.jpg" title="">                </div>                <div class="image-caption">包结构规范.jpg</div>            </figure><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://cdn.nlark.com/yuque/0/2019/jpeg/123079/1573637546762-7ff5e2ff-1d60-45bf-8bba-3d98ca4ae56d.jpeg#align=left&display=inline&height=1008&name=%E5%8D%95%E4%BD%93%E6%9C%8D%E5%8A%A1%E7%B1%BB%E8%B0%83%E7%94%A8%E5%85%B3%E7%B3%BB%E5%9B%BE.jpg&originHeight=1008&originWidth=1004&size=51437&status=done&style=none&width=1004" alt="单体服务类调用关系图.jpg" title="">                </div>                <div class="image-caption">单体服务类调用关系图.jpg</div>            </figure><h3 id="3-URL命名约束"><a href="#3-URL命名约束" class="headerlink" title="3.URL命名约束"></a>3.URL命名约束</h3><h3 id="4-注释约束"><a href="#4-注释约束" class="headerlink" title="4.注释约束"></a>4.注释约束</h3><p>(1)类注释（Javadoc）</p><p>每个类必须类注释<br>可以不写作者名和日期，因为Git已经记录下了这些信息</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://cdn.nlark.com/yuque/0/2019/png/165526/1573208581363-7b0a09d2-a167-488a-835d-99b8c129d3c2.png#align=left&display=inline&height=134&name=image.png&originHeight=110&originWidth=598&size=27711&status=done&style=none&width=731" alt="image.png" title="">                </div>                <div class="image-caption">image.png</div>            </figure><p>(2)方法级注释（Javadoc）</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://cdn.nlark.com/yuque/0/2019/png/165526/1573208605114-227c1b9c-93db-4efc-ad4c-087085d9bc76.png#align=left&display=inline&height=237&name=image.png&originHeight=101&originWidth=311&size=18075&status=done&style=none&width=731" alt="image.png" title="">                </div>                <div class="image-caption">image.png</div>            </figure><p>方法名含义明确的话，可以不写方法注释<br>打算说明参数、返回值、异常的含义时，必须用tag注解；当参数或是返回值的含义比较明确时，也可以不写tag，但禁止出现下图那样多余的写法</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://cdn.nlark.com/yuque/0/2019/png/165526/1573208706788-04d47f3f-4d25-4915-9aa2-8f9f108ba11b.png#align=left&display=inline&height=236&name=image.png&originHeight=145&originWidth=287&size=50916&status=done&style=none&width=468" alt="image.png" title="">                </div>                <div class="image-caption">image.png</div>            </figure><p>注意tag的用法<br><a href="">@param </a> 形参名 注释<br><a href="">@return </a> 注释<br><a href="">@throws </a> 异常类型 注释</p><p>(3)字段注释（Javadoc）</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://cdn.nlark.com/yuque/0/2019/png/165526/1573208765035-50850b82-dc55-4af7-a774-aed4cb475e77.png#align=left&display=inline&height=160&name=image.png&originHeight=83&originWidth=192&size=8880&status=done&style=none&width=369" alt="image.png" title="">                </div>                <div class="image-caption">image.png</div>            </figure><p>单词含义明确的话，可以不写字段注释<br>必须使用/** */，禁止使用 //，禁止使用 /_ _/</p><h3 id="5-数据库规范"><a href="#5-数据库规范" class="headerlink" title="5.数据库规范"></a>5.数据库规范</h3><p>（1）主键 </p><ul><li>主键必须使用 bigint  </li><li>不能使用 unsigned ，不能使用无符号，因为 Long 类型的容量不足以支撑 unsigned bigint, 同理 使用 unsigned int 也不能使用 Integer 映射</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;妈妈购JAVA开发代码规范&quot;&gt;&lt;a href=&quot;#妈妈购JAVA开发代码规范&quot; class=&quot;headerlink&quot; title=&quot;妈妈购JAVA开发代码规范&quot;&gt;&lt;/a&gt;妈妈购JAVA开发代码规范&lt;/h1&gt;&lt;h3 id=&quot;1-强制约束&quot;&gt;&lt;a href=&quot;#1-强
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>妈妈购JAVA开发代码规范</title>
+    <link href="http://yoursite.com/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/"/>
+    <id>http://yoursite.com/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/</id>
+    <published>2020-03-02T06:27:57.170Z</published>
+    <updated>2020-03-02T06:27:57.170Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="妈妈购JAVA开发代码规范"><a href="#妈妈购JAVA开发代码规范" class="headerlink" title="妈妈购JAVA开发代码规范"></a>妈妈购JAVA开发代码规范</h1><p><a name="cTEQY"></a></p><h3 id="1-强制约束"><a href="#1-强制约束" class="headerlink" title="1.强制约束"></a>1.强制约束</h3><p><strong>(1)实体类或DTO等中涉及到type或state的类型需要在Javadoc中注释中标明所有的已知枚举值，同时指明引用的Constant或者Enum类。</strong></p><p>示例：<br /><code>/**</code><br /><code>* 售后状态，其他描述....</code><br /><code>*</code><br /><code>* @see RefundOrderStateEnum 常量类引用</code><br /><code>* @see OrderServiceApiImpl</code><br /><code>*/</code><br /><code>private Integer refundState;</code><br /><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://cdn.nlark.com/yuque/0/2019/png/567900/1573210104459-a1ec6f20-a4e6-487b-ab3b-92814cdbc445.png#align=left&display=inline&height=330&name=image.png&originHeight=330&originWidth=653&size=156927&status=done&style=none&width=653" alt="image.png" title="">                </div>                <div class="image-caption">image.png</div>            </figure></p><p><strong>(2)实体类或DTO等中涉及到其他表的字段，</strong><br /><strong>①外键，命名为实体名 + Id （如：OrderEntity 其他的外键为 orderId）</strong><br />**<br>②冗余字段，命名为与原表字段保持一致，存在重复使用实体名+字段名，需要写出冗余数据同步机制<strong><br /></strong><br>必须注释中标明是那张表的主键或冗余字段**</p><p>/<em>*<br /></em> 会员Id<br />* 会员表主键：t_mem_member<br />* 会员表冗余字段：t_mem_member （同步方法：原表数据变化时及时更新当前表数据， 定时同步）<br />*/<br />private Long memberId;</p><p><strong>(3)if-elseif 中涉及到 三个及以上的判断条件时， 需要标明注释和条件换行</strong><br /><strong><br /></strong><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://cdn.nlark.com/yuque/0/2019/png/165526/1573208450478-85ad67c2-08d3-4ab0-a87c-3ceb7d240a91.png#align=left&display=inline&height=167&name=image.png&originHeight=171&originWidth=691&size=66279&status=done&style=none&width=674" alt="image.png" title="">                </div>                <div class="image-caption">image.png</div>            </figure>**</p><p>(4)<strong>新设计的数据库表，必须包含以下字段：（hiddenMemo、creatorId、createdTime、lastModifierId、lastModifiedTime、deletedFlag、version），<br>所有对实体表的查询必须限制deletedFlag=0 为条件</strong><br /><strong>hiddenMemo在代码中不使用，只用于订数据备注。</strong></p><p><strong>(5)Lambad表达式禁止超过3个表达式，如果超出需要分成多段</strong>， 建议在项目不使用Lambad表达式</p><p>(6)一个方法中的代码行数不得多于200行，如超出需要进行封装私有方法，所有在调用该私有方法出需要写明注释该方法的用处，同时需要使用this.进行调用</p><p>(7)未被调用的private field 和private method必须删除。</p><p>(8)禁止在循环或递归中调用接口（Dao、service、api等）</p><p><strong>(9)禁止使用魔法值，统一定义为枚举或者常量类</strong></p><p>(10)全项目禁止出现System.out.print()，统一使用log</p><p>(11)SelectList &amp; selectCount（即EntityWrapper）的不允许出现在service中，需要通过repository进行中转一下</p><p>(12)reponse返回前端时不允许出现宽泛的单词，”Id”、“name”最为典型，必须使用业务对象+id，如：itemId、memberId。</p><p>也不允许多种定义规则如：商品Id，使用itemId、goodsId、productId等，统一为itemId。</p><p><a name="jSbxB"></a></p><h3 id="2-参数命名约束"><a href="#2-参数命名约束" class="headerlink" title="2.参数命名约束"></a>2.参数命名约束</h3><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://cdn.nlark.com/yuque/0/2019/jpeg/123079/1573637546762-7ff5e2ff-1d60-45bf-8bba-3d98ca4ae56d.jpeg#align=left&display=inline&height=1008&name=%E5%8D%95%E4%BD%93%E6%9C%8D%E5%8A%A1%E7%B1%BB%E8%B0%83%E7%94%A8%E5%85%B3%E7%B3%BB%E5%9B%BE.jpg&originHeight=1008&originWidth=1004&size=51437&status=done&style=none&width=1004" alt="包结构规范.jpg](https://cdn.nlark.com/yuque/0/2019/jpeg/123079/1573637524500-88ecf5cc-02dd-4aa3-9f10-09aeab180b0c.jpeg#align=left&display=inline&height=2295&name=%E5%8C%85%E7%BB%93%E6%9E%84%E8%A7%84%E8%8C%83.jpg&originHeight=2295&originWidth=2085&size=463020&status=done&style=none&width=2085)<br />![单体服务类调用关系图.jpg" title="">                </div>                <div class="image-caption">包结构规范.jpg](https://cdn.nlark.com/yuque/0/2019/jpeg/123079/1573637524500-88ecf5cc-02dd-4aa3-9f10-09aeab180b0c.jpeg#align=left&display=inline&height=2295&name=%E5%8C%85%E7%BB%93%E6%9E%84%E8%A7%84%E8%8C%83.jpg&originHeight=2295&originWidth=2085&size=463020&status=done&style=none&width=2085)<br />![单体服务类调用关系图.jpg</div>            </figure><p><a name="5sq7P"></a></p><h3 id="3-URL命名约束"><a href="#3-URL命名约束" class="headerlink" title="3.URL命名约束"></a>3.URL命名约束</h3><p><a name="X1DeE"></a></p><h3 id="4-注释约束"><a href="#4-注释约束" class="headerlink" title="4.注释约束"></a>4.注释约束</h3><p>(1)类注释（Javadoc）</p><p>每个类必须类注释<br />可以不写作者名和日期，因为Git已经记录下了这些信息<br /><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://cdn.nlark.com/yuque/0/2019/png/165526/1573208581363-7b0a09d2-a167-488a-835d-99b8c129d3c2.png#align=left&display=inline&height=134&name=image.png&originHeight=110&originWidth=598&size=27711&status=done&style=none&width=731" alt="image.png" title="">                </div>                <div class="image-caption">image.png</div>            </figure></p><p>(2)方法级注释（Javadoc）</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://cdn.nlark.com/yuque/0/2019/png/165526/1573208605114-227c1b9c-93db-4efc-ad4c-087085d9bc76.png#align=left&display=inline&height=237&name=image.png&originHeight=101&originWidth=311&size=18075&status=done&style=none&width=731" alt="image.png" title="">                </div>                <div class="image-caption">image.png</div>            </figure><p>方法名含义明确的话，可以不写方法注释        <br />打算说明参数、返回值、异常的含义时，必须用tag注解；当参数或是返回值的含义比较明确时，也可以不写tag，但禁止出现下图那样多余的写法</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://cdn.nlark.com/yuque/0/2019/png/165526/1573208706788-04d47f3f-4d25-4915-9aa2-8f9f108ba11b.png#align=left&display=inline&height=236&name=image.png&originHeight=145&originWidth=287&size=50916&status=done&style=none&width=468" alt="image.png" title="">                </div>                <div class="image-caption">image.png</div>            </figure><p>注意tag的用法<br /><a href="">@param </a> 形参名 注释<br /><a href="">@return </a> 注释<br /><a href="">@throws </a> 异常类型 注释</p><p>(3)字段注释（Javadoc）</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://cdn.nlark.com/yuque/0/2019/png/165526/1573208765035-50850b82-dc55-4af7-a774-aed4cb475e77.png#align=left&display=inline&height=160&name=image.png&originHeight=83&originWidth=192&size=8880&status=done&style=none&width=369" alt="image.png" title="">                </div>                <div class="image-caption">image.png</div>            </figure><p>单词含义明确的话，可以不写字段注释                                        <br />必须使用/** */，禁止使用 //，禁止使用 /_ _/</p><p><a name="UkXGo"></a></p><h3 id="5-数据库规范"><a href="#5-数据库规范" class="headerlink" title="5.数据库规范"></a>5.数据库规范</h3><p>（1）主键 </p><ul><li>主键必须使用 bigint  </li><li>不能使用 unsigned ，不能使用无符号，因为 Long 类型的容量不足以支撑 unsigned bigint, 同理 使用 unsigned int 也不能使用 Integer 映射</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;妈妈购JAVA开发代码规范&quot;&gt;&lt;a href=&quot;#妈妈购JAVA开发代码规范&quot; class=&quot;headerlink&quot; title=&quot;妈妈购JAVA开发代码规范&quot;&gt;&lt;/a&gt;妈妈购JAVA开发代码规范&lt;/h1&gt;&lt;p&gt;&lt;a name=&quot;cTEQY&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Nginx笔记2</title>
@@ -30,32 +101,6 @@
       
       
         &lt;h5 id=&quot;主题词-高并发下Nginx反向代理、Nginx负载均衡&quot;&gt;&lt;a href=&quot;#主题词-高并发下Nginx反向代理、Nginx负载均衡&quot; class=&quot;headerlink&quot; title=&quot;主题词: 高并发下Nginx反向代理、Nginx负载均衡&quot;&gt;&lt;/a&gt;主题词:
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Nginx笔记0</title>
-    <link href="http://yoursite.com/2020/03/02/Nginx%E7%AC%94%E8%AE%B00/"/>
-    <id>http://yoursite.com/2020/03/02/Nginx%E7%AC%94%E8%AE%B00/</id>
-    <published>2020-03-02T04:48:07.304Z</published>
-    <updated>2020-03-02T04:48:07.304Z</updated>
-    
-    <content type="html"><![CDATA[<h5 id="主题词-负载均衡"><a href="#主题词-负载均衡" class="headerlink" title="主题词: 负载均衡"></a>主题词: 负载均衡</h5><ol><li>什么是负载均衡 </li></ol><blockquote><p>负载均衡，英文名称为Load Balance，其意思就是分摊到多个操作单元上进行执行，例如Web服务器、FTP服务器、企业关键应用服务器和其它关键任务服务器等，从而共同完成工作任务。</p></blockquote><blockquote><p>负载均衡是建立在现有网络结构之上，它提供了一种廉价有效透明的方法扩展网络设备和服务器的带宽、增加吞吐量、加强网络数据处理能力、提高网络的灵活性和可用性。</p></blockquote><ol start="2"><li>软件级负载均衡</li></ol><blockquote><p>常见的硬件有比较昂贵的NetScaler、F5、Radware和Array等商用的负载均衡器，它的优点就是有专业的维护团队来对这些服务进行维护、缺点就是花销太大</p></blockquote><blockquote><p>LVS/HAProxy、Nginx的基于Linux的开源免费的负载均衡软件策略,这些都是通过软件级别来实现，所以费用非常低廉，所以推荐大家采用第二种方案来实施自己网站的负载均衡需求</p></blockquote><blockquote><p>参见：<a href="http://network.51cto.com/art/201110/298992.htm" target="_blank" rel="noopener">http://network.51cto.com/art/201110/298992.htm</a></p></blockquote><ol start="3"><li>Nginx是什么？</li></ol><blockquote><p>Nginx (engine x) 是一款轻量级的高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambler.ru站点开发的。其特点是占有内存少，并发能力强，事实上nginx的并发能力确实在同类型的网页服务器中表现较好，中国大陆使用nginx网站用户有：百度、京东、新浪、网易、腾讯、淘宝等。</p></blockquote><blockquote><p>反向代理（Reverse Proxy）方式是指以代理服务器来接受互联网上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给互联网上请求连接的客户端，此时代理服务器对外就表现为一个反向代理服务器。</p></blockquote><blockquote><p>正向代理隐藏了访问者的IP等信息（服务器端–代理服务器端–客户端）</p></blockquote><blockquote><p>反向代理隐藏了被访问者的IP等信息（客户端–代理服务器端–服务器端）</p></blockquote><ol start="4"><li>Nginx的应用场景</li></ol><ul><li>HTTP服务器：可以独立提供HTTP服务器，可以做网页静态服务器。如：图片服务器</li><li>虚拟主机：可以实现在一台服务器虚拟出多个网站，例如个人网站使用的虚拟主机</li><li>反向代理：当网站的访问量上升，单台服务器不能满足用户的请求时，需要用多台服务器集群，可以使用Nginx做反向代理</li><li>负载均衡：多台服务器平均分担负载，不会因为某台服务器负载高而宕机，某台服务器闲置等情况</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h5 id=&quot;主题词-负载均衡&quot;&gt;&lt;a href=&quot;#主题词-负载均衡&quot; class=&quot;headerlink&quot; title=&quot;主题词: 负载均衡&quot;&gt;&lt;/a&gt;主题词: 负载均衡&lt;/h5&gt;&lt;ol&gt;
-&lt;li&gt;什么是负载均衡 &lt;/li&gt;
-&lt;/ol&gt;
-&lt;blockquote&gt;
-&lt;p&gt;负载
       
     
     </summary>
