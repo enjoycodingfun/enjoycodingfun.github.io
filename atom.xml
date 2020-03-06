@@ -5,9 +5,9 @@
   <subtitle>Better Late Than Never</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
-  <updated>2020-03-04T06:46:54.804Z</updated>
-  <id>http://yoursite.com/</id>
+  <link href="https://enjoycodingfun.github.io/"/>
+  <updated>2020-03-06T02:01:07.489Z</updated>
+  <id>https://enjoycodingfun.github.io/</id>
   
   <author>
     <name>enjoycodingfun</name>
@@ -18,34 +18,39 @@
   
   <entry>
     <title>Nginx笔记0</title>
-    <link href="http://yoursite.com/2020/03/04/Nginx%E7%AC%94%E8%AE%B00/"/>
-    <id>http://yoursite.com/2020/03/04/Nginx%E7%AC%94%E8%AE%B00/</id>
-    <published>2020-03-04T06:46:54.804Z</published>
-    <updated>2020-03-04T06:46:54.804Z</updated>
+    <link href="https://enjoycodingfun.github.io/2020/03/06/Nginx%E7%AC%94%E8%AE%B00/"/>
+    <id>https://enjoycodingfun.github.io/2020/03/06/Nginx%E7%AC%94%E8%AE%B00/</id>
+    <published>2020-03-06T02:01:07.489Z</published>
+    <updated>2020-03-06T02:01:07.489Z</updated>
     
-    <content type="html"><![CDATA[<h5 id="主题词-负载均衡"><a href="#主题词-负载均衡" class="headerlink" title="主题词: 负载均衡"></a>主题词: 负载均衡</h5><ol><li>什么是负载均衡 </li></ol><blockquote><p>负载均衡，英文名称为Load Balance，其意思就是分摊到多个操作单元上进行执行，例如Web服务器、FTP服务器、企业关键应用服务器和其它关键任务服务器等，从而共同完成工作任务。</p></blockquote><blockquote><p>负载均衡是建立在现有网络结构之上，它提供了一种廉价有效透明的方法扩展网络设备和服务器的带宽、增加吞吐量、加强网络数据处理能力、提高网络的灵活性和可用性。</p></blockquote><ol start="2"><li>软件级负载均衡</li></ol><blockquote><p>常见的硬件有比较昂贵的NetScaler、F5、Radware和Array等商用的负载均衡器，它的优点就是有专业的维护团队来对这些服务进行维护、缺点就是花销太大</p></blockquote><blockquote><p>LVS/HAProxy、Nginx的基于Linux的开源免费的负载均衡软件策略,这些都是通过软件级别来实现，所以费用非常低廉，所以推荐大家采用第二种方案来实施自己网站的负载均衡需求</p></blockquote><blockquote><p>参见：<a href="http://network.51cto.com/art/201110/298992.htm" target="_blank" rel="noopener">http://network.51cto.com/art/201110/298992.htm</a></p></blockquote><ol start="3"><li>Nginx是什么？</li></ol><blockquote><p>Nginx (engine x) 是一款轻量级的高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambler.ru站点开发的。其特点是占有内存少，并发能力强，事实上nginx的并发能力确实在同类型的网页服务器中表现较好，中国大陆使用nginx网站用户有：百度、京东、新浪、网易、腾讯、淘宝等。</p></blockquote><blockquote><p>反向代理（Reverse Proxy）方式是指以代理服务器来接受互联网上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给互联网上请求连接的客户端，此时代理服务器对外就表现为一个反向代理服务器。</p></blockquote><blockquote><p>正向代理隐藏了访问者的IP等信息（服务器端–代理服务器端–客户端）</p></blockquote><blockquote><p>反向代理隐藏了被访问者的IP等信息（客户端–代理服务器端–服务器端）</p></blockquote><ol start="4"><li>Nginx的应用场景</li></ol><ul><li><p>HTTP服务器：可以独立提供HTTP服务器，可以做网页静态服务器。如：图片服务器</p></li><li><p>虚拟主机：可以实现在一台服务器虚拟出多个网站，例如个人网站使用的虚拟主机</p></li><li><p>反向代理：当网站的访问量上升，单台服务器不能满足用户的请求时，需要用多台服务器集群，可以使用Nginx做反向代理</p></li><li><p>负载均衡：多台服务器平均分担负载，不会因为某台服务器负载高而宕机，某台服务器闲置等情况</p><p><img src="https://raw.githubusercontent.com/enjoycodingfun/enjoycodingfun.github.io/master/img/head.jpg" alt="功夫熊猫"></p><p><img src="http://116.62.66.183:4000/img/alipay.jpg" alt="支付宝"></p></li></ul>]]></content>
+    <content type="html"><![CDATA[<p>主题词: 负载均衡</p><ol><li>什么是负载均衡 </li></ol><blockquote><p>负载均衡，英文名称为Load Balance，其意思就是分摊到多个操作单元上进行执行，例如Web服务器、FTP服务器、企业关键应用服务器和其它关键任务服务器等，从而共同完成工作任务。</p></blockquote><blockquote><p>负载均衡是建立在现有网络结构之上，它提供了一种廉价有效透明的方法扩展网络设备和服务器的带宽、增加吞吐量、加强网络数据处理能力、提高网络的灵活性和可用性。</p></blockquote><ol start="2"><li>软件级负载均衡</li></ol><blockquote><p>常见的硬件有比较昂贵的NetScaler、F5、Radware和Array等商用的负载均衡器，它的优点就是有专业的维护团队来对这些服务进行维护、缺点就是花销太大</p></blockquote><blockquote><p>LVS/HAProxy、Nginx的基于Linux的开源免费的负载均衡软件策略,这些都是通过软件级别来实现，所以费用非常低廉，所以推荐大家采用第二种方案来实施自己网站的负载均衡需求</p></blockquote><blockquote><p>参见：<a href="http://network.51cto.com/art/201110/298992.htm" target="_blank" rel="noopener">http://network.51cto.com/art/201110/298992.htm</a></p></blockquote><ol start="3"><li>Nginx是什么？</li></ol><blockquote><p>Nginx (engine x) 是一款轻量级的高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambler.ru站点开发的。其特点是占有内存少，并发能力强，事实上nginx的并发能力确实在同类型的网页服务器中表现较好，中国大陆使用nginx网站用户有：百度、京东、新浪、网易、腾讯、淘宝等。</p></blockquote><blockquote><p>反向代理（Reverse Proxy）方式是指以代理服务器来接受互联网上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给互联网上请求连接的客户端，此时代理服务器对外就表现为一个反向代理服务器。</p></blockquote><blockquote><p>正向代理隐藏了访问者的IP等信息（服务器端–代理服务器端–客户端）</p></blockquote><blockquote><p>反向代理隐藏了被访问者的IP等信息（客户端–代理服务器端–服务器端）</p></blockquote><ol start="4"><li>Nginx的应用场景</li></ol><ul><li><p>HTTP服务器：可以独立提供HTTP服务器，可以做网页静态服务器。如：图片服务器</p></li><li><p>虚拟主机：可以实现在一台服务器虚拟出多个网站，例如个人网站使用的虚拟主机</p></li><li><p>反向代理：当网站的访问量上升，单台服务器不能满足用户的请求时，需要用多台服务器集群，可以使用Nginx做反向代理</p></li><li><p>负载均衡：多台服务器平均分担负载，不会因为某台服务器负载高而宕机，某台服务器闲置等情况</p><p><img src="https://raw.githubusercontent.com/enjoycodingfun/enjoycodingfun.github.io/master/img/head.jpg" alt="功夫熊猫"></p><p><img src="http://116.62.66.183:4000/img/alipay.jpg" alt="支付宝"></p></li></ul>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h5 id=&quot;主题词-负载均衡&quot;&gt;&lt;a href=&quot;#主题词-负载均衡&quot; class=&quot;headerlink&quot; title=&quot;主题词: 负载均衡&quot;&gt;&lt;/a&gt;主题词: 负载均衡&lt;/h5&gt;&lt;ol&gt;
+        &lt;p&gt;主题词: 负载均衡&lt;/p&gt;
+&lt;ol&gt;
 &lt;li&gt;什么是负载均衡 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
-&lt;p&gt;负载
+&lt;p&gt;负载均衡，英文名称为Load Balance，其意思就是分摊到多个操作单元上进行执行，例如Web服务器、FTP服务器、企业关键应用服务器和其它关键任务服务器
       
     
     </summary>
     
     
+      <category term="Nginx" scheme="https://enjoycodingfun.github.io/categories/Nginx/"/>
+    
+    
+      <category term="nginx" scheme="https://enjoycodingfun.github.io/tags/nginx/"/>
     
   </entry>
   
   <entry>
     <title>妈妈购JAVA开发代码规范 (2)</title>
-    <link href="http://yoursite.com/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%20(2)/"/>
-    <id>http://yoursite.com/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%20(2)/</id>
+    <link href="https://enjoycodingfun.github.io/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%20(2)/"/>
+    <id>https://enjoycodingfun.github.io/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%20(2)/</id>
     <published>2020-03-02T06:36:24.934Z</published>
     <updated>2020-03-02T06:36:24.934Z</updated>
     
@@ -66,8 +71,8 @@
   
   <entry>
     <title>妈妈购JAVA开发代码规范</title>
-    <link href="http://yoursite.com/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/"/>
-    <id>http://yoursite.com/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/</id>
+    <link href="https://enjoycodingfun.github.io/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/"/>
+    <id>https://enjoycodingfun.github.io/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/</id>
     <published>2020-03-02T06:27:57.170Z</published>
     <updated>2020-03-02T06:27:57.170Z</updated>
     
@@ -89,8 +94,8 @@
   
   <entry>
     <title>Nginx笔记2</title>
-    <link href="http://yoursite.com/2020/03/02/Nginx%E7%AC%94%E8%AE%B02/"/>
-    <id>http://yoursite.com/2020/03/02/Nginx%E7%AC%94%E8%AE%B02/</id>
+    <link href="https://enjoycodingfun.github.io/2020/03/02/Nginx%E7%AC%94%E8%AE%B02/"/>
+    <id>https://enjoycodingfun.github.io/2020/03/02/Nginx%E7%AC%94%E8%AE%B02/</id>
     <published>2020-03-02T04:51:17.620Z</published>
     <updated>2020-03-02T04:51:17.620Z</updated>
     
@@ -111,8 +116,8 @@
   
   <entry>
     <title>test</title>
-    <link href="http://yoursite.com/2020/03/02/test/"/>
-    <id>http://yoursite.com/2020/03/02/test/</id>
+    <link href="https://enjoycodingfun.github.io/2020/03/02/test/"/>
+    <id>https://enjoycodingfun.github.io/2020/03/02/test/</id>
     <published>2020-03-02T04:40:34.000Z</published>
     <updated>2020-03-02T04:40:34.300Z</updated>
     
@@ -126,8 +131,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2020/01/19/hello-world/"/>
-    <id>http://yoursite.com/2020/01/19/hello-world/</id>
+    <link href="https://enjoycodingfun.github.io/2020/01/19/hello-world/"/>
+    <id>https://enjoycodingfun.github.io/2020/01/19/hello-world/</id>
     <published>2020-01-19T02:41:36.386Z</published>
     <updated>2020-01-19T02:41:36.386Z</updated>
     

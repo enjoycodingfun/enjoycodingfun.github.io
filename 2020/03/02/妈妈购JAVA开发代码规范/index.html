@@ -4,6 +4,13 @@
     
 
     
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=66527913"></script>
+<!-- End Tencent Analysis -->
+
 
     
 
@@ -12,6 +19,8 @@
     <meta charset="utf-8">
     
     
+    
+    <link rel="canonical" href="https://enjoycodingfun.github.io//2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">
     
     
     <title>妈妈购JAVA开发代码规范 | Running | Better Late Than Never</title>
@@ -24,10 +33,10 @@
     <meta name="description" content="妈妈购JAVA开发代码规范 1.强制约束(1)实体类或DTO等中涉及到type或state的类型需要在Javadoc中注释中标明所有的已知枚举值，同时指明引用的Constant或者Enum类。 示例：&#x2F;*** 售后状态，其他描述....** @see RefundOrderStateEnum 常量类引用* @see OrderServiceApiImpl*&#x2F;private Integer refu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="妈妈购JAVA开发代码规范">
-<meta property="og:url" content="http://yoursite.com/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/index.html">
+<meta property="og:url" content="https://enjoycodingfun.github.io/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/index.html">
 <meta property="og:site_name" content="Running">
 <meta property="og:description" content="妈妈购JAVA开发代码规范 1.强制约束(1)实体类或DTO等中涉及到type或state的类型需要在Javadoc中注释中标明所有的已知枚举值，同时指明引用的Constant或者Enum类。 示例：&#x2F;*** 售后状态，其他描述....** @see RefundOrderStateEnum 常量类引用* @see OrderServiceApiImpl*&#x2F;private Integer refu">
-<meta property="og:locale" content="cn">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/567900/1573210104459-a1ec6f20-a4e6-487b-ab3b-92814cdbc445.png#align=left&display=inline&height=330&name=image.png&originHeight=330&originWidth=653&size=156927&status=done&style=none&width=653">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/165526/1573208450478-85ad67c2-08d3-4ab0-a87c-3ceb7d240a91.png#align=left&display=inline&height=167&name=image.png&originHeight=171&originWidth=691&size=66279&status=done&style=none&width=674">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/jpeg/123079/1573637546762-7ff5e2ff-1d60-45bf-8bba-3d98ca4ae56d.jpeg#align=left&display=inline&height=1008&name=%E5%8D%95%E4%BD%93%E6%9C%8D%E5%8A%A1%E7%B1%BB%E8%B0%83%E7%94%A8%E5%85%B3%E7%B3%BB%E5%9B%BE.jpg&originHeight=1008&originWidth=1004&size=51437&status=done&style=none&width=1004">
@@ -85,21 +94,21 @@
             <li class="waves-block waves-effect">
               <a href="/archives"  >
                 <i class="icon icon-lg icon-archives"></i>
-                Archives
+                归档
               </a>
             </li>
         
             <li class="waves-block waves-effect">
               <a href="/tags"  >
                 <i class="icon icon-lg icon-tags"></i>
-                Tags
+                标签
               </a>
             </li>
         
             <li class="waves-block waves-effect">
               <a href="/categories"  >
                 <i class="icon icon-lg icon-th-list"></i>
-                Categories
+                分类
               </a>
             </li>
         
@@ -134,7 +143,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -288,17 +297,17 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2020-03-02T06:27:57.170Z" itemprop="dateUpdated">2020-03-02 14:27:57</time>
+    最后更新时间：<time datetime="2020-03-02T06:27:57.170Z" itemprop="dateUpdated">2020-03-02 14:27:57</time>
 </span><br>
 
 
         
-        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" target="_blank" rel="external">http://yoursite.com/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/</a>
+        一点成长，一点收获
         
     </div>
     
     <footer>
-        <a href="http://yoursite.com">
+        <a href="https://enjoycodingfun.github.io">
             <img src="/img/head.jpg" alt="enjoycodingfun">
             enjoycodingfun
         </a>
@@ -322,7 +331,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/&title=《妈妈购JAVA开发代码规范》 — Running&pic=http://yoursite.com/img/head.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://enjoycodingfun.github.io/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/&title=《妈妈购JAVA开发代码规范》 — Running&pic=https://enjoycodingfun.github.io/img/head.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -332,22 +341,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/&title=《妈妈购JAVA开发代码规范》 — Running&source=悟已往之不谏，知来者之可追" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://enjoycodingfun.github.io/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/&title=《妈妈购JAVA开发代码规范》 — Running&source=悟已往之不谏，知来者之可追" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://enjoycodingfun.github.io/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《妈妈购JAVA开发代码规范》 — Running&url=http://yoursite.com/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《妈妈购JAVA开发代码规范》 — Running&url=https://enjoycodingfun.github.io/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/&via=https://enjoycodingfun.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://enjoycodingfun.github.io/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -400,6 +409,30 @@
 
 
 
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "ulrMiFi5yrRdTGP8FEHMehcm-gzGzoHsz",
+            appKey: "JjlHLHV0knhiDfaMJgjSgdYz",
+            avatar: "mm",
+            placeholder: "写点什么吧(*￣︶￣)",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
 
 
 
@@ -459,7 +492,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
     </div>
     <div class="bottom">
@@ -481,7 +514,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/&title=《妈妈购JAVA开发代码规范》 — Running&pic=http://yoursite.com/img/head.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://enjoycodingfun.github.io/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/&title=《妈妈购JAVA开发代码规范》 — Running&pic=https://enjoycodingfun.github.io/img/head.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -491,22 +524,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/&title=《妈妈购JAVA开发代码规范》 — Running&source=悟已往之不谏，知来者之可追" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://enjoycodingfun.github.io/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/&title=《妈妈购JAVA开发代码规范》 — Running&source=悟已往之不谏，知来者之可追" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://enjoycodingfun.github.io/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《妈妈购JAVA开发代码规范》 — Running&url=http://yoursite.com/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《妈妈购JAVA开发代码规范》 — Running&url=https://enjoycodingfun.github.io/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/&via=https://enjoycodingfun.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://enjoycodingfun.github.io/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -517,7 +550,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD6klEQVR42u3aQXLbQAwEQP3/005VTk5ZomeAFaND8+SSFXLZPiAD4PGIr6+/1/efv1/J5z/v9uq6vtvP315/8njHhQMHDhw4gldNDrehaQle/TGuz598cg2NAwcOHDhOceTFtS3A1+V2f/9N0cWBAwcOHP+XY1bY9hExj3DJ+XHgwIEDx+dw/BJ+yli1b022/woHDhw4cNzJsRkC5S256+fmDcH9+Q/0SnHgwIEDx7zSPfIR1Gf+/Pb9Dhw4cODAsVg7aAPeptAmQfHY2+HAgQMHjkOFIo9P7VJdHv82467ZwsTLk+DAgQMHjgVHvtDWNuDyEDUr85sC/8jrNg4cOHDgGE1SNofYHC4pjW1sO8CEAwcOHDgWHPsFhX3TMH9ue/96QIUDBw4cON7Akdw0KW/78tmequV78lwcOHDgwLHmaMNP8v12ILQHzeNi+3Y4cODAgWPG0Qah/YCqLah5eGtbk0+eiAMHDhw4jnK05bMlmD3r1B5CFCBx4MCBA8dRjll4a8tnftwZcTu+Wu134MCBAweORbnKj5IAzQZR7ak2Z8aBAwcOHLMz56sDpwpwG9jq6dmmSOPAgQMHjjN5p14yaEtpG73aRbfkPkWEw4EDBw4cC47ZsGc2WMrvvFm5a69f/t+BAwcOHDjiJ+bFaTbU2Qyf9sGyXdTDgQMHDhz3cOwXFPKlh7YROYuCUZcUBw4cOHCMOPLolcen9pttmUwGVMfWGnDgwIEDx2iVYdMcPFbY4lfKF+ba8+PAgQMHjns4Eqz2Pm0YmxX4pLT/80QcOHDgwHGI49RrtyGwLeGb0VQUIHHgwIEDx5pj01NsP0mCWVsy27FT9C44cODAgWPNMSuZedFtX7597qkxGA4cOHDg2HMkB52txCVLcptI1q7HFcUVBw4cOHAsOJKXbOPQLFbliJuSXC/M4cCBAweOEUd73LzobhqIZ0Nm/sfGgQMHDhwbjnY1YRWNyiW5dnmifYsn38GBAwcOHLdwzEZEbTjMC2Q+LUoCGw4cOHDgeAfHrDmYRKxkuJWPwTarctFb4MCBAweOQxxtrJqFqP3np0LjS2gcOHDgwLHm2LzYvrGYHDpp6uVhL2oa4sCBAweOBcdXeeUv0C4lbHD35RwHDhw4cJziaGNP0s7LH5k3IvMBUtusHC5h4MCBAweOOMLlqwz7ZlxCufmDteMrHDhw4MBxlmMWt/LXm8W8zeLFrO2IAwcOHDju5Ngjzhby8pblrEWIAwcOHDg+h2M2NDpVGtuwFwU5HDhw4MBxiGOzHNAuCsxakPunF4UWBw4cOHAsONoSlcehzZpCe8+koB5DwYEDBw4cz0/yB3Vy7dCXjdwYAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEgklEQVR42u3aW66jMBAFwOx/05nfkSaQ091mhEnxFSVcbBdXcj/8esXX+6/r6Nd/Px/9evS0fJTz749GPH/OggsTJkyYMN2S6X165Y8+X/zknmRW58T5azt8DiZMmDBh2pwpf1weBJx/X11SzpGEHdUgAxMmTJgw/RpTb8tPwo5ke86Dg14ajAkTJkyYfpMpT197YUQ1OJjUZjFhwoQJ068x5Vt1Mny1nZmPO//+8lo4JkyYMGG6GVN1M37S50vON2HChAkTptswvRddyfB5+/M8sLg6CPjwV5gwYcKEaVum6iY6T2LzwzflImz8qprNTkyYMGHCtCHTqjJuzpqUfatN0MmrilaKCRMmTJi2ZeolqPkWOykc5wl2ApSkyoVDQpgwYcKEaUOm81JpDlc9iJNv59VmZO8VfilbY8KECROmbZmuK61ONu/qRj4ftzAKJkyYMGHahKn3Z2sP+uSNxjzUqIYmmDBhwoTpeUzzwSbHZXp8vZJxvpYoEsGECRMmTJsz5RvqpCF6YYwTF52j+WPChAkTpm2ZJjtgUuqtHsGpLrIXWExCH0yYMGHCtCNTvknnSWY1lc1Dk2rS20uJP9yDCRMmTJg2ZFpVtJ0crMkXP3mFk2QeEyZMmDA9jylJLKtDVu/MQXvJcyGRxoQJEyZM2zL1BstrxglBr6lZDSPy0GfyMjBhwoQJ092Ykj9OBs6X9I6vakuy10yN1o4JEyZMmDZnqkYN1S15klj2Sr2Li86YMGHChGlbpnyYatCQbOGTFmM1LKiu68OvmDBhwoTpoUz54pNfqwdueodyqkFGFEBgwoQJE6ZHMK1tWOYF1lV3JqDN9WLChAkTps2Z/s+BnmqRd15rvbAijgkTJkyYNmGqbvDJ4ZhegTiZ6KSYm88HEyZMmDA9j6l3iCeZVi8FrR4YmmzwhZlgwoQJE6atmJIJJdvqvOmYLGMeKCwu72LChAkTptszVSdUPXI6CSb+T3m3OXNMmDBhwrQV06QAWj0SWp3c5IjPJMHGhAkTJkxPZap+kzdBr06e8yCm+gIwYcKECdO+TL0ktppkVlubk4Ag+Zy8wlceE2HChAkTptszRbcWWatP6zUvVzViv7xITJgwYcL0aKZJ8TcvsObbfC+8yEOWD0/GhAkTJkyPYMofV21S5gdork68q4EOJkyYMGHanalKk1zztmjeCq0mtD1oTJgwYcK0L1P10TlTXuqdNCPzNDv/JzgMBTBhwoQJ0+ZMk3Rx0vKcBCXzsKBQIcCECRMmTBsy9YBWHbuZJNXVxLsX0BSiHkyYMGHCdEumSQl11aabHJ2p3rlqLEyYMGHCtDtTdTM+J+u1NudhRO/7PKzBhAkTJky7M1WPwiRhQTVtrgYfVaZJ6IAJEyZMmJ7BVC3XTkqur1teXwIFTJgwYcL0A0yryrj56NVgZXIkaFlAgAkTJkyYtmXKg4NkGXmSPF9qXpj+cnwHEyZMmDBty9TbVudTnIcjvdJzubGKCRMmTJi2ZaoWQHtHfKpHanqNyd48eyvFhAkTJky3Z/oDpU3x836HiX0AAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 
@@ -566,10 +599,10 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
     var OriginTitile = document.title, titleTime;
     document.addEventListener('visibilitychange', function() {
         if (document.hidden) {
-            document.title = '又去捉迷藏了！';
+            document.title = '欢迎再来！';
             clearTimeout(titleTime);
         } else {
-            document.title = '(つェ⊂)咦!又好了!';
+            document.title = '悦码小站';
             titleTime = setTimeout(function() {
                 document.title = OriginTitile;
             },2000);
