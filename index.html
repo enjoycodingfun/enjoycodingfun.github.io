@@ -8,19 +8,36 @@
 <script>var _speedMark = new Date()</script>
 <!-- End Tencent Speed -->
 <!-- Tencent Analysis -->
-<script async src="//tajs.qq.com/stats?sId=66527913"></script>
+<script async src="//tajs.qq.com/stats?sId=66530752"></script>
 <!-- End Tencent Analysis -->
 
 
     
 
 
+<!-- Baidu Push -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- End Baidu Push -->
+
 
     <meta charset="utf-8">
     
     
     
-    <link rel="canonical" href="https://enjoycodingfun.github.io//">
+    <link rel="canonical" href="https://enjoyican.com//">
     
     
     <title>Running | Better Late Than Never</title>
@@ -33,7 +50,7 @@
     <meta name="description" content="悟已往之不谏，知来者之可追">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Running">
-<meta property="og:url" content="https://enjoycodingfun.github.io/index.html">
+<meta property="og:url" content="https://www.enjoyican.com/index.html">
 <meta property="og:site_name" content="Running">
 <meta property="og:description" content="悟已往之不谏，知来者之可追">
 <meta property="og:locale" content="zh_CN">
@@ -44,7 +61,7 @@
         <link rel="alternate" type="application/atom+xml" title="Running" href="/atom.xml">
     
     <link rel="shortcut icon" href="/img/timg.jpg">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
     <script>window.lazyScripts=[]</script>
 
     <!-- custom head -->
@@ -167,14 +184,14 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
-            <article id="post-Nginx笔记0"
+            <article id="post-redis-two"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2020-03-06 13:27:29" datetime="2020-03-06T05:27:29.108Z"  itemprop="datePublished">2020-03-06</time>
+        <time class="post-time" title="2020-03-18 22:52:30" datetime="2020-03-18T14:52:30.000Z"  itemprop="datePublished">2020-03-18</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Nginx/">Nginx</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></li></ul>
 
 
 
@@ -185,7 +202,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2020/03/06/Nginx%E7%AC%94%E8%AE%B00/">Nginx笔记0</a>
+      <a class="post-title-link" href="/posts/redis-two/">redis设计与实现读书笔记-单机数据库的实现</a>
     </h3>
   
 
@@ -195,28 +212,20 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        主题词: 负载均衡
+        1.  数据库redis数据库的很多操作都是通过对键空间进行操作来实现的,比如添加,删除,更新,取值操作,比如用于清空整个数据库的FLUSHDB命令,用于返回数据库中随机键的RANDOMKEY,类似的命令还有EXISTS,RENAME,KEYS等.
+当使用redis命令对数据库进行读写时,服务器不仅对键空间执行指定的读写操作,还会执行一些额外的维护操作,包括:
 
-什么是负载均衡 
-
-
-负载均衡，英文名称为Load Balance，其意思就是分摊到多个操作单元上进行执行，例如Web服务器、FTP服务器、企业关键应用服务器和其它关键任务服务器等，从而共同完成工作任务。
-
-
-负载均衡是建立在现有网络结构之上，它提供了一种廉价有效透明的方法扩展网络设备和服务器的带宽、增加吞吐量、加强网络数据处理能力、提高网络的灵活性和可用性。
-
-
-软件...
+读取一个键后(包括读操作和写...
     
 
-        <a href="/2020/03/06/Nginx%E7%AC%94%E8%AE%B00/" class="post-more waves-effect waves-button">
+        <a href="/posts/redis-two/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li></ul>
 
     </div>
     
@@ -225,13 +234,15 @@
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-妈妈购JAVA开发代码规范 (2)"
+            <article id="post-redis-one"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2020-03-02 14:36:24" datetime="2020-03-02T06:36:24.934Z"  itemprop="datePublished">2020-03-02</time>
+        <time class="post-time" title="2020-03-17 21:19:30" datetime="2020-03-17T13:19:30.000Z"  itemprop="datePublished">2020-03-17</time>
 
         
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></li></ul>
+
 
 
     </div>
@@ -241,7 +252,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%20(2)/">妈妈购JAVA开发代码规范 (2)</a>
+      <a class="post-title-link" href="/posts/redis-one/">redis设计与实现读书笔记-数据结构与实现</a>
     </h3>
   
 
@@ -251,13 +262,19 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        妈妈购JAVA开发代码规范1.强制约束(1)实体类或DTO等中涉及到type或state的类型需要在Javadoc中注释中标明所有的已知枚举值，同时指明引用的Constant或者Enum类。
-示例：/*** 售后状态，其他描述....** @see RefundOrderStateEnum 常量类引用* @see OrderServiceApiImpl*/private Integer re...
+        1.  简单动态字符串简单动态字符串(simple dynamic string,SDS)是redis的默认字符串表示,除此之外,SDS还被用做缓冲区(AOF模块中的AOF缓冲区和客户端状态中的输入缓冲区),AOF模块缓冲区指的是在做AOF备份的时候新增加的指令会缓冲到缓冲区,之后再发起部分同步到磁盘;客户端状态的输入缓冲区是指在服务端保存着客户端输入指令的一个缓冲区.
+SDS的表示结构如下...
     
 
-        <a href="/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%20(2)/" class="post-more waves-effect waves-button">
+        <a href="/posts/redis-one/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li></ul>
+
     </div>
     
 </article>
@@ -265,13 +282,15 @@
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-妈妈购JAVA开发代码规范"
+            <article id="post-blog-byhexo-tips"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2020-03-02 14:27:57" datetime="2020-03-02T06:27:57.170Z"  itemprop="datePublished">2020-03-02</time>
+        <time class="post-time" title="2020-03-12 10:08:30" datetime="2020-03-12T02:08:30.000Z"  itemprop="datePublished">2020-03-12</time>
 
         
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/tips/">tips</a></li></ul>
+
 
 
     </div>
@@ -281,7 +300,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">妈妈购JAVA开发代码规范</a>
+      <a class="post-title-link" href="/posts/blog-byhexo-tips/">基于hexo博客搭建tips</a>
     </h3>
   
 
@@ -291,14 +310,25 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        妈妈购JAVA开发代码规范
-1.强制约束(1)实体类或DTO等中涉及到type或state的类型需要在Javadoc中注释中标明所有的已知枚举值，同时指明引用的Constant或者Enum类。
-示例：/*** 售后状态，其他描述....** @see RefundOrderStateEnum 常量类引用* @see OrderServiceApiImpl*/private Integer r...
+        搭建基于hexo搭建博客的教程,网上很多,这里不再赘述,不同主题适配有不同的坑需要踩,因人而异,下面给出一些教程链接:
+hexo官方主页中文版
+使用Hexo搭建GitHub博客
+使用hexo搭建个人博客网站最完整详细教程
+按照上述教程搭建过程中如遇到报错异常,一般网上搜索都是能搜索到原因的,针对修改即可.博客搭建完成后,你有两种方式访问自己的博客:
+
+自己有服务器,但是没有域名:   
+首先...
     
 
-        <a href="/2020/03/02/%E5%A6%88%E5%A6%88%E8%B4%ADJAVA%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" class="post-more waves-effect waves-button">
+        <a href="/posts/blog-byhexo-tips/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
+
     </div>
     
 </article>
@@ -306,13 +336,15 @@
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-Nginx笔记2"
+            <article id="post-Spring-IOC"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2020-03-02 12:51:17" datetime="2020-03-02T04:51:17.620Z"  itemprop="datePublished">2020-03-02</time>
+        <time class="post-time" title="2020-03-08 23:15:46" datetime="2020-03-08T15:15:46.000Z"  itemprop="datePublished">2020-03-08</time>
 
         
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E6%A1%86%E6%9E%B6/">框架</a></li></ul>
+
 
 
     </div>
@@ -322,7 +354,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2020/03/02/Nginx%E7%AC%94%E8%AE%B02/">Nginx笔记2</a>
+      <a class="post-title-link" href="/posts/Spring-IOC/">转载-Spring IOC 容器源码分析</a>
     </h3>
   
 
@@ -332,20 +364,19 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        主题词: 高并发下Nginx反向代理、Nginx负载均衡
-需求：配置Nginx的反向代理 
-
-[
-                
-                    
-                    
-                
-                fxdl.jpg](https://i.loli.net/2017/09/10/59b5253f6bd3e.jp...
+        郑重声明  :  本文转载自我关注的一位大佬的博客,原文链接:   https://www.javadoop.com/post/spring-ioc ,如有侵权还请联系本人删除,仅做知识传播与记录,无剽窃冒犯之意.
+Spring 最重要的概念是 IOC 和 AOP，本篇文章其实就是要带领大家来分析下 Spring 的 IOC 容器。既然大家平时都要用到 Spring，怎么可以不好好了解 Sp...
     
 
-        <a href="/2020/03/02/Nginx%E7%AC%94%E8%AE%B02/" class="post-more waves-effect waves-button">
+        <a href="/posts/Spring-IOC/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/" rel="tag">spring</a></li></ul>
+
     </div>
     
 </article>
@@ -353,13 +384,15 @@
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-test"
+            <article id="post-spring-application-listener"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2020-03-02 12:40:34" datetime="2020-03-02T04:40:34.000Z"  itemprop="datePublished">2020-03-02</time>
+        <time class="post-time" title="2019-09-06 20:29:30" datetime="2019-09-06T12:29:30.000Z"  itemprop="datePublished">2019-09-06</time>
 
         
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E6%A1%86%E6%9E%B6/">框架</a></li></ul>
+
 
 
     </div>
@@ -369,7 +402,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2020/03/02/test/">test</a>
+      <a class="post-title-link" href="/posts/spring-application-listener/">spring事件监听</a>
     </h3>
   
 
@@ -379,52 +412,21 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        
+        业务场景：在一个加了事务的service方法中，有数据库操作，有MQ消息的发送，MQ发送后消息消费端需要回查数据库，目前存在的一个情况是在数据库操作事务尚未提交的情况下，消息就发送成功了，此时消息消费者回查数据库，数据依然是未更改的状态，导致消息消费失败。
+需求：我们希望能够控制在事务提交成功之后消息再消费
+方案：采用spring事件监听机制，当监听到事务成功提交后，开始发布消息：
+1.事件...
     
 
-        <a href="/2020/03/02/test/" class="post-more waves-effect waves-button">
+        <a href="/posts/spring-application-listener/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
     
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-hello-world"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-01-19 10:41:36" datetime="2020-01-19T02:41:36.386Z"  itemprop="datePublished">2020-01-19</time>
-
+    <div class="post-footer">
         
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/" rel="tag">spring</a></li></ul>
 
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2020/01/19/hello-world/">Hello World</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Qu...
-    
-
-        <a href="/2020/01/19/hello-world/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
     </div>
     
 </article>
@@ -461,7 +463,8 @@ Qu...
         <p><span>enjoycodingfun &copy; 2015 - 2020</span>
             <span>
                 
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+                <a href="http://www.beian.miit.gov.cn" target="_blank">浙ICP备20006880号-1</a><br>
+                
             </span>
         </p>
     </div>
@@ -476,7 +479,7 @@ Qu...
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://enjoycodingfun.github.io/&title=Running&pic=https://enjoycodingfun.github.io/img/head.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.enjoyican.com/&title=Running&pic=https://www.enjoyican.com/img/head.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -486,22 +489,22 @@ Qu...
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://enjoycodingfun.github.io/&title=Running&source=悟已往之不谏，知来者之可追" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.enjoyican.com/&title=Running&source=悟已往之不谏，知来者之可追" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://enjoycodingfun.github.io/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.enjoyican.com/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=Running&url=https://enjoycodingfun.github.io/&via=https://enjoycodingfun.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=Running&url=https://www.enjoyican.com/&via=https://www.enjoyican.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://enjoycodingfun.github.io/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.enjoyican.com/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -512,11 +515,35 @@ Qu...
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByElEQVR42u3aS5KDMAwFwNz/0sw2iwBPUuxQU+0VBcS0s3BZn9crHsfbeL9z/U4+25cHLi7umHtcjrN38nkmTz98CxcXdyP37PNn18md3vw3Nlxc3Edyr98524Dy5eHi4v4P7uQpLi7uk7lJcDJJbSTHoC/Hari4uANu/rF110vyu7i4uC3uURy9xfSSpB9+hYuLu4WbbyjV0sgkFXJzkMLFxV3MvQ5peu0U1XCoMBsuLu5Gbp6svN6wqm0c1egGFxd3Dzc5anw3BKqmUD8IcXFxF3Pz0KWXyOglQW6CH1xc3C3caoPFnqDo5nCDi4u7mJujrze4Hrq57+Li4i7jzgse1ZAmKbTczICLi7uFOz+U5MseBT+4uLg/4kb9Gq3NaLLs8o9xcXHH3F6zVL6w6yXl93FxcfdzkxLpvFxaLdWcxmq4uLhbuPOpm6mNeKPExcXdw+01UkxSJMn9QvUVFxd3AbeXHKm2YuRBUTUpg4uLu45bPaBM3qz+Bbi4uL/lVoOivKRa3UFvGr9wcXEfzK0eg/Kgq5k1wcXFfQA3KZzcbEmtJAsuLu5ObhLSJJ/PC67Vli9cXNyd3F7hM0lkrAircHFxF3P/ADxZCwk55zwKAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAAAAAAZai4+AAABT0lEQVR42u3awQ4CIQxF0fn/nx63mglwH6CJ9LIyivRspnQK14XH/Rjv37dmtuZsG7JkHcS6u6MVrP/f5xweS5asyqzWE0oSAUHzWLJkyeIsss/ydWTJkpWy+ht5PynIkiWrz+JL89Two1pelqwjWLu23jQpbOtvyZL156w7HCvcIIosWcVY/AFON/J0G5YlqzKLP/Y8WcwdsXzMkSWrJGv9cGXlqsHgfVqWLFlhGE5E5bIsWSVZe6/WkXK5+assWcVY6REmCcyL5kFBIEtWeVZ6USC4RpBmL1myyrN4c5ZfjQ1WliWrJIs3YVdSBl9flqw6rLmrAOn2TBKHLFmVWXx8/WV1bsiSdRCLJwUyv59QggQhS1ZJ1lwnZz3pDGp5WbJkYVaaLGK1LFmywOeVjbxpkCWrJCstfHlrabIFLEtWMdZcgcsbT0uBZck6n/UCp3fFbaZ+5EcAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 
 
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?b9131a5ca31e54205078b286dad06616";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+    } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s)
+  })();
+</script>
 
     <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 <script>
@@ -525,7 +552,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
 </script>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+<script src="/js/main.min.js?v=1.7.2"></script>
 
 
 <div class="search-panel" id="search-panel">
@@ -545,7 +572,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 </li>
 </template>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+<script src="/js/search.min.js?v=1.7.2" async></script>
 
 
 

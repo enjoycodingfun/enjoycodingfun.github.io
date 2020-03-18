@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=66530752"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+<!-- Baidu Push -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <link rel="canonical" href="https://enjoyican.com//posts/redis-one/">
+    
+    
+    <title>redis设计与实现读书笔记-数据结构与实现 | Running | Better Late Than Never</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Redis">
+    <meta name="description" content="1.  简单动态字符串简单动态字符串(simple dynamic string,SDS)是redis的默认字符串表示,除此之外,SDS还被用做缓冲区(AOF模块中的AOF缓冲区和客户端状态中的输入缓冲区),AOF模块缓冲区指的是在做AOF备份的时候新增加的指令会缓冲到缓冲区,之后再发起部分同步到磁盘;客户端状态的输入缓冲区是指在服务端保存着客户端输入指令的一个缓冲区. SDS的表示结构如下: 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis设计与实现读书笔记-数据结构与实现">
+<meta property="og:url" content="https://www.enjoyican.com/posts/redis-one/index.html">
+<meta property="og:site_name" content="Running">
+<meta property="og:description" content="1.  简单动态字符串简单动态字符串(simple dynamic string,SDS)是redis的默认字符串表示,除此之外,SDS还被用做缓冲区(AOF模块中的AOF缓冲区和客户端状态中的输入缓冲区),AOF模块缓冲区指的是在做AOF备份的时候新增加的指令会缓冲到缓冲区,之后再发起部分同步到磁盘;客户端状态的输入缓冲区是指在服务端保存着客户端输入指令的一个缓冲区. SDS的表示结构如下: 1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.enjoyican.com/img/redis-one/1.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/redis-one/2.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/redis-one/3.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/redis-one/4.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/redis-one/6.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/redis-one/7.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/redis-one/8.png">
+<meta property="article:published_time" content="2020-03-17T13:19:30.000Z">
+<meta property="article:modified_time" content="2020-03-17T13:19:30.000Z">
+<meta property="article:author" content="enjoycodingfun">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.enjoyican.com/img/redis-one/1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Running" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/timg.jpg">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/head.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">enjoycodingfun</h5>
+          <a href="mailto:17364562230@163.com" title="17364562230@163.com" class="mail">17364562230@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/enjoycodingfun" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/u010408502" target="_blank" rel="noopener"  >
+                <i class="icon icon-lg icon-link"></i>
+                CSDN
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">redis设计与实现读书笔记-数据结构与实现</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">redis设计与实现读书笔记-数据结构与实现</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-03-17T13:19:30.000Z" itemprop="datePublished" class="page-time">
+  2020-03-17
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>大纲</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-简单动态字符串"><span class="post-toc-text">1.  简单动态字符串</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-1-空间预分配"><span class="post-toc-text">1.1 空间预分配</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-2-惰性空间释放"><span class="post-toc-text">1.2 惰性空间释放</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-链表"><span class="post-toc-text">2.  链表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-字典"><span class="post-toc-text">3.  字典</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-1-哈希表的扩展与收缩"><span class="post-toc-text">3.1  哈希表的扩展与收缩</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-2-渐进式rehash"><span class="post-toc-text">3.2  渐进式rehash</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-跳表"><span class="post-toc-text">4.  跳表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-整数集合"><span class="post-toc-text">5.  整数集合</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#升级"><span class="post-toc-text">升级</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-压缩列表"><span class="post-toc-text">6.  压缩列表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7-对象"><span class="post-toc-text">7.  对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#7-1-对象类型与编码"><span class="post-toc-text">7.1  对象类型与编码</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#7-2-字符串对象"><span class="post-toc-text">7.2  字符串对象</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#7-3-list对象"><span class="post-toc-text">7.3   list对象</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#7-4-hash对象"><span class="post-toc-text">7.4   hash对象</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#7-5-set对象"><span class="post-toc-text">7.5  set对象</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#7-6-zset对象"><span class="post-toc-text">7.6  zset对象</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-redis-one"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">redis设计与实现读书笔记-数据结构与实现</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-03-17 21:19:30" datetime="2020-03-17T13:19:30.000Z"  itemprop="datePublished">2020-03-17</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h3 id="1-简单动态字符串"><a href="#1-简单动态字符串" class="headerlink" title="1.  简单动态字符串"></a>1.  简单动态字符串</h3><p>简单动态字符串<code>(simple dynamic string,SDS)</code>是redis的默认字符串表示,除此之外,SDS还被用做缓冲区(AOF模块中的AOF缓冲区和客户端状态中的输入缓冲区),AOF模块缓冲区指的是在做AOF备份的时候新增加的指令会缓冲到缓冲区,之后再发起部分同步到磁盘;客户端状态的输入缓冲区是指在服务端保存着客户端输入指令的一个缓冲区.</p>
+<p>SDS的表示结构如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sdshdr</span>&#123;</span></span><br><span class="line">    <span class="comment">//记录buf数组中已使用的字节的数量,等于SDS所保存字符串的长度</span></span><br><span class="line">    <span class="keyword">int</span> len;</span><br><span class="line">    <span class="comment">//保存buf数组中未使用字节的数量</span></span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">free</span>;</span><br><span class="line">    <span class="comment">//字节数组,用于保存字符串</span></span><br><span class="line">    <span class="keyword">char</span> buf[]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.enjoyican.com/img/redis-one/1.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.enjoyican.com/img/redis-one/2.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>以上两图为SDS存储示例.图1中free为0,表示该SDS没有分配任何未使用空间,len=5表示存储的字符串字节长度,buf指向保存数据的数组,结尾保存空字符串’\0’,这是为了遵循C的保存习惯,以便可以使用部分C的函数,但不计入len的统计中.图二中free=5表示除了保存的redis字符串之外,还分配了5字节未使用的空间.</p>
+<p>因为保存了字符串的长度,所以redis获取字符串的长度时间复杂度为O(1),同时可以杜绝缓冲区溢出,当需要修改SDS时,会先检查空间是否足够,不够的话会先扩展空间再保存新的数据.</p>
+<p>通过buf中的free表示的未使用空间,SDS实现了<strong>空间预分配和惰性空间释放</strong>两种优化策略.</p>
+<h4 id="1-1-空间预分配"><a href="#1-1-空间预分配" class="headerlink" title="1.1 空间预分配"></a>1.1 空间预分配</h4><p>当进行字符串增长操作,需要对SDS进行空间扩展时,程序会在分配修改所需的必要空间之外,再分配额外的未使用空间,分配策略如下:</p>
+<p>如果修改之后SDS的长度小于1MB,那么程序将分配和修改之后len长度同样大小的未使用空间;如果修改之后的SDS长度大于1MB,那么程序将分配1MB的未使用空间.</p>
+<h4 id="1-2-惰性空间释放"><a href="#1-2-惰性空间释放" class="headerlink" title="1.2 惰性空间释放"></a>1.2 惰性空间释放</h4><p>当进行字符串缩短操作时,修改后空余出来的空间并不会被立即释放,而是记录在free中,当下次进行字符串的扩展时,如果字符串长度小于free的值,就不需要进行空间扩展操作,通过这个策略避免了既避免了缩短字符串之后的内存重分配操作,又为将来的拓展留出空间,同时SDS提供了专门释放空间的api,不需要担心free空间太大造成的内存浪费.</p>
+<p>以下是SDS字符串与C字符串的区别:</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.enjoyican.com/img/redis-one/3.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<h3 id="2-链表"><a href="#2-链表" class="headerlink" title="2.  链表"></a>2.  链表</h3><p>链表在redis中的应用比较广泛,list类型的值对象底层实现之一就是链表,当列表键中包含了数量比较多的元素,或者包含的元素都是比较长的字符串时,就会使用链表(后面笔记中记录),除此之外发布与订阅,慢查询,监视器等功能也用到了链表,Redis服务器本身还用链表来保存多个客户端的状态信息以及构建客户端输出缓冲区.</p>
+<p>redis的链表实现是双端无环链表,其结构与示意图如下:</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.enjoyican.com/img/redis-one/4.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p> 此外还通过list结构对链表进行持有,示意图及结构如下: </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">list</span>&#123;</span></span><br><span class="line">    <span class="comment">//表头节点</span></span><br><span class="line">    listNode *head;</span><br><span class="line">    <span class="comment">//表尾节点</span></span><br><span class="line">    listNode *tail;</span><br><span class="line">    <span class="comment">//链表所包含的节点数量</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> len;</span><br><span class="line">    <span class="comment">//节点值复制函数</span></span><br><span class="line">    <span class="keyword">void</span> *(*dup)(<span class="keyword">void</span> *ptr);</span><br><span class="line">    <span class="comment">//节点值释放函数</span></span><br><span class="line">    <span class="keyword">void</span> (*<span class="built_in">free</span>) (<span class="keyword">void</span> *ptr);</span><br><span class="line">    <span class="comment">//节点值对比函数</span></span><br><span class="line">    <span class="keyword">int</span> (*match)(<span class="keyword">void</span> *ptr,<span class="keyword">void</span> *key);</span><br><span class="line">&#125;<span class="built_in">list</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.enjoyican.com/img/redis-one/6.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<h3 id="3-字典"><a href="#3-字典" class="headerlink" title="3.  字典"></a>3.  字典</h3><p>字典中一个key对应一个value,每个key是唯一的,redis数据库底层就是使用字典实现,增删改查操作也是建立在对字典的操作之上.除此之外,字典还是值对象类型为hash时的底层实现,当一个hash值对象包含的数据比较多或者包含的数据的长度都比较长的时候,redis会使用字典作为其底层实现,而字典的底层又是使用哈希表实现,每个哈希表包含多个哈希节点每个哈希节点保存了字典中的一个键值对redis哈希表使用链地址法解决哈希冲突,多个冲突的节点通过next指针相链接,当有冲突时,新的节点放在其他节点的前面.当hash表中数据过多或者过少时,会通过rehash来重新分配空间(将原来小空间哈希表上的节点rehash保存到另外一个大空间哈希表上的,之后将原来的小表置空).</p>
+<h4 id="3-1-哈希表的扩展与收缩"><a href="#3-1-哈希表的扩展与收缩" class="headerlink" title="3.1  哈希表的扩展与收缩"></a>3.1  哈希表的扩展与收缩</h4><p>当以下条件中的任意一个满足时,程序会自动开始对hash表进行扩展操作:</p>
+<p>1)服务器目前没有执行<code>BGSAVE</code>或者<code>BGREWRITEAOF</code>命令,且韩系表的负载因子大于等于1(负载因子=已保存的节点数量/哈希表大小)</p>
+<p>2)服务器正在执行以上两个命令中的一个,但是负载因子大于等于5</p>
+<p>当哈希表负载因子小于0.1,程序自动开始对哈希表执行收缩操作.</p>
+<h4 id="3-2-渐进式rehash"><a href="#3-2-渐进式rehash" class="headerlink" title="3.2  渐进式rehash"></a>3.2  渐进式rehash</h4><p>当扩展或收缩哈希表的时候,需要对其中保存的键值对进行rehash,但是为了表面对服务器性能造成影响,并不是一次性rehash全部键值对而是分多次渐进式分配.<strong>渐进式rehash期间新增的键值对不会保存到老的哈希表中,会直接进入新hash表</strong>.</p>
+<h3 id="4-跳表"><a href="#4-跳表" class="headerlink" title="4.  跳表"></a>4.  跳表</h3><p>redis使用跳表(skiplist)作为zset对象类型的底层实现之一:当一个zset包含的元素数量比较多或者包含的成员都是比较长的字符串时redis中只在两个地方使用了跳表,一个是实现zset数据类型,另外一个是在集群节点中用作内部数据结构.同一个跳跃表中,各个节点保存的成员对象必须是唯一的,但是分值可以相同,分值相同时按照字典排序小的在前大的在后.</p>
+<h3 id="5-整数集合"><a href="#5-整数集合" class="headerlink" title="5.  整数集合"></a>5.  整数集合</h3><p>整数集合(intset)值对象为set数据类型的底层实现之一,当一个集合质包含整数值元素,并且集合的元素数量不多时.</p>
+<p>intset是redis用来保存整数值的集合抽象数据结构,可以保存类型为<code>int16_t</code>,<code>int32_t</code>或者<code>int64_t</code>的整数值,并且保证</p>
+<p>不会出现重复:</p>
+<p>整数集合数据结构如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">intset</span>&#123;</span></span><br><span class="line">    <span class="comment">//编码方式</span></span><br><span class="line">    <span class="keyword">uint32_t</span> encoding;</span><br><span class="line">    <span class="comment">//集合包含的元素数量</span></span><br><span class="line">    <span class="keyword">uint32_t</span> length;</span><br><span class="line">    <span class="comment">//保存元素的数组</span></span><br><span class="line">    <span class="keyword">int8_t</span> contents[];</span><br><span class="line">&#125;intset</span><br></pre></td></tr></table></figure>
+
+<p>contents[]用于保存集合中的元素(按照值的大小从小到大,不重复)</p>
+<p>encoding中保存的编码方式决定了contents[]中保存的值类型,有三种对应关系,<code>encoding(content)-&gt;INTSET_ENC_INT16(int16_t):可保存-32768~32767;INTSET_ENC_INT32(int32_t)可保存-2147483648~2147283647,INTSET_ENC_INT64(int64_t)可保存-9223372036854775808~9223372036854775807</code></p>
+<h4 id="升级"><a href="#升级" class="headerlink" title="升级"></a>升级</h4><p>当要将一个新元素添加到整数集合里时,如果新元素的类型比整数集合现有的所有元素的类型都长,整数集合会先进行升级,然后才将新元素添加进去,比如现有三个是<code>int16_t</code>,现在要添加一个<code>int32_t</code>会先将之前的三个转换为<code>int32_t</code>,然后再加入新元素.升级的好处一是提升整数集合的灵活性,另外能够节约内存空间,<strong>目前暂不支持降级</strong></p>
+<h3 id="6-压缩列表"><a href="#6-压缩列表" class="headerlink" title="6.  压缩列表"></a>6.  压缩列表</h3><p>压缩列表(ziplist)是list和hash值对象的底层实现之一,当一个list只包含少数元素,并且每个元素要么是小整数值要么是长度比较短的字符串,或者一个hash键的值包含少量的键值对,并且每个键值对要么要么是小整数值要么是长度比较短的字符串.</p>
+<p>压缩列表是redis为了节约内存而开发的,是由一系列特殊编码的连续内存块组成的顺序型数据结构,一个压缩列表可以包含任意多个节点(entry),每个节点可以保存一个字节数组或者一个整数值.</p>
+<h3 id="7-对象"><a href="#7-对象" class="headerlink" title="7.  对象"></a>7.  对象</h3><h4 id="7-1-对象类型与编码"><a href="#7-1-对象类型与编码" class="headerlink" title="7.1  对象类型与编码"></a>7.1  对象类型与编码</h4><p>Redis使用对象来保存数据库中的键和值,分别为键对象和值对象.每个对象由一个redisObject结构表示,该结构中和保存数据有关的三个属性分别是type,encoding和ptr:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisObject</span>&#123;</span></span><br><span class="line">    <span class="comment">//类型</span></span><br><span class="line">    <span class="keyword">unsigned</span> type:<span class="number">4</span>;</span><br><span class="line">    <span class="comment">//编码</span></span><br><span class="line">    <span class="keyword">unsigned</span> encoding:<span class="number">4</span>;</span><br><span class="line">    <span class="comment">//指向底层实现数据结构的指针</span></span><br><span class="line">    <span class="keyword">void</span> *ptr;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>对于redis数据库保存的键值对来说,键总是一个字符串对象,值可以是字符串对象,list对象,hash对象,set对象和zset对象.可以使用type命令查看值对象的类型,命令格式为type key.</strong></p>
+<p>对象的ptr指针指向对象的底层实现数据结构,由对象的encoding属性决定,encoding属性记录了对象的底层实现,这个属性的值可以是下表中列出的常量中的一个:</p>
+<table>
+<thead>
+<tr>
+<th align="center">编码常量</th>
+<th align="center">编码所对应的底层数据结构</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">REDIS_ENCODING_INT</td>
+<td align="center">long类型的整数</td>
+</tr>
+<tr>
+<td align="center">REDIS_ENCODING_EMBSTR</td>
+<td align="center">embstr编码的简单动态字符串</td>
+</tr>
+<tr>
+<td align="center">REDIS_ENCODING_RAW</td>
+<td align="center">简单动态字符串</td>
+</tr>
+<tr>
+<td align="center">REDIS_ENCODING_HT</td>
+<td align="center">字典</td>
+</tr>
+<tr>
+<td align="center">REDIS_ENCODING_LINKEDLIST</td>
+<td align="center">双端链表</td>
+</tr>
+<tr>
+<td align="center">REDIS_ENCODING_ZIPLIST</td>
+<td align="center">压缩列表</td>
+</tr>
+<tr>
+<td align="center">REDIS_ENCODING_INTSET</td>
+<td align="center">整数集合</td>
+</tr>
+<tr>
+<td align="center">REDIS_ENCODING_SKIPLIST</td>
+<td align="center">跳跃表和字典</td>
+</tr>
+</tbody></table>
+<p> 每种类型的对象都至少使用了两种类型的编码,如下表所示: </p>
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">编码</th>
+<th align="center">对象</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">REDIS_STRING</td>
+<td align="center">REDIS_ENCODING_INT</td>
+<td align="center">使用整数值实现的字符对象</td>
+</tr>
+<tr>
+<td align="center">REDIS_STRING</td>
+<td align="center">REDIS_ENCODING_EMBSTR</td>
+<td align="center">使用embstr编码的简单动态字符串实现的字符串对象</td>
+</tr>
+<tr>
+<td align="center">REDIS_STRING</td>
+<td align="center">REDIS_ENCODING_RAW</td>
+<td align="center">使用简单动态字符串实现的字符串对象</td>
+</tr>
+<tr>
+<td align="center">REDIS_LIST</td>
+<td align="center">REDIS_ENCODING_ZIPLIST</td>
+<td align="center">使用压缩列表实现的list对象</td>
+</tr>
+<tr>
+<td align="center">REDIS_LIST</td>
+<td align="center">REDIS_ENCODING_LINKEDLIST</td>
+<td align="center">使用双端链表实现的list对象</td>
+</tr>
+<tr>
+<td align="center">REDIS_HASH</td>
+<td align="center">REDIS_ENCODING_ZIPLIST</td>
+<td align="center">使用压缩列表实现的hash对象</td>
+</tr>
+<tr>
+<td align="center">REDIS_HASH</td>
+<td align="center">REDIS_ENCODING_HT</td>
+<td align="center">使用字典实现的hash对象</td>
+</tr>
+<tr>
+<td align="center">REDIS_SET</td>
+<td align="center">REDIS_ENCODING_INTSET</td>
+<td align="center">使用整数集合实现的set对象</td>
+</tr>
+<tr>
+<td align="center">REDIS_SET</td>
+<td align="center">REDIS_ENCODING_HT</td>
+<td align="center">使用字典实现的set对象</td>
+</tr>
+<tr>
+<td align="center">REDIS_ZET</td>
+<td align="center">REDIS_ENCODING_ZIPLIST</td>
+<td align="center">使用压缩列表实现的zset对象</td>
+</tr>
+<tr>
+<td align="center">REDIS_ZET</td>
+<td align="center">REDIS_ENCODING_SKIPLIST</td>
+<td align="center">使用跳跃表和字典实现的zset对象</td>
+</tr>
+</tbody></table>
+<p>使用object encoding key命令可以查看对应键的值对象的编码,每种值对象至少使用两种编码可以方便redis在不同的场景下选择合适的数据实现,提高效率.</p>
+<h4 id="7-2-字符串对象"><a href="#7-2-字符串对象" class="headerlink" title="7.2  字符串对象"></a>7.2  字符串对象</h4><p>字符串对象的编码可以是<code>int,raw或者embstr</code>,各自使用场景如下:</p>
+<p><strong><code>int</code></strong>:  当字符串对象保存的是整数值,并且该整数值可以用<code>long</code>类型表示</p>
+<p><strong><code>raw</code></strong>: 当保存的是字符串并且该字符串长度大于39字节,使用一个<code>SDS</code>来保存值,并将编码设置为<code>raw</code></p>
+<p><strong><code>embstr</code></strong>:  当保存的是字符串并且该字符串长度小于39字节,将编码设置为<code>embstr</code></p>
+<p><code>embstr</code>编码是专门用于保存短字符串的一种优化编码放是,其和<code>raw</code>编码一样,都是用<code>redisObject</code>结构和<code>sdshdr</code>结构来表示字符串对象,但<code>raw</code>编码需要调用两次内存分配函数来创建<code>redisObject</code>结构和<code>sdshdr</code>结构,而<code>embstr</code>通过调用一次内存分配函数来分配一块连续的空间,空间中依次包含<code>redisObject</code>结构和<code>sdshdr</code>结构:</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.enjoyican.com/img/redis-one/7.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p><strong><em>使用embstr编码好处是:1.降低内存分配次数(从两次降低为一次)2.释放字符串对象时,raw需要调用两次内存释放函数,embstr只需要一次3.因为embstr编码对象保存在连续空间中,能更好利用缓存带来的优势</em></strong></p>
+<p>可以用long double类型表示的浮点数在redis中也是作为字符串保存的.编码对象可以相互转换,其中embstr编码没有任何修改程序,因此是只读的.下表是常见字符串命令的实现:</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.enjoyican.com/img/redis-one/8.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<h4 id="7-3-list对象"><a href="#7-3-list对象" class="headerlink" title="7.3   list对象"></a>7.3   list对象</h4><p>list对象的编码可以是ziplist或者linkedlist,当list对象同时满足以下两个条件时,使用ziplist编码,否则使用linkedlist</p>
+<p>1.list对象保存的所有字符串元素的长度都小于64字节;</p>
+<p>2.元素数量小于512个</p>
+<p>以上两个数值在配置文件中可以修改,对应的是<code>list-max-ziplist-value</code>选项和<code>list-max-ziplist-entries</code></p>
+<h4 id="7-4-hash对象"><a href="#7-4-hash对象" class="headerlink" title="7.4   hash对象"></a>7.4   hash对象</h4><p>hash对象的编码可以是ziplist或者hashtable,当使用ziplist压缩列表编码时,一个键值对分别保存在一个节点上,一前一后紧挨在一起.先添加的键值对在表头方向,后添加的在表尾方向;当使用hashtable编码时,底层使用字典作为实现,键值对都是字符串对象.</p>
+<p>hash对象同时满足以下两个条件时使用ziplist编码,否则使用hashtable编码:</p>
+<p>1.键值对的键和值字符串长度都小于64字节;</p>
+<p>2.键值对个数小于512个</p>
+<p>以上两个数值在配置文件中可以修改,对应的是<code>hash-max-ziplist-value</code>选项和<code>hash-max-ziplist-entries</code></p>
+<h4 id="7-5-set对象"><a href="#7-5-set对象" class="headerlink" title="7.5  set对象"></a>7.5  set对象</h4><p>set对象的编码可以是intset或者hashtable,当对象同时满足以下两个条件是,使用intset编码,否则使用hashtable编码:</p>
+<p>1.保存的所有元素都是整数值</p>
+<p>2.元素的数量不超过512个</p>
+<p>第二个数值在配置文件中可以修改,对应的是<code>set-max-intset-entries</code></p>
+<h4 id="7-6-zset对象"><a href="#7-6-zset对象" class="headerlink" title="7.6  zset对象"></a>7.6  zset对象</h4><p>zset对象的编码可以是ziplist或者skiplist.当使用ziplist编码时,每个元素使用两个紧挨在一起的压缩列表节点来保存,第一个节点保存元素的成员(member),第二个节点保存元素的分值(score),列表内按照分值从小到大排序,分值小的在表头方向,分值大的在表尾方向,skiplist编码看p78.</p>
+<p>当同时满足以下两个条件时,使用ziplist编码,否则使用ziplist编码:</p>
+<p>1.元素数量个数少于128个</p>
+<p>2.所有元素成员的长度都小于64字节</p>
+<p> 以上两个数值在配置文件中可以修改,对应的是<code>zset-max-ziplist-entries</code>选项和<code>zset-max-ziplist-value</code></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-17T13:19:30.000Z" itemprop="dateUpdated">2020-03-17 21:19:30</time>
+</span><br>
+
+
+        
+        每天一点成长，一点收获
+        
+    </div>
+    
+    <footer>
+        <a href="https://www.enjoyican.com">
+            <img src="/img/head.jpg" alt="enjoycodingfun">
+            enjoycodingfun
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.enjoyican.com/posts/redis-one/&title=《redis设计与实现读书笔记-数据结构与实现》 — Running&pic=https://www.enjoyican.com/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.enjoyican.com/posts/redis-one/&title=《redis设计与实现读书笔记-数据结构与实现》 — Running&source=悟已往之不谏，知来者之可追" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.enjoyican.com/posts/redis-one/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《redis设计与实现读书笔记-数据结构与实现》 — Running&url=https://www.enjoyican.com/posts/redis-one/&via=https://www.enjoyican.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.enjoyican.com/posts/redis-one/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/redis-two/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">redis设计与实现读书笔记-单机数据库的实现</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/blog-byhexo-tips/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">基于hexo博客搭建tips</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "ulrMiFi5yrRdTGP8FEHMehcm-gzGzoHsz",
+            appKey: "JjlHLHV0knhiDfaMJgjSgdYz",
+            avatar: "mm",
+            placeholder: "写点什么吧(*￣︶￣)",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢关注~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechatpay.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechatpay.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">CC BY-NC-SA 4.0</a>协议 转载请注明出处</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>enjoycodingfun &copy; 2015 - 2020</span>
+            <span>
+                
+                <a href="http://www.beian.miit.gov.cn" target="_blank">浙ICP备20006880号-1</a><br>
+                
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.enjoyican.com/posts/redis-one/&title=《redis设计与实现读书笔记-数据结构与实现》 — Running&pic=https://www.enjoyican.com/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.enjoyican.com/posts/redis-one/&title=《redis设计与实现读书笔记-数据结构与实现》 — Running&source=悟已往之不谏，知来者之可追" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.enjoyican.com/posts/redis-one/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《redis设计与实现读书笔记-数据结构与实现》 — Running&url=https://www.enjoyican.com/posts/redis-one/&via=https://www.enjoyican.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.enjoyican.com/posts/redis-one/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABz0lEQVR42u3aQQ6DMAxEUe5/abqthEhmPHGg1c+qKrR5sLAc28chr/Nr3V293nm9f3x12YILF27MPYfrCroj6g929/9jA1y4cPdzlfDk/rVyVTfAhQv3zdwkSYILF+7/ccehSklxxr+CCxfu27jK4cc9DimJUeNZDS5cuAHXTVA6PrfUd+HChVvinuYahzC3hGrvDhcu3C3cWitFD0b6r/QmLly4cLu5bpNDD23K98rucOHC3c91DyG1UkWtFDJJceDChdvGdcuaSUpUS57gwoX7FNcdhkgGsJRURoq4cOHCbebquFo5tVY0mXSD4cKF28atVVgTkD7AseBNw4ULt8RVGiFuu7SWGEmvBi5cuFu4einEfQB3qsqIu3Dhwt3I1YubyQBWrVwi5U1w4cJdytVLn/kAljvSYRRH4MKFu5SbHF3cwOQmUgsaKnDhwo25SghTkp5VLZbDfhq4cOGm3NNcSVvFDWqTOTK4cOG2cd1t3AKHnhK5CRZcuHC7uXrwcreshapJCIMLF+5GbkcVNklT7JkRuHDhPso1RiXk1qxRhIULF+6PcKPt3RIqXLhwN3L1w0/t+8WBDC5cuM3cpAVSK5jqx6GovgsXLtwK9wNH8QsJgtUcjgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?b9131a5ca31e54205078b286dad06616";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+    } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s)
+  })();
+</script>
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '欢迎再来！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '悦码小站';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

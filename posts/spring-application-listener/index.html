@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=66530752"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+<!-- Baidu Push -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <link rel="canonical" href="https://enjoyican.com//posts/spring-application-listener/">
+    
+    
+    <title>spring事件监听 | Running | Better Late Than Never</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="spring">
+    <meta name="description" content="业务场景：在一个加了事务的service方法中，有数据库操作，有MQ消息的发送，MQ发送后消息消费端需要回查数据库，目前存在的一个情况是在数据库操作事务尚未提交的情况下，消息就发送成功了，此时消息消费者回查数据库，数据依然是未更改的状态，导致消息消费失败。 需求：我们希望能够控制在事务提交成功之后消息再消费 方案：采用spring事件监听机制，当监听到事务成功提交后，开始发布消息： 1.事件发布者">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring事件监听">
+<meta property="og:url" content="https://www.enjoyican.com/posts/spring-application-listener/index.html">
+<meta property="og:site_name" content="Running">
+<meta property="og:description" content="业务场景：在一个加了事务的service方法中，有数据库操作，有MQ消息的发送，MQ发送后消息消费端需要回查数据库，目前存在的一个情况是在数据库操作事务尚未提交的情况下，消息就发送成功了，此时消息消费者回查数据库，数据依然是未更改的状态，导致消息消费失败。 需求：我们希望能够控制在事务提交成功之后消息再消费 方案：采用spring事件监听机制，当监听到事务成功提交后，开始发布消息： 1.事件发布者">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.enjoyican.com/img/timg.jpg">
+<meta property="article:published_time" content="2019-09-06T12:29:30.000Z">
+<meta property="article:modified_time" content="2019-09-07T02:40:12.000Z">
+<meta property="article:author" content="enjoycodingfun">
+<meta property="article:tag" content="spring">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.enjoyican.com/img/timg.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="Running" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/timg.jpg">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/head.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">enjoycodingfun</h5>
+          <a href="mailto:17364562230@163.com" title="17364562230@163.com" class="mail">17364562230@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/enjoycodingfun" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/u010408502" target="_blank" rel="noopener"  >
+                <i class="icon icon-lg icon-link"></i>
+                CSDN
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">spring事件监听</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">spring事件监听</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-09-06T12:29:30.000Z" itemprop="datePublished" class="page-time">
+  2019-09-06
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E6%A1%86%E6%9E%B6/">框架</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>大纲</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#业务场景："><span class="post-toc-text">业务场景：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#需求："><span class="post-toc-text">需求：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#方案："><span class="post-toc-text">方案：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-事件发布者需要实现ApplicationEventPublisherAware接口："><span class="post-toc-text">1.事件发布者需要实现ApplicationEventPublisherAware接口：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-在事务方法中进行事件发布："><span class="post-toc-text">2.在事务方法中进行事件发布：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-事件监听者通过注解监听发布的事件"><span class="post-toc-text">3.事件监听者通过注解监听发布的事件</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-spring-application-listener"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">spring事件监听</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-09-06 20:29:30" datetime="2019-09-06T12:29:30.000Z"  itemprop="datePublished">2019-09-06</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E6%A1%86%E6%9E%B6/">框架</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h3 id="业务场景："><a href="#业务场景：" class="headerlink" title="业务场景："></a>业务场景：</h3><p>在一个加了事务的service方法中，有数据库操作，有MQ消息的发送，MQ发送后消息消费端需要回查数据库，目前存在的一个情况是在数据库操作事务尚未提交的情况下，消息就发送成功了，此时消息消费者回查数据库，数据依然是未更改的状态，导致消息消费失败。</p>
+<h3 id="需求："><a href="#需求：" class="headerlink" title="需求："></a>需求：</h3><p>我们希望能够控制在事务提交成功之后消息再消费</p>
+<h3 id="方案："><a href="#方案：" class="headerlink" title="方案："></a>方案：</h3><p>采用spring事件监听机制，当监听到事务成功提交后，开始发布消息：</p>
+<h4 id="1-事件发布者需要实现ApplicationEventPublisherAware接口："><a href="#1-事件发布者需要实现ApplicationEventPublisherAware接口：" class="headerlink" title="1.事件发布者需要实现ApplicationEventPublisherAware接口："></a>1.事件发布者需要实现ApplicationEventPublisherAware接口：</h4><p>相关详细解释可以参考以下博客：<a href="https://www.cnblogs.com/takumicx/p/9972461.html#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8B%E4%BB%B6%E7%9B%91%E5%90%AC%E6%9C%BA%E5%88%B6" target="_blank" rel="noopener">深入理解spring容器内事件发布监听机制</a></p>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SendMqEventPublisher</span> <span class="keyword">implements</span> <span class="title">ApplicationEventPublisherAware</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ApplicationEventPublisher eventPublisher;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setApplicationEventPublisher</span><span class="params">(ApplicationEventPublisher applicationEventPublisher)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (eventPublisher == <span class="keyword">null</span>) &#123;</span><br><span class="line">            eventPublisher = applicationEventPublisher;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@description</span> 发布事件</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">publishEvent</span><span class="params">(BaseEvent event)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"===&gt; 发布sendMq事件:  &#123;&#125;"</span>, event);</span><br><span class="line">        eventPublisher.publishEvent(event);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">publishMqEvent</span><span class="params">(String topic, String tag, MessageObject messageObject)</span> </span>&#123;</span><br><span class="line">        SendMqParam sendMqParam = <span class="keyword">new</span> SendMqParam();</span><br><span class="line">        sendMqParam.setTopic(topic);</span><br><span class="line">        sendMqParam.setTag(tag);</span><br><span class="line">        sendMqParam.setMessageObject(messageObject);</span><br><span class="line">        <span class="keyword">this</span>.publishEvent(<span class="keyword">new</span> BaseEvent(sendMqParam));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中要发布的事件体BaseEvent继承自ApplicationEvent：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>  <span class="class"><span class="keyword">class</span> <span class="title">BaseEvent</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">ApplicationEvent</span> </span>&#123;</span><br><span class="line">   <span class="comment">//具体消息体自定义</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-在事务方法中进行事件发布："><a href="#2-在事务方法中进行事件发布：" class="headerlink" title="2.在事务方法中进行事件发布："></a>2.在事务方法中进行事件发布：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">   <span class="meta">@Transactional</span>(rollbackFor = Exception<span class="class">.<span class="keyword">class</span>, <span class="title">propagation</span> </span>= Propagation.REQUIRES_NEW)</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">processOneAchieve</span><span class="params">(UpgradeStoreAchievementEntity storeAchievementEntity)</span> </span>&#123;</span><br><span class="line">       	</span><br><span class="line">       	<span class="comment">//其他数据库操作相关的业务逻辑</span></span><br><span class="line">       </span><br><span class="line">       	<span class="comment">//事件发布</span></span><br><span class="line">           UpgradeOperateMqo upgradeOperateMqo = <span class="keyword">new</span> UpgradeOperateMqo();</span><br><span class="line">           upgradeOperateMqo.setStarstoreId(currentStarstoreId);</span><br><span class="line">           sendMqEventPublisher.publishMqEvent(MessageConstant.STARSTORE_RELATION_TOPIC,</span><br><span class="line">                   MessageConstant.STARSTORE_UPGRADE_OPERATE_TAG, MessageBuilder.overMessage(upgradeOperateMqo));</span><br><span class="line">       &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">           distLockSservice.unlock(lockResult);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-事件监听者通过注解监听发布的事件"><a href="#3-事件监听者通过注解监听发布的事件" class="headerlink" title="3.事件监听者通过注解监听发布的事件"></a>3.事件监听者通过注解监听发布的事件</h4><p>通过在方法上增加注解@TransactionalEventListener进行事件监听消费（该注解只监听事务相关的事件），其中参数phase参数可以控制监听到事件后处理事件与提交事务的前后关系：</p>
+<p>参数值有下面四种：<br><strong>BEFORE_COMMIT,</strong><br><strong>AFTER_COMMIT,</strong><br><strong>AFTER_ROLLBACK,</strong><br><strong>AFTER_COMPLETION;</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SendMqEventListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RocketMQTemplate rocketMQTemplate;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@TransactionalEventListener</span>(fallbackExecution = <span class="keyword">true</span>, phase = TransactionPhase.AFTER_COMMIT)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onApplicationEvent</span><span class="params">(BaseEvent&lt;SendMqParam&gt; event)</span> </span>&#123;</span><br><span class="line">        SendMqParam sendMqParam = (SendMqParam) event.getSource();</span><br><span class="line">        String name = Thread.currentThread().getName();</span><br><span class="line">        log.info(<span class="string">"===&gt; 收到sendMq事件:  &#123;&#125;，线程名为： &#123;&#125;"</span>, sendMqParam, name);</span><br><span class="line">        rocketMQTemplate.sendNormal(sendMqParam.getTopic(), sendMqParam.getTag(), sendMqParam.getMessageObject());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>注意spring事件发布者和监听者都需要加入spring管理，@Component注解不要忘记</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/img/timg.jpg" alt="永不言败" title="">
+                </div>
+                <div class="image-caption">永不言败</div>
+            </figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-09-07T02:40:12.000Z" itemprop="dateUpdated">2019-09-07 10:40:12</time>
+</span><br>
+
+
+        
+        每天一点成长，一点收获
+        
+    </div>
+    
+    <footer>
+        <a href="https://www.enjoyican.com">
+            <img src="/img/head.jpg" alt="enjoycodingfun">
+            enjoycodingfun
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/" rel="tag">spring</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.enjoyican.com/posts/spring-application-listener/&title=《spring事件监听》 — Running&pic=https://www.enjoyican.com/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.enjoyican.com/posts/spring-application-listener/&title=《spring事件监听》 — Running&source=悟已往之不谏，知来者之可追" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.enjoyican.com/posts/spring-application-listener/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《spring事件监听》 — Running&url=https://www.enjoyican.com/posts/spring-application-listener/&via=https://www.enjoyican.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.enjoyican.com/posts/spring-application-listener/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/Spring-IOC/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">转载-Spring IOC 容器源码分析</h4>
+      </a>
+    </div>
+  
+
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "ulrMiFi5yrRdTGP8FEHMehcm-gzGzoHsz",
+            appKey: "JjlHLHV0knhiDfaMJgjSgdYz",
+            avatar: "mm",
+            placeholder: "写点什么吧(*￣︶￣)",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢关注~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechatpay.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechatpay.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">CC BY-NC-SA 4.0</a>协议 转载请注明出处</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>enjoycodingfun &copy; 2015 - 2020</span>
+            <span>
+                
+                <a href="http://www.beian.miit.gov.cn" target="_blank">浙ICP备20006880号-1</a><br>
+                
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.enjoyican.com/posts/spring-application-listener/&title=《spring事件监听》 — Running&pic=https://www.enjoyican.com/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.enjoyican.com/posts/spring-application-listener/&title=《spring事件监听》 — Running&source=悟已往之不谏，知来者之可追" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.enjoyican.com/posts/spring-application-listener/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《spring事件监听》 — Running&url=https://www.enjoyican.com/posts/spring-application-listener/&via=https://www.enjoyican.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.enjoyican.com/posts/spring-application-listener/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACOklEQVR42u3aS3KDMBAFQN//0qQqWwfxRoNTRmqtXAQHWovxfPR6xev4Xe9X3q+f3X/21/fP4++2FgYGxmMZx3CNXyvnja+PkeN3w8DA2IeRhMUz3vgBSXgd3xMFdAwMDIwggM4BkjsxMDAwqgF3nFaOr3dIGBgYGEkRe1FGTjXjEsbNtTgGBsYDGdXBwH9+/uB8AwMD4yGMo7jGITIPwdWwfvFdDAyMpRlJm6xzwKLapMu37DX3eAwMjMcyqonavale3tS7LYfFwMB4FCNv9OeNsGrL7COTDQwMjIUY1SMR1VheHXzOpY8YGBg7MOYyrrkQXB2CJm07DAyMHRhJQMyL1bn0rpN0YmBg7MzIx5DVJl311+CDI0wMDIyvZ8wdj+iA+wXtH9cxMDCWZuRtsjzhqxar+fCy3HTDwMBYgnHEq9qGq6aSeRl8mttiYGAszZgbWOYvkQTfzvZhYGDsw0hGiXlorobOZPtO/ycGBsbSjOoj58D9rYneBwMDY2lGtTTNE8HqwDIPyhgYGPsw7m2o5Q39JGTngR4DA2MHRvXBd4XUuUTwohbHwMBYjtFJ1O4tcTsHMjAwMNZmHMWVvETeYssbcBebjoGBsTQjX/kRiuoBi2pNWg3TGBgYazDyINs/JNEpgAu9QwwMjEUZc2Vnnsa92uviFwMDAwOj3YbLSdWyGQMDA6N6YCJJOjtDhdNNwcDA2IDRGQbMJXlzo4XJQSYGBsbDGZ0CshN8O2OA20aYGBgY3874ATc1IuBAdtUQAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?b9131a5ca31e54205078b286dad06616";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+    } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s)
+  })();
+</script>
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '欢迎再来！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '悦码小站';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

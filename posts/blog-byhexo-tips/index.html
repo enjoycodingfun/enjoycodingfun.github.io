@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=66530752"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+<!-- Baidu Push -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <link rel="canonical" href="https://enjoyican.com//posts/blog-byhexo-tips/">
+    
+    
+    <title>基于hexo博客搭建tips | Running | Better Late Than Never</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="hexo">
+    <meta name="description" content="搭建基于hexo搭建博客的教程,网上很多,这里不再赘述,不同主题适配有不同的坑需要踩,因人而异,下面给出一些教程链接: hexo官方主页中文版 使用Hexo搭建GitHub博客 使用hexo搭建个人博客网站最完整详细教程 按照上述教程搭建过程中如遇到报错异常,一般网上搜索都是能搜索到原因的,针对修改即可.博客搭建完成后,你有两种方式访问自己的博客:  自己有服务器,但是没有域名:    首先上传新">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于hexo博客搭建tips">
+<meta property="og:url" content="https://www.enjoyican.com/posts/blog-byhexo-tips/index.html">
+<meta property="og:site_name" content="Running">
+<meta property="og:description" content="搭建基于hexo搭建博客的教程,网上很多,这里不再赘述,不同主题适配有不同的坑需要踩,因人而异,下面给出一些教程链接: hexo官方主页中文版 使用Hexo搭建GitHub博客 使用hexo搭建个人博客网站最完整详细教程 按照上述教程搭建过程中如遇到报错异常,一般网上搜索都是能搜索到原因的,针对修改即可.博客搭建完成后,你有两种方式访问自己的博客:  自己有服务器,但是没有域名:    首先上传新">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-12T02:08:30.000Z">
+<meta property="article:modified_time" content="2020-03-12T02:08:30.000Z">
+<meta property="article:author" content="enjoycodingfun">
+<meta property="article:tag" content="hexo">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="Running" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/timg.jpg">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/head.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">enjoycodingfun</h5>
+          <a href="mailto:17364562230@163.com" title="17364562230@163.com" class="mail">17364562230@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/enjoycodingfun" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/u010408502" target="_blank" rel="noopener"  >
+                <i class="icon icon-lg icon-link"></i>
+                CSDN
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">基于hexo博客搭建tips</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">基于hexo博客搭建tips</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-03-12T02:08:30.000Z" itemprop="datePublished" class="page-time">
+  2020-03-12
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/tips/">tips</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>大纲</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#搭建"><span class="post-toc-text">搭建</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#申请域名备案"><span class="post-toc-text">申请域名备案</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#用nginx做静态资源服务器"><span class="post-toc-text">用nginx做静态资源服务器</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-blog-byhexo-tips"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">基于hexo博客搭建tips</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-03-12 10:08:30" datetime="2020-03-12T02:08:30.000Z"  itemprop="datePublished">2020-03-12</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/tips/">tips</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><p>基于hexo搭建博客的教程,网上很多,这里不再赘述,不同主题适配有不同的坑需要踩,因人而异,下面给出一些教程链接:</p>
+<p><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">hexo官方主页中文版</a></p>
+<p><a href="https://www.jianshu.com/p/cb0750324e26" target="_blank" rel="noopener">使用Hexo搭建GitHub博客</a></p>
+<p><a href="https://blog.csdn.net/wistbean/article/details/82291124" target="_blank" rel="noopener">使用hexo搭建个人博客网站最完整详细教程</a></p>
+<p>按照上述教程搭建过程中如遇到报错异常,一般网上搜索都是能搜索到原因的,针对修改即可.博客搭建完成后,你有两种方式访问自己的博客:</p>
+<ul>
+<li><p>自己有服务器,但是没有域名:   </p>
+<p>首先上传新写好的一篇文档之后执行<code>hexo g</code>,<code>hexo s</code>发布文章启动博客之后,就可以在浏览器通过IP:4000(hexo默认端口)访问到自己的博客,但是这种访问方式一方面浏览器地址看着不舒服,另一方面通过<code>hexo s</code>在服务器启动之后,没办法退出当前命令行,ctrl+C之后就自动退出了,访问不了了,通过<code>hexo s&amp;</code>启动,可以让博客后台运行,短暂解放你的命令行,可以让你去执行别的命令,但是这个线程过一会儿就死亡了,又访问不了了.</p>
+</li>
+<li><p>自己没有服务器,基于github搭建:</p>
+<p>基于github搭建的,当你执行<code>hexo g</code> <code>hexo d</code>发布到远程仓库之后你可以通过https: yourgithubusername.github.io访问你的博客,但是github访问有可能比较慢,此外github屏蔽了百度搜索,这个博客内容只能孤芳自赏了.所以接下来就想到申请域名,通过自己服务器搭建博客.</p>
+</li>
+</ul>
+<h3 id="申请域名备案"><a href="#申请域名备案" class="headerlink" title="申请域名备案"></a>申请域名备案</h3><p>因为我自己平时有自用的阿里云服务器,没有域名,所以这一步我只需要在阿里云上申请域名并备案即可,域名的申请国内外网站都可以,我不想在后面与阿里云服务器匹配的时候遇到各种坑所以直接在阿里云上注册了一个域名,三年193RMB,注册成功后提交阿里云初审,<strong>自2019年7月29日起，根据管局对备案真实性的要求，阿里云备案流程中使用移动端进行活体检测保障真实性，幕布拍照方式不再使用,直接在app上人脸识别后上传照片即可</strong>不过人脸识别的时候请稍微收拾下,我当时人脸识别的时候没想到后面会用这张照片申请备案所以大半夜12点穿着睡衣,睡眼惺忪拍了张照,后面也懒得替换了,所以就用一张挫照提交备案申请了.</p>
+<p>备案时阿里云会进行初审,<strong>注意网站名称不要出现博客,空间等字样,这些字样不在工信部备案支持内容里,具体可以上阿里云查询,不过就算填错,阿里云初审同学会提醒你修改</strong></p>
+<p>初审用了1个工作日,之后就是阿里云提交工信部审核,我的个人网站审核特别快,一天就通过了,之前一直以为要15-20天,必须给浙江工信部点个赞.</p>
+<p>备案完成后,按照相关指示修改你的博客js文件,将要求的备案号放在你网站的底部并链接到对应网址.</p>
+<h3 id="用nginx做静态资源服务器"><a href="#用nginx做静态资源服务器" class="headerlink" title="用nginx做静态资源服务器"></a>用nginx做静态资源服务器</h3><p>域名有了,在阿里云控制台指向你的服务器ip之后,就可以通过nginx访问博客静态资源了.因为前述<code>hexo g</code>的执行就是在对应的public文件夹下生成静态html等文件资源,所以我们可以通过nginx访问,就不再需要后台启动hexo了.</p>
+<ul>
+<li><p>安装nginx,网上教程很多,搜索即可,安装很快</p>
+</li>
+<li><p>配置nginx配置文件,将root根目录配置如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       <span class="number">80</span>;</span><br><span class="line">        server_name  enjoyican.com www.enjoyican.com;</span><br><span class="line">        </span><br><span class="line">        location / &#123;</span><br><span class="line">            # root目录配置为你的博客路径下的public文件夹</span><br><span class="line">            root   /usr/soft/hexo/public/;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这样配置并重启nginx之后就可以通过域名访问你的博客资源了,但是在浏览器访问的时候会显示不安全字样,看着不舒服,所以接下来就是<strong>配置https,以及将http的请求转发到https上</strong>,具体的配置可以参考如下链接:</p>
+<p><a href="https://segmentfault.com/a/1190000019438227" target="_blank" rel="noopener">个人网站升级http为https</a></p>
+</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-12T02:08:30.000Z" itemprop="dateUpdated">2020-03-12 10:08:30</time>
+</span><br>
+
+
+        
+        每天一点成长，一点收获
+        
+    </div>
+    
+    <footer>
+        <a href="https://www.enjoyican.com">
+            <img src="/img/head.jpg" alt="enjoycodingfun">
+            enjoycodingfun
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.enjoyican.com/posts/blog-byhexo-tips/&title=《基于hexo博客搭建tips》 — Running&pic=https://www.enjoyican.com/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.enjoyican.com/posts/blog-byhexo-tips/&title=《基于hexo博客搭建tips》 — Running&source=悟已往之不谏，知来者之可追" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.enjoyican.com/posts/blog-byhexo-tips/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于hexo博客搭建tips》 — Running&url=https://www.enjoyican.com/posts/blog-byhexo-tips/&via=https://www.enjoyican.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.enjoyican.com/posts/blog-byhexo-tips/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/redis-one/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">redis设计与实现读书笔记-数据结构与实现</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/Spring-IOC/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">转载-Spring IOC 容器源码分析</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "ulrMiFi5yrRdTGP8FEHMehcm-gzGzoHsz",
+            appKey: "JjlHLHV0knhiDfaMJgjSgdYz",
+            avatar: "mm",
+            placeholder: "写点什么吧(*￣︶￣)",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢关注~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechatpay.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechatpay.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">CC BY-NC-SA 4.0</a>协议 转载请注明出处</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>enjoycodingfun &copy; 2015 - 2020</span>
+            <span>
+                
+                <a href="http://www.beian.miit.gov.cn" target="_blank">浙ICP备20006880号-1</a><br>
+                
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.enjoyican.com/posts/blog-byhexo-tips/&title=《基于hexo博客搭建tips》 — Running&pic=https://www.enjoyican.com/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.enjoyican.com/posts/blog-byhexo-tips/&title=《基于hexo博客搭建tips》 — Running&source=悟已往之不谏，知来者之可追" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.enjoyican.com/posts/blog-byhexo-tips/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于hexo博客搭建tips》 — Running&url=https://www.enjoyican.com/posts/blog-byhexo-tips/&via=https://www.enjoyican.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.enjoyican.com/posts/blog-byhexo-tips/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACN0lEQVR42u3aUa7DIAwF0e5/0+lvpTZkrkkqYSZf1UsKnFTysw2vF76Or+vs7udfvj+P756Nf9slQ4aMZRnH8OITjJHkmfG841cpQ4aMHRhnyxovhT8znoWMebFmGTJkyMDPpOGVvxoZMmTISAMuGhovnRTDMmTIkMFTNP45vfunWlyGDBkLMnjX/f+fH9nfkCFDxlKMI7xIusafr63hxywyZMhozeABLk3OahuZtfXIkCGjN6MWXnnrP32jfLQfv4MMGTJaM8aJHcfEkR435i7WIEOGjG0YfOJ0S2BmTJQ+ypAhozXjrmn4hmWtDUeaejJkyOjKqB3ASrcQeAKaHtoIslQZMmQsy+Ctf1Li8lL2ic0GGTJk7MwgDTiexvHmGg/6MmTI2IdBmlm8WH0uvPLgLkOGjE6MNB3kZSpvq6WvVYYMGfswagcmeBDkh8zSNtzFmREZMmQ0YqQBly8oDdnFHLb2f0OGDBlLMeYPb6VHxNKXgtYsQ4aM1gzeUEtb/2mrLi2JgyMXMmTIaMGolZF3bRKk5fHpt2TIkLENI92wrC06rUPRt2TIkLENI52SH9iKs1TQFpQhQ8YOjCO8eKEb7048kdvKkCGjBaM2dO0Z3jirJaMyZMjozeBBli+9tjl6w5ELGTJktGbwYpUM/VwqeVGLy5AhQ0YYENPDGVM5rAwZMmTgLUZ+bGI+fE8FXBkyZCzI4JsBtRL3roTyhnabDBkyFmTU8q75MJ0e6eCvT4YMGY0Yb/JNk2HGCQoRAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?b9131a5ca31e54205078b286dad06616";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+    } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s)
+  })();
+</script>
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '欢迎再来！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '悦码小站';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
