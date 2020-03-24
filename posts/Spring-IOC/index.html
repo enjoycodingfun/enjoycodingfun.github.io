@@ -47,12 +47,12 @@
     
     
     <meta name="keywords" content="spring">
-    <meta name="description" content="郑重声明  :  本文转载自我关注的一位大佬的博客,原文链接:   https:&#x2F;&#x2F;www.javadoop.com&#x2F;post&#x2F;spring-ioc ,如有侵权还请联系本人删除,仅做知识传播与记录,无剽窃冒犯之意. Spring 最重要的概念是 IOC 和 AOP，本篇文章其实就是要带领大家来分析下 Spring 的 IOC 容器。既然大家平时都要用到 Spring，怎么可以不好好了解 Sprin">
+    <meta name="description" content="Spring 最重要的概念是 IOC 和 AOP，本篇文章其实就是要带领大家来分析下 Spring 的 IOC 容器。既然大家平时都要用到 Spring，怎么可以不好好了解 Spring 呢？阅读本文并不能让你成为 Spring 专家，不过一定有助于大家理解 Spring 的很多概念，帮助大家排查应用中和 Spring 相关的一些问题。 本文采用的源码版本是 4.3.11.RELEASE，算是 5">
 <meta property="og:type" content="article">
 <meta property="og:title" content="转载-Spring IOC 容器源码分析">
 <meta property="og:url" content="https://www.enjoyican.com/posts/Spring-IOC/index.html">
 <meta property="og:site_name" content="Running">
-<meta property="og:description" content="郑重声明  :  本文转载自我关注的一位大佬的博客,原文链接:   https:&#x2F;&#x2F;www.javadoop.com&#x2F;post&#x2F;spring-ioc ,如有侵权还请联系本人删除,仅做知识传播与记录,无剽窃冒犯之意. Spring 最重要的概念是 IOC 和 AOP，本篇文章其实就是要带领大家来分析下 Spring 的 IOC 容器。既然大家平时都要用到 Spring，怎么可以不好好了解 Sprin">
+<meta property="og:description" content="Spring 最重要的概念是 IOC 和 AOP，本篇文章其实就是要带领大家来分析下 Spring 的 IOC 容器。既然大家平时都要用到 Spring，怎么可以不好好了解 Spring 呢？阅读本文并不能让你成为 Spring 专家，不过一定有助于大家理解 Spring 的很多概念，帮助大家排查应用中和 Spring 相关的一些问题。 本文采用的源码版本是 4.3.11.RELEASE，算是 5">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.enjoyican.com/img/spring-ioc/1.png">
 <meta property="og:image" content="https://www.enjoyican.com/img/spring-ioc/2.png">
@@ -223,8 +223,7 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p><em>郑重声明</em>  :  <strong>本文转载自我关注的一位大佬的博客,原文链接:   <a href="https://www.javadoop.com/post/spring-ioc" target="_blank" rel="noopener">https://www.javadoop.com/post/spring-ioc</a> ,如有侵权还请联系本人删除,仅做知识传播与记录,无剽窃冒犯之意.</strong></p>
-<p>Spring 最重要的概念是 IOC 和 AOP，本篇文章其实就是要带领大家来分析下 Spring 的 IOC 容器。既然大家平时都要用到 Spring，怎么可以不好好了解 Spring 呢？阅读本文并不能让你成为 Spring 专家，不过一定有助于大家理解 Spring 的很多概念，帮助大家排查应用中和 Spring 相关的一些问题。</p>
+            <p>Spring 最重要的概念是 IOC 和 AOP，本篇文章其实就是要带领大家来分析下 Spring 的 IOC 容器。既然大家平时都要用到 Spring，怎么可以不好好了解 Spring 呢？阅读本文并不能让你成为 Spring 专家，不过一定有助于大家理解 Spring 的很多概念，帮助大家排查应用中和 Spring 相关的一些问题。</p>
 <p>本文采用的源码版本是 4.3.11.RELEASE，算是 5.0.x 前比较新的版本了。为了降低难度，本文所说的所有的内容都是基于 xml 的配置的方式，实际使用已经很少人这么做了，至少不是纯 xml 配置，不过从理解源码的角度来看用这种方式来说无疑是最合适的。</p>
 <p>阅读建议：读者至少需要知道怎么配置 Spring，了解 Spring 中的各种概念，少部分内容我还假设读者使用过 SpringMVC。本文要说的 IOC 总体来说有两处地方最重要，一个是创建 Bean 容器，一个是初始化 Bean，如果读者觉得一次性看完本文压力有点大，那么可以按这个思路分两次消化。读者不一定对 Spring 容器的源码感兴趣，也许附录部分介绍的知识对读者有些许作用。</p>
 <p>希望通过本文可以让读者不惧怕阅读 Spring 源码，也希望大家能反馈表述错误或不合理的地方。</p>
@@ -706,7 +705,8 @@
 <p>在花了那么多时间后，这篇文章终于算是基本写完了，大家在惊叹 Spring 给我们做了那么多的事的时候，应该透过现象看本质，去理解 Spring 写得好的地方，去理解它的设计思想。</p>
 <p>本文的缺陷在于对 Spring 预初始化 singleton beans 的过程分析不够，主要是代码量真的比较大，分支旁路众多。同时，虽然附录条目不少，但是庞大的 Spring 真的引出了很多的概念，希望日后有精力可以慢慢补充一些。</p>
 <p>（全文完）</p>
-<p><em>再次郑重声明</em>  :  <strong>本文转载自我关注的一位大佬的博客,原文链接:   <a href="https://www.javadoop.com/post/spring-ioc" target="_blank" rel="noopener">https://www.javadoop.com/post/spring-ioc</a> ,如有侵权还请联系本人删除,仅做知识传播与记录,无剽窃冒犯之意.</strong></p>
+<p><strong><em>郑重声明</em></strong>  :  <strong>本文转载自我关注的一位大佬的博客,原文链接<a href="https://www.javadoop.com/post/spring-ioc" target="_blank" rel="noopener">原文</a> 如有侵权还请联系本人删除,仅做知识传播与记录,无剽窃冒犯之意.</strong></p>
+<p><strong>可在本人个人博客 <a href="https://www.enjoyican.com/posts/Spring-IOC/">blog-spring-ioc</a>下留言或者在<a href="https://blog.csdn.net/u010408502/article/details/105067101" target="_blank" rel="noopener">csdn-spring-ioc</a>中留言</strong></p>
 
         </div>
 
