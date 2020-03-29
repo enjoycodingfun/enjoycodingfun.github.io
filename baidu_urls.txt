@@ -2,5 +2,5 @@ https://www.enjoyican.com/posts/design-pattern/
 https://www.enjoyican.com/posts/redis-three/
 https://www.enjoyican.com/posts/redis-two/
 https://www.enjoyican.com/posts/redis-one/
+https://www.enjoyican.com/posts/Spring-aop/
 https://www.enjoyican.com/posts/blog-byhexo-tips/
-https://www.enjoyican.com/posts/Spring-IOC/
