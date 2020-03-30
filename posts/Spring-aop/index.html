@@ -54,27 +54,27 @@
 <meta property="og:site_name" content="Running">
 <meta property="og:description" content="前面写过 Spring IOC 的源码分析，很多读者希望可以出一个 Spring AOP 的源码分析，不过 Spring AOP 的源码还是比较多的，写出来不免篇幅会大些。 本文不介绍源码分析，而是介绍 Spring AOP 中的一些概念，以及它的各种配置方法，涵盖了 Spring AOP 发展到现在出现的全部 3 种配置方式。 由于 Spring 强大的向后兼容性，实际代码中往往会出现很多配置混">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.javadoop.com/blogimages/spring-aop/7.png">
-<meta property="og:image" content="https://www.javadoop.com/blogimages/spring-aop/8.png">
-<meta property="og:image" content="https://www.javadoop.com/blogimages/spring-aop/4.png">
-<meta property="og:image" content="https://www.javadoop.com/blogimages/spring-aop/5.png">
-<meta property="og:image" content="https://www.javadoop.com/blogimages/spring-aop/6.png">
-<meta property="og:image" content="https://www.javadoop.com/blogimages/spring-aop/1.png">
-<meta property="og:image" content="https://www.javadoop.com/blogimages/spring-aop/2.png">
-<meta property="og:image" content="https://www.javadoop.com/blogimages/spring-aop/9.png">
-<meta property="og:image" content="https://www.javadoop.com/blogimages/spring-aop/10.png">
-<meta property="og:image" content="https://www.javadoop.com/blogimages/spring-aop/11.png">
-<meta property="og:image" content="https://www.javadoop.com/blogimages/spring-aop/12.png">
-<meta property="og:image" content="https://www.javadoop.com/blogimages/spring-aop/13.png">
-<meta property="og:image" content="https://www.javadoop.com/blogimages/spring-aop/14.png">
-<meta property="og:image" content="https://www.javadoop.com/blogimages/spring-aop/15.png">
-<meta property="og:image" content="https://www.javadoop.com/blogimages/spring-aop/16.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/spring-aop/7.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/spring-aop/8.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/spring-aop/4.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/spring-aop/5.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/spring-aop/6.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/spring-aop/1.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/spring-aop/2.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/spring-aop/9.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/spring-aop/10.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/spring-aop/11.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/spring-aop/12.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/spring-aop/13.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/spring-aop/14.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/spring-aop/15.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/spring-aop/16.png">
 <meta property="article:published_time" content="2020-03-16T15:21:00.000Z">
 <meta property="article:modified_time" content="2020-03-16T15:21:00.000Z">
 <meta property="article:author" content="enjoycodingfun">
 <meta property="article:tag" content="spring">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.javadoop.com/blogimages/spring-aop/7.png">
+<meta name="twitter:image" content="https://www.enjoyican.com/img/spring-aop/7.png">
     
         <link rel="alternate" type="application/atom+xml" title="Running" href="/atom.xml">
     
@@ -305,17 +305,17 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.javadoop.com/blogimages/spring-aop/7.png" alt="3" title="">
+                    <img src="https://www.enjoyican.com/img/spring-aop/7.png" alt="示例" title="">
                 </div>
-                <div class="image-caption">3</div>
+                <div class="image-caption">示例</div>
             </figure>
 
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.javadoop.com/blogimages/spring-aop/8.png" alt="3" title="">
+                    <img src="https://www.enjoyican.com/img/spring-aop/8.png" alt="" title="">
                 </div>
-                <div class="image-caption">3</div>
+                <div class="image-caption"></div>
             </figure>
 
 <p>接下来，我们定义两个 <strong>advice</strong>，分别用于拦截<strong>方法执行前</strong>和<strong>方法返回后</strong>：</p>
@@ -325,9 +325,9 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.javadoop.com/blogimages/spring-aop/4.png" alt="4" title="">
+                    <img src="https://www.enjoyican.com/img/spring-aop/4.png" alt="advice" title="">
                 </div>
-                <div class="image-caption">4</div>
+                <div class="image-caption">advice</div>
             </figure>
 
 <p>上面的两个 Advice 分别用于方法调用前输出参数和方法调用后输出结果。</p>
@@ -335,16 +335,16 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.javadoop.com/blogimages/spring-aop/5.png" alt="5" title="">
+                    <img src="https://www.enjoyican.com/img/spring-aop/5.png" alt="配置" title="">
                 </div>
-                <div class="image-caption">5</div>
+                <div class="image-caption">配置</div>
             </figure>
 
 <p>接下来，我们跑起来看看：</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.javadoop.com/blogimages/spring-aop/6.png" alt="6" title="">
+                    <img src="https://www.enjoyican.com/img/spring-aop/6.png" alt="6" title="">
                 </div>
                 <div class="image-caption">6</div>
             </figure>
@@ -364,9 +364,9 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.javadoop.com/blogimages/spring-aop/1.png" alt="1" title="">
+                    <img src="https://www.enjoyican.com/img/spring-aop/1.png" alt="配置" title="">
                 </div>
-                <div class="image-caption">1</div>
+                <div class="image-caption">配置</div>
             </figure>
 
 <blockquote>
@@ -376,9 +376,9 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.javadoop.com/blogimages/spring-aop/2.png" alt="2" title="">
+                    <img src="https://www.enjoyican.com/img/spring-aop/2.png" alt="测试" title="">
                 </div>
-                <div class="image-caption">2</div>
+                <div class="image-caption">测试</div>
             </figure>
 
 <p>输出结果如下，只有 createUser 方法被拦截：</p>
@@ -396,9 +396,9 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.javadoop.com/blogimages/spring-aop/9.png" alt="9" title="">
+                    <img src="https://www.enjoyican.com/img/spring-aop/9.png" alt="BeanNameAutoProxyCreator" title="">
                 </div>
-                <div class="image-caption">9</div>
+                <div class="image-caption">BeanNameAutoProxyCreator</div>
             </figure>
 
 <p>配置很简单，beanNames 中可以使用正则来匹配 bean 的名字。这样配置出来以后，userServiceBeforeAdvice 和 userServiceAfterAdvice 这两个拦截器就不仅仅可以作用于 UserServiceImpl 了，也可以作用于 OrderServiceImpl、PostServiceImpl、ArticleServiceImpl……等等，也就是说不再是配置某个 bean 的代理了。</p>
@@ -409,9 +409,9 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.javadoop.com/blogimages/spring-aop/10.png" alt="10" title="">
+                    <img src="https://www.enjoyican.com/img/spring-aop/10.png" alt="测试" title="">
                 </div>
-                <div class="image-caption">10</div>
+                <div class="image-caption">测试</div>
             </figure>
 
 <p>发现没有，<strong>我们在使用的时候，完全不需要关心代理了</strong>，直接使用原来的类型就可以了，这是非常方便的。</p>
@@ -438,18 +438,18 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.javadoop.com/blogimages/spring-aop/11.png" alt="11" title="">
+                    <img src="https://www.enjoyican.com/img/spring-aop/11.png" alt="DefaultAdvisorAutoProxyCreator" title="">
                 </div>
-                <div class="image-caption">11</div>
+                <div class="image-caption">DefaultAdvisorAutoProxyCreator</div>
             </figure>
 
 <p>然后我们运行一下：</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.javadoop.com/blogimages/spring-aop/12.png" alt="12" title="">
+                    <img src="https://www.enjoyican.com/img/spring-aop/12.png" alt="测试" title="">
                 </div>
-                <div class="image-caption">12</div>
+                <div class="image-caption">测试</div>
             </figure>
 
 <p>输出：</p>
@@ -536,18 +536,18 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.javadoop.com/blogimages/spring-aop/13.png" alt="13" title="">
+                    <img src="https://www.enjoyican.com/img/spring-aop/13.png" alt="示例" title="">
                 </div>
-                <div class="image-caption">13</div>
+                <div class="image-caption">示例</div>
             </figure>
 
 <p>xml 的配置非常简单：</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.javadoop.com/blogimages/spring-aop/14.png" alt="14" title="">
+                    <img src="https://www.enjoyican.com/img/spring-aop/14.png" alt="配置" title="">
                 </div>
-                <div class="image-caption">14</div>
+                <div class="image-caption">配置</div>
             </figure>
 
 <blockquote>
@@ -557,9 +557,9 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.javadoop.com/blogimages/spring-aop/15.png" alt="15" title="">
+                    <img src="https://www.enjoyican.com/img/spring-aop/15.png" alt="测试" title="">
                 </div>
-                <div class="image-caption">15</div>
+                <div class="image-caption">测试</div>
             </figure>
 
 <p>输出结果：</p>
@@ -593,7 +593,7 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://www.javadoop.com/blogimages/spring-aop/16.png" alt="16" title="">
+                    <img src="https://www.enjoyican.com/img/spring-aop/16.png" alt="16" title="">
                 </div>
                 <div class="image-caption">16</div>
             </figure>
