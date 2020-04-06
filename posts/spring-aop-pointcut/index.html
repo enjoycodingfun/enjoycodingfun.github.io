@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=66530752"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+<!-- Baidu Push -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <link rel="canonical" href="https://www.enjoyican.com//posts/spring-aop-pointcut/">
+    
+    
+    <title>spring-aop常用切点表达式 | Running | Better Late Than Never</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="aop,aspectj,pointcut">
+    <meta name="description" content="AOP是spring的最重要模块之一，关于AOP的原理，主要就是基于动态代理，可以查看官网Understanding AOP Proxies，本节内容不去深究AOP原理，仅仅列出在spring框架中编写AOP代码时，常用的切点表达式写法，官网上关于AOP这一节的说明，也可以看下，一定会有收获Aspect Oriented Programming with Spring本文也是基于官方文档形成的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring-aop常用切点表达式">
+<meta property="og:url" content="https://www.enjoyican.com/posts/spring-aop-pointcut/index.html">
+<meta property="og:site_name" content="Running">
+<meta property="og:description" content="AOP是spring的最重要模块之一，关于AOP的原理，主要就是基于动态代理，可以查看官网Understanding AOP Proxies，本节内容不去深究AOP原理，仅仅列出在spring框架中编写AOP代码时，常用的切点表达式写法，官网上关于AOP这一节的说明，也可以看下，一定会有收获Aspect Oriented Programming with Spring本文也是基于官方文档形成的。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-06T15:52:39.748Z">
+<meta property="article:modified_time" content="2020-04-06T15:52:39.748Z">
+<meta property="article:author" content="enjoycodingfun">
+<meta property="article:tag" content="aop">
+<meta property="article:tag" content="aspectj">
+<meta property="article:tag" content="pointcut">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="Running" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/timg.jpg">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/head.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">enjoycodingfun</h5>
+          <a href="mailto:17364562230@163.com" title="17364562230@163.com" class="mail">17364562230@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/enjoycodingfun" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/u010408502" target="_blank" rel="noopener"  >
+                <i class="icon icon-lg icon-link"></i>
+                CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/img/mywechat.png"  >
+                <i class="icon icon-lg icon-wechat"></i>
+                微信
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">spring-aop常用切点表达式</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">spring-aop常用切点表达式</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-04-06T15:52:39.748Z" itemprop="datePublished" class="page-time">
+  2020-04-06
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E6%A1%86%E6%9E%B6/">框架</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>大纲</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-spring-aop支持的切点表达式关键字"><span class="post-toc-text">1. spring-aop支持的切点表达式关键字</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-常用切点表达式"><span class="post-toc-text">2. 常用切点表达式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-运算符组合切点表达式"><span class="post-toc-text">3. 运算符组合切点表达式</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-text">总结</span></a>
+        </nav>
+    </aside>
+
+
+<article id="post-spring-aop-pointcut"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">spring-aop常用切点表达式</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-04-06 23:52:39" datetime="2020-04-06T15:52:39.748Z"  itemprop="datePublished">2020-04-06</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E6%A1%86%E6%9E%B6/">框架</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>AOP是spring的最重要模块之一，关于AOP的原理，主要就是基于动态代理，可以查看官网<a href="https://docs.spring.io/spring/docs/5.2.5.RELEASE/spring-framework-reference/core.html#aop-understanding-aop-proxies" target="_blank" rel="noopener">Understanding AOP Proxies</a>，本节内容不去深究AOP原理，仅仅列出在spring框架中编写AOP代码时，常用的切点表达式写法，官网上关于AOP这一节的说明，也可以看下，一定会有收获<a href="https://docs.spring.io/spring/docs/5.2.5.RELEASE/spring-framework-reference/core.html#aop" target="_blank" rel="noopener">Aspect Oriented Programming with Spring</a>本文也是基于官方文档形成的。</p>
+<p>需要说明的是在spring框架中共用了AspectJ的一些注解，且目前仅支持方法级别的增强，AspectJ支持更多的切点表达式，在本文例子中也不去详述，想要了解的可以去看<a href="https://www.eclipse.org/aspectj/doc/released/progguide/index.html" target="_blank" rel="noopener">The AspectJTM Programming Guide</a></p>
+<p>由于本文的重点在于切点表达式的例子，所以本文所采用的增强方式一般以环绕增强为主。</p>
+<h3 id="1-spring-aop支持的切点表达式关键字"><a href="#1-spring-aop支持的切点表达式关键字" class="headerlink" title="1. spring-aop支持的切点表达式关键字"></a>1. spring-aop支持的切点表达式关键字</h3><p>官网很明确的说明了spring支持哪些切点表达式关键字，如下:</p>
+<blockquote>
+<p>Spring AOP supports the following AspectJ pointcut designators (PCD) for use in pointcut expressions:</p>
+<ul>
+<li><code>execution</code>: For matching method execution join points. This is the primary pointcut designator to use when working with Spring AOP.</li>
+<li><code>within</code>: Limits matching to join points within certain types (the execution of a method declared within a matching type when using Spring AOP).</li>
+<li><code>this</code>: Limits matching to join points (the execution of methods when using Spring AOP) where the bean reference (Spring AOP proxy) is an instance of the given type.</li>
+<li><code>target</code>: Limits matching to join points (the execution of methods when using Spring AOP) where the target object (application object being proxied) is an instance of the given type.</li>
+<li><code>args</code>: Limits matching to join points (the execution of methods when using Spring AOP) where the arguments are instances of the given types.</li>
+<li><code>@target</code>: Limits matching to join points (the execution of methods when using Spring AOP) where the class of the executing object has an annotation of the given type.</li>
+<li><code>@args</code>: Limits matching to join points (the execution of methods when using Spring AOP) where the runtime type of the actual arguments passed have annotations of the given types.</li>
+<li><code>@within</code>: Limits matching to join points within types that have the given annotation (the execution of methods declared in types with the given annotation when using Spring AOP).</li>
+<li><code>@annotation</code>: Limits matching to join points where the subject of the join point (the method being executed in Spring AOP) has the given annotation.</li>
+</ul>
+</blockquote>
+<p>至于官方暂时不支持的切点表达式关键字，也列举出来了，还表示将来的版本可能会支持更多的关键字：</p>
+<blockquote>
+<p>Other pointcut types</p>
+<p>The full AspectJ pointcut language supports additional pointcut designators that are not supported in Spring: <code>call</code>, <code>get</code>, <code>set</code>, <code>preinitialization</code>, <code>staticinitialization</code>, <code>initialization</code>, <code>handler</code>, <code>adviceexecution</code>, <code>withincode</code>, <code>cflow</code>, <code>cflowbelow</code>, <code>if</code>, <code>@this</code>, and <code>@withincode</code>. Use of these pointcut designators in pointcut expressions interpreted by Spring AOP results in an <code>IllegalArgumentException</code> being thrown.</p>
+<p>The set of pointcut designators supported by Spring AOP may be extended in future releases to support more of the AspectJ pointcut designators.</p>
+</blockquote>
+<p>切点表达式之间支持<code>&amp;&amp;,</code> <code>||</code>  <code>!</code> 连接，连接时候可以采用具体的表达式，也可以采用pointcut注解对应的方法签名：比如在<a href="https://www.enjoyican.com/posts/custom-annotation/">spring中自定义注解</a>中用到的<code>myAnnoCut()&amp;&amp;myPointCut()</code></p>
+<h3 id="2-常用切点表达式"><a href="#2-常用切点表达式" class="headerlink" title="2. 常用切点表达式"></a>2. 常用切点表达式</h3><p>采用<code>execution</code>关键字定义的切点表达式格式如下：</p>
+<blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">execution(modifiers-pattern? ret-type-pattern declaring-type-pattern?name-pattern(param-pattern)</span><br><span class="line">                <span class="keyword">throws</span>-pattern?)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>表达式中除了返回值类型匹配规则<code>ret-type-pattern</code> (通常是 *来匹配所有返回值类型)之外的其他类型匹配规则都是可选的</p>
+<p><code>name-pattern</code>方法名，可以是具体的方法名，也可以用*圈定所有方法</p>
+<p><code>param-pattern</code>方法入参：<code>（）</code>匹配无参方法，<code>(..)</code>匹配多参数方法，<code>（*）</code>匹配单参数任意入参类型的方法，<code>(*,String)</code>匹配有两个入参的方法，第一个可以是任意类型，第二个必须是字符串类型。</p>
+<p>以下是官方文档中提到的一些表达式：</p>
+<blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">execution(<span class="keyword">public</span> * *(..)) <span class="comment">//匹配所有public方法</span></span><br><span class="line">execution(* set*(..))<span class="comment">//匹配所有方法名开头为set的方法</span></span><br><span class="line">execution(* com.xyz.service.AccountService.*(..))<span class="comment">//匹配AccountService下的所有方法</span></span><br><span class="line">execution(* com.xyz.service.*.*(..))<span class="comment">//匹配service包下的所有方法</span></span><br><span class="line">execution(* com.xyz.service..*.*(..))<span class="comment">//匹配service包或其子包下的所有方法</span></span><br><span class="line">within(com.xyz.service.*)<span class="comment">//匹配service包下的所有方法</span></span><br><span class="line">within(com.xyz.service..*)<span class="comment">//匹配service包或其子包下的所有方法</span></span><br><span class="line"><span class="keyword">this</span>(com.xyz.service.AccountService)<span class="comment">//匹配所有实现了AccountService接口的类的代理类的方法（注意是代理类）</span></span><br><span class="line">target(com.xyz.service.AccountService)<span class="comment">//匹配所有实现了AccountService接口的类的方法（注意是本类）</span></span><br><span class="line">args(java.io.Serializable)<span class="comment">//匹配只有一个入参，且入参实现了Serializable接口的方法</span></span><br><span class="line"><span class="meta">@target</span>(org.springframework.transaction.annotation.Transactional)<span class="comment">//匹配类上标注了@Transactional注解的类中方法</span></span><br><span class="line"><span class="meta">@within</span>(org.springframework.transaction.annotation.Transactional)<span class="comment">//匹配运行时子类上标注了@Transactional注解的类中方法</span></span><br><span class="line"><span class="meta">@annotation</span>(org.springframework.transaction.annotation.Transactional)<span class="comment">//匹配所有打了@Transactional注解的方法</span></span><br><span class="line"><span class="meta">@args</span>(com.xyz.security.Classified)<span class="comment">//匹配只有一个入参，且运行时入参有@Classified注解的方法</span></span><br><span class="line">bean(tradeService)<span class="comment">//匹配命名为tradeService的类的方法</span></span><br><span class="line">bean(*Service)<span class="comment">//匹配命名后缀为Service的类的方法</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p> ‘this’ is more commonly used in a binding form. See the section on <a href="https://docs.spring.io/spring/docs/5.2.5.RELEASE/spring-framework-reference/core.html#aop-advice" target="_blank" rel="noopener">Declaring Advice</a> for how to make the proxy object available in the advice body.</p>
+</blockquote>
+<p>关于上面<code>@target和@within</code>区别请看<a href="https://blog.csdn.net/demon7552003/article/details/97601209" target="_blank" rel="noopener">博客</a></p>
+<h3 id="3-运算符组合切点表达式"><a href="#3-运算符组合切点表达式" class="headerlink" title="3. 运算符组合切点表达式"></a>3. 运算符组合切点表达式</h3><p>这一部分直接列举几个，基础表达式会写之后，组合按照自己想圈定的范围进行组合运算匹配即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//或（||）运算符</span></span><br><span class="line"><span class="meta">@Pointcut</span>(<span class="string">"execution(* com.xxx.yyy.service.*.*.*(..))||"</span> +</span><br><span class="line">        <span class="string">"execution(* com.xxx.yyy.api.*.*.*(..))"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myElseCut</span><span class="params">()</span></span>&#123;&#125;;</span><br><span class="line"><span class="comment">//与（&amp;&amp;）运算符</span></span><br><span class="line"><span class="meta">@Pointcut</span>(<span class="string">"execution(* com.xxx.yyy.controller..*.*(..))"</span></span><br><span class="line">        + <span class="string">"&amp;&amp; @within(org.springframework.web.bind.annotation.RestController)"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myAndCut</span><span class="params">()</span></span>&#123;&#125;;</span><br><span class="line"><span class="comment">//非（！）运算符</span></span><br><span class="line"><span class="meta">@Pointcut</span>(<span class="string">"@within(org.springframework.validation.annotation.Validated)"</span></span><br><span class="line">            + <span class="string">"&amp;&amp; !@within(org.springframework.web.bind.annotation.RestController)"</span></span><br><span class="line">            + <span class="string">"&amp;&amp; !@within(org.springframework.stereotype.Controller)"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myNotCut</span><span class="params">()</span></span>&#123;&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>组合切点表达式均可以拆分成两个切点声明，然后再使用运算符连接，这样可读性好些，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyselfAnnotionAspect</span> </span>&#123;</span><br><span class="line">    <span class="comment">//通过切点表达式定义切点</span></span><br><span class="line">    <span class="comment">/**<span class="doctag">@Pointcut</span>("execution(* com.enjoyican.demo.selfannotion.service.impl..*(..))")</span></span><br><span class="line"><span class="comment">    public void myPointCut()&#123;&#125;;</span></span><br><span class="line"><span class="comment">    <span class="doctag">@Pointcut</span>("<span class="doctag">@annotation</span>(MyselfAnnotion)")</span></span><br><span class="line"><span class="comment">    public void myAnnoCut()&#123;&#125;;</span></span><br><span class="line"><span class="comment">    <span class="doctag">@Pointcut</span>("within(com.enjoyican.demo.selfannotion.service..*)")</span></span><br><span class="line"><span class="comment">    public void myWithinCut()&#123;&#125;;</span></span><br><span class="line"><span class="comment">    <span class="doctag">@Pointcut</span>("target(com.enjoyican.demo.selfannotion.service.MyAnnotionTestService)")</span></span><br><span class="line"><span class="comment">    public void myTargetCut()&#123;&#125;;*/</span></span><br><span class="line">    <span class="meta">@Pointcut</span>(<span class="string">"@target(MyselfAnnotion)"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myAtTargetCut</span><span class="params">()</span></span>&#123;&#125;;</span><br><span class="line">    <span class="meta">@Pointcut</span>(<span class="string">"bean(myAnnotionTestServiceImpl)"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myBeanCut</span><span class="params">()</span></span>&#123;&#125;;</span><br><span class="line">    <span class="comment">//定义方法增强类型（本例子采用环绕增强）</span></span><br><span class="line">    <span class="meta">@Around</span>(<span class="string">"myBeanCut()&amp;&amp;myAtTargetCut()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">around</span><span class="params">(ProceedingJoinPoint point)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"AOP切面在执行service方法之前增强"</span>);</span><br><span class="line">        point.proceed();</span><br><span class="line">        System.out.println(<span class="string">"AOP切面在执行service方法之后增强"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>对于切点表达式的熟悉可以使我们在项目中更好的写出匹配到更灵活规则的类的表达式，强烈建议看下官网中<a href="https://docs.spring.io/spring/docs/5.2.5.RELEASE/spring-framework-reference/core.html#aop" target="_blank" rel="noopener">Aspect Oriented Programming with Spring</a>这一节的内容，很多我们平时用的其实官方文档上都说明了，而且这里的英文相对简单，除了一些专业词汇外都是很通俗易懂的语句。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-04-06T15:52:39.748Z" itemprop="dateUpdated">2020-04-06 23:52:39</time>
+</span><br>
+
+
+        
+        每天一点成长，一点收获
+        
+    </div>
+    
+    <footer>
+        <a href="https://www.enjoyican.com">
+            <img src="/img/head.jpg" alt="enjoycodingfun">
+            enjoycodingfun
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/aop/" rel="tag">aop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/aspectj/" rel="tag">aspectj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pointcut/" rel="tag">pointcut</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.enjoyican.com/posts/spring-aop-pointcut/&title=《spring-aop常用切点表达式》 — Running&pic=https://www.enjoyican.com/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.enjoyican.com/posts/spring-aop-pointcut/&title=《spring-aop常用切点表达式》 — Running&source=悟已往之不谏，知来者之可追" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.enjoyican.com/posts/spring-aop-pointcut/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《spring-aop常用切点表达式》 — Running&url=https://www.enjoyican.com/posts/spring-aop-pointcut/&via=https://www.enjoyican.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.enjoyican.com/posts/spring-aop-pointcut/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/custom-annotation/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">spring中自定义注解</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'true' == 'true',
+            verify: 'false' == 'true',
+            appId: "ulrMiFi5yrRdTGP8FEHMehcm-gzGzoHsz",
+            appKey: "JjlHLHV0knhiDfaMJgjSgdYz",
+            avatar: "mm",
+            placeholder: "写点什么吧(*￣︶￣)",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢关注~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechatpay.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechatpay.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">CC BY-NC-SA 4.0</a>协议 转载请注明出处</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>enjoycodingfun &copy; 2015 - 2020</span>
+            <span>
+                
+                <a href="http://www.beian.miit.gov.cn" target="_blank">浙ICP备20006880号-1</a><br>
+                
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.enjoyican.com/posts/spring-aop-pointcut/&title=《spring-aop常用切点表达式》 — Running&pic=https://www.enjoyican.com/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.enjoyican.com/posts/spring-aop-pointcut/&title=《spring-aop常用切点表达式》 — Running&source=悟已往之不谏，知来者之可追" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.enjoyican.com/posts/spring-aop-pointcut/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《spring-aop常用切点表达式》 — Running&url=https://www.enjoyican.com/posts/spring-aop-pointcut/&via=https://www.enjoyican.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.enjoyican.com/posts/spring-aop-pointcut/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACL0lEQVR42u3awW7DQAhFUf//T7vbStFY94HTapjrVeWkNSeVCAxcF77uX9fn/dWdz1drT3ntkiFDxraM+/FavecZswrr+SmrD4L8lgwZMk5grIIgDJ6COZLHJkOGDBnpA9L6jcBkyJAho8YgSZZQ/znhypAhYysGaWLJw3jopPT8Si8uQ4aMDRm8pPv7n78y35AhQ8ZWjLt0pa1pLREH8ciQIWM0g7eOtWEALzTTsYQMGTLOYZADetLK8nWxzlg0+D/IkCFjHKM2XEzTZZqOybqYDBkyTmB0CjIeRHp8ln4EMmTImM2oHaihci0Mq1ZQXrVQZMiQsSGDH/Tz9Qv+99Oyb7ktIkOGjKEMnuZqwXEwb4mX92XIkDGUwY/YOk0sb1l5Iy1DhozTGLVUmx601WCo6ZUhQ8YxDN6g1kaMabIOljxkyJAxmtE/Aquta6TFX1BuypAhYyijtqPBlyrIO9NWVoYMGecwOksS6SM7Y04ZMmTIICF21ibS1jRN1jJkyJjN4AthtaBbx/21OleGDBnjGLx95exaOcgLweX3hgwZMoYyeLFVK/JqxV+tSJUhQ8ZUxh1eF776Y4OALUOGjNGMTlid++kSWPwdIkOGjHEMkmQ7rSwfefLiMi4QZciQMYLx1goFDzFtpIvHbTJkyDiMkQ4ja6k5HWfKkCFDRi2x1saTvNt+oTSUIUPGhox0baK2ZvHuR1A8bpMhQ8aGjFbrGBaLHTAfG8iQIWMQ4wcbuUHPEu6M2wAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?b9131a5ca31e54205078b286dad06616";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+    } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s)
+  })();
+</script>
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '欢迎再来！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '悦码小站';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
