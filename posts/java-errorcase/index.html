@@ -47,12 +47,12 @@
     
     
     <meta name="keywords" content="note">
-    <meta name="description" content="最近抽零碎时间过了一个极客时间的专栏，感觉讲的还不错，本篇内容基本是原文复制粘贴了一些点过来，至于为啥没归纳总结，我说是因为时间原因，你也可以说是因为懒😂😂😂，总之这里做个记录，以备以后再看。有任何问题可以在我的博客留言,或者直接在此处留言。">
+    <meta name="description" content="最近抽零碎时间过了一个极客时间的专栏，感觉讲的还不错，本篇内容基本是原文复制粘贴了一些点过来，至于为啥没归纳总结，我说是因为时间原因，你也可以说是因为懒😂😂😂，总之这里做个记录，以备以后再看。有任何问题可以在我的博客)留言,或者直接在CSDN留言。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JAVA业务开发常见错误100例学习笔记">
 <meta property="og:url" content="https://www.enjoyican.com/posts/java-errorcase/index.html">
 <meta property="og:site_name" content="Running">
-<meta property="og:description" content="最近抽零碎时间过了一个极客时间的专栏，感觉讲的还不错，本篇内容基本是原文复制粘贴了一些点过来，至于为啥没归纳总结，我说是因为时间原因，你也可以说是因为懒😂😂😂，总之这里做个记录，以备以后再看。有任何问题可以在我的博客留言,或者直接在此处留言。">
+<meta property="og:description" content="最近抽零碎时间过了一个极客时间的专栏，感觉讲的还不错，本篇内容基本是原文复制粘贴了一些点过来，至于为啥没归纳总结，我说是因为时间原因，你也可以说是因为懒😂😂😂，总之这里做个记录，以备以后再看。有任何问题可以在我的博客)留言,或者直接在CSDN留言。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.enjoyican.com/img/java-errorcase/connectionpool.png">
 <meta property="og:image" content="https://www.enjoyican.com/img/java-errorcase/log-facade.png">
@@ -236,16 +236,11 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>最近抽零碎时间过了一个极客时间的专栏，感觉讲的还不错，本篇内容基本是原文复制粘贴了一些点过来，至于为啥没归纳总结，我说是因为时间原因，你也可以说是因为懒😂😂😂，总之这里做个记录，以备以后再看。有任何问题可以在我的<a href="https://www.enjoyican.com/posts/java-errorcase/">博客</a>留言,或者直接在此处留言。</p>
+            <p>最近抽零碎时间过了一个极客时间的专栏，感觉讲的还不错，本篇内容基本是原文复制粘贴了一些点过来，至于为啥没归纳总结，我说是因为时间原因，你也可以说是因为懒😂😂😂，总之这里做个记录，以备以后再看。有任何问题可以在我的<a href="https://www.enjoyican.com/posts/java-errorcase/">博客</a>)留言,或者直接在<a href="https://blog.csdn.net/u010408502/article/details/106312674" target="_blank" rel="noopener">CSDN</a>留言。</p>
 <a id="more"></a>
 
-<!--TOC-->
-
-<p>[TOC]</p>
-<!--TOC-->
-
 <ol>
-<li><p>ThreadLocal 使用要注意及时remove**，既要防止内存溢出，也防止线程重用导致数据混乱</p>
+<li><p><strong>ThreadLocal 使用要注意及时remove</strong>，既要防止内存溢出，也防止线程重用导致数据混乱</p>
 </li>
 <li><p>java8中lambda表达式的一些例子：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//帮助方法，用来获得一个指定元素数量模拟数据的ConcurrentHashMap</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> ConcurrentHashMap&lt;String, Long&gt; <span class="title">getData</span><span class="params">(<span class="keyword">int</span> count)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//longStream.rangeClosed获取一个[1-count]的LongStream</span></span><br><span class="line">    <span class="keyword">return</span> LongStream.rangeClosed(<span class="number">1</span>, count)</span><br><span class="line">        <span class="comment">//将LongStream转化为Stream</span></span><br><span class="line">            .boxed()</span><br><span class="line">            .collect(Collectors.toConcurrentMap(i -&gt; UUID.randomUUID().toString(), </span><br><span class="line">                                                <span class="comment">//输入什么输出就是什么</span></span><br><span class="line">                                                Function.identity(),</span><br><span class="line">                                                (<span class="comment">//键冲突时候保留现有的值，O1)</span></span><br><span class="line">                    (o1, o2) -&gt; o1, ConcurrentHashMap::<span class="keyword">new</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
