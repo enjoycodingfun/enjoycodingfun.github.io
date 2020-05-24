@@ -1,6 +1,6 @@
+https://www.enjoyican.com/posts/java-errorcase/
 https://www.enjoyican.com/posts/spring-aop-pointcut/
 https://www.enjoyican.com/posts/custom-annotation/
 https://www.enjoyican.com/posts/design-pattern/
 https://www.enjoyican.com/posts/redis-three/
 https://www.enjoyican.com/posts/redis-two/
-https://www.enjoyican.com/posts/redis-one/
