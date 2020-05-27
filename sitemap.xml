@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.enjoyican.com/posts/java-performance-tuning/</loc>
+    
+    <lastmod>2020-05-27T15:51:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.enjoyican.com/posts/java-errorcase/</loc>
     
     <lastmod>2020-05-24T03:02:30.000Z</lastmod>
