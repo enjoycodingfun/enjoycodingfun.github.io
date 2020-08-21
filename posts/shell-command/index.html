@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=66530752"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+<!-- Baidu Push -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <link rel="canonical" href="https://www.enjoyican.com//posts/shell-command/">
+    
+    
+    <title>shell脚本常用命令 | Running | Better Late Than Never</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="shell">
+    <meta name="description" content="本篇博文总结常用的shell命令，比较基础，作为备忘待使用时查阅吧，有问题可及时在本博客或CSDN下留言。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shell脚本常用命令">
+<meta property="og:url" content="https://www.enjoyican.com/posts/shell-command/index.html">
+<meta property="og:site_name" content="Running">
+<meta property="og:description" content="本篇博文总结常用的shell命令，比较基础，作为备忘待使用时查阅吧，有问题可及时在本博客或CSDN下留言。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.enjoyican.com/img/linux/per.png">
+<meta property="og:image" content="https://www.enjoyican.com/img/linux/command.png">
+<meta property="article:published_time" content="2020-08-17T13:19:30.000Z">
+<meta property="article:modified_time" content="2020-08-17T13:19:30.000Z">
+<meta property="article:author" content="enjoycodingfun">
+<meta property="article:tag" content="shell">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.enjoyican.com/img/linux/per.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Running" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/timg.jpg">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/head.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">enjoycodingfun</h5>
+          <a href="mailto:17364562230@163.com" title="17364562230@163.com" class="mail">17364562230@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/enjoycodingfun" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/u010408502" target="_blank" rel="noopener"  >
+                <i class="icon icon-lg icon-link"></i>
+                CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/img/mywechat.png"  >
+                <i class="icon icon-lg icon-wechat"></i>
+                微信
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">shell脚本常用命令</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">shell脚本常用命令</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-08-17T13:19:30.000Z" itemprop="datePublished" class="page-time">
+  2020-08-17
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>大纲</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#shell基础"><span class="post-toc-text">shell基础</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#快捷键："><span class="post-toc-text">快捷键：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#shell脚本构成："><span class="post-toc-text">shell脚本构成：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#shell中变量类型"><span class="post-toc-text">shell中变量类型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#如何定义变量和给变量赋值"><span class="post-toc-text">如何定义变量和给变量赋值</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#将一个变量的值赋值给另一个变量："><span class="post-toc-text">将一个变量的值赋值给另一个变量：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#将命令的执行结果赋值给变量（注意命令使用倾斜的单引号括起来）："><span class="post-toc-text">将命令的执行结果赋值给变量（注意命令使用倾斜的单引号括起来）：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#将bash的内置命令read读入的值赋值给变量"><span class="post-toc-text">将bash的内置命令read读入的值赋值给变量</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#变量命名规则"><span class="post-toc-text">变量命名规则</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用echo和printf打印变量的值"><span class="post-toc-text">使用echo和printf打印变量的值</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#变量的引用"><span class="post-toc-text">变量的引用</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#export语句的使用"><span class="post-toc-text">export语句的使用</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#如何删除变量"><span class="post-toc-text">如何删除变量</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#如何检查变量是否存在"><span class="post-toc-text">如何检查变量是否存在</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#shell环境进阶"><span class="post-toc-text">shell环境进阶</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#回调命令历史"><span class="post-toc-text">回调命令历史</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#shell中的扩展"><span class="post-toc-text">shell中的扩展</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#大括号扩展"><span class="post-toc-text">大括号扩展</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#波浪号扩展"><span class="post-toc-text">波浪号扩展</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#命令替换"><span class="post-toc-text">命令替换</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#文件名扩展"><span class="post-toc-text">文件名扩展</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#创建和使用别名"><span class="post-toc-text">创建和使用别名</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#修改bash提示符"><span class="post-toc-text">修改bash提示符</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常用shell（bash）命令"><span class="post-toc-text">常用shell（bash）命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查看文件和目录"><span class="post-toc-text">查看文件和目录</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ls-ll"><span class="post-toc-text">ls&#x2F;ll</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#cd"><span class="post-toc-text">cd</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#pwd"><span class="post-toc-text">pwd</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#cat"><span class="post-toc-text">cat</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#less-more"><span class="post-toc-text">less&#x2F;more</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#head-tail"><span class="post-toc-text">head&#x2F;tail</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#wc"><span class="post-toc-text">wc</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#find"><span class="post-toc-text">find</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#touch"><span class="post-toc-text">touch</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#mkdir"><span class="post-toc-text">mkdir</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#rmdir"><span class="post-toc-text">rmdir</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#cp"><span class="post-toc-text">cp</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#scp"><span class="post-toc-text">scp</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#mv"><span class="post-toc-text">mv</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ln"><span class="post-toc-text">ln</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#rm"><span class="post-toc-text">rm</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#管理文件或目录权限"><span class="post-toc-text">管理文件或目录权限</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#chmod"><span class="post-toc-text">chmod</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#vi-vim"><span class="post-toc-text">vi&#x2F;vim</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#chown-chgrp"><span class="post-toc-text">chown&#x2F;chgrp</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#其他shell命令"><span class="post-toc-text">其他shell命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#grep"><span class="post-toc-text">grep</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#tar"><span class="post-toc-text">tar</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#df"><span class="post-toc-text">df</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#du"><span class="post-toc-text">du</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#fdisk"><span class="post-toc-text">fdisk</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ps"><span class="post-toc-text">ps</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#kill"><span class="post-toc-text">kill</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#管道"><span class="post-toc-text">管道</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#防火墙"><span class="post-toc-text">防火墙</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#关机"><span class="post-toc-text">关机</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#网络"><span class="post-toc-text">网络</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#后台执行命令"><span class="post-toc-text">后台执行命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#crontab"><span class="post-toc-text">crontab</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#at"><span class="post-toc-text">at</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#amp"><span class="post-toc-text">&amp;</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#nohup"><span class="post-toc-text">nohup</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#用户管理"><span class="post-toc-text">用户管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#useradd"><span class="post-toc-text">useradd</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#passwd"><span class="post-toc-text">passwd</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#userdel"><span class="post-toc-text">userdel</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#usermod"><span class="post-toc-text">usermod</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#用户组管理"><span class="post-toc-text">用户组管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#groupadd"><span class="post-toc-text">groupadd</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#groupdel"><span class="post-toc-text">groupdel</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#groupmod"><span class="post-toc-text">groupmod</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#newgrp"><span class="post-toc-text">newgrp</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#附图"><span class="post-toc-text">附图</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-shell-command"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">shell脚本常用命令</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-08-17 21:19:30" datetime="2020-08-17T13:19:30.000Z"  itemprop="datePublished">2020-08-17</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>本篇博文总结常用的shell命令，比较基础，作为备忘待使用时查阅吧，有问题可及时在本博客或<a href="https://blog.csdn.net/u010408502/article/details/108077742" target="_blank" rel="noopener">CSDN</a>下留言。</p>
+<a id="more"></a>
+
+<h2 id="shell基础"><a href="#shell基础" class="headerlink" title="shell基础"></a>shell基础</h2><h3 id="快捷键："><a href="#快捷键：" class="headerlink" title="快捷键："></a>快捷键：</h3><p><code>Ctrl+W</code> ：删除光标位置前单词</p>
+<p><code>Ctrl+U</code> ：清空行</p>
+<p>上下方向键：查看历史命令</p>
+<p><code>Tab</code> ：自动补全</p>
+<p><code>Ctrl+R</code>：搜索先前使用的命令</p>
+<p><code>Ctrl+C</code> ：中止当前命令</p>
+<p><code>Ctrl+D/logout/exit</code> : 退出登录shell</p>
+<p><code>ESC+T</code> : 调换光标前的两个单词</p>
+<p><code>cat /etc/shells</code> : 查看系统中所有可用的shell</p>
+<p><code>echo $SHELL或ps -p $$</code> : 查看账号当前使用的Shell类型</p>
+<h3 id="shell脚本构成："><a href="#shell脚本构成：" class="headerlink" title="shell脚本构成："></a>shell脚本构成：</h3><ul>
+<li>shell关键字：例如if…else,for do…done</li>
+<li>shell命令：例如export，echo，exit，pwd，return</li>
+<li>linux命令：如date，rm，mkdir</li>
+<li>文本处理功能：如awk，cut，sed，grep</li>
+<li>函数：通过函数将一些常用的功能放在一起，例如/etc/init.d目录中的大部分或全部系统shell脚本所使用的函数都包含在文件/etc/init.d/functions中</li>
+<li>控制流语句：例如if…then…else或执行重复操作的shell循环</li>
+</ul>
+<p>创建一个shell脚本需要以下三步：写一个脚本，允许shell执行它，把它放到可以找到的地方</p>
+<p>下面是一个脚本示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="keyword">#My</span> first script</span><br><span class="line">ls<span class="params"> -l</span> .*</span><br></pre></td></tr></table></figure>
+
+<p>第一行告诉shell使用什么程序解释脚本，本例中使用/bin/bash，其他脚本语言如Perl，awk，python等也同样使用这个机制</p>
+<p>第二行是一个注释，#后面的任何内容都会被bash忽略</p>
+<p>文件保存后，默认情况下linux是不允许执行的，需要通过chmod命令授予可执行权限<code>chmod 755 文件名</code></p>
+<p>之后就可以直接运行脚本了</p>
+<p><strong>用户登录时，登录shell调用的初始化文件和脚本的次序依次是：/etc/profile,/etc/profile.d目录下的脚本、$HOME/.bash_profile,$HOME/.bashrc和/etc/bashrc</strong></p>
+<h3 id="shell中变量类型"><a href="#shell中变量类型" class="headerlink" title="shell中变量类型"></a>shell中变量类型</h3><p><strong>shell中变量类型有系统变量和用户自定义变量两种：</strong></p>
+<p><code>env/printenv</code> ：查看当前shell的所有系统变量和用户自定义变量</p>
+<h4 id="如何定义变量和给变量赋值"><a href="#如何定义变量和给变量赋值" class="headerlink" title="如何定义变量和给变量赋值"></a>如何定义变量和给变量赋值</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">varname=varvalue</span><br></pre></td></tr></table></figure>
+
+<p>注意等号的周围不要有任何的空格，否则会报command not found的错误</p>
+<p>可以将任意字符集合赋值给一个变量，比如<strong>给一个变量赋值一个字符串</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=xiaowang 或者 username=<span class="string">"xiaowang"</span></span><br></pre></td></tr></table></figure>
+
+<p>给变量赋值一个数字值：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var=1</span><br></pre></td></tr></table></figure>
+
+<p>使用变量通过$符号，</p>
+<p>比如上面定义好了变量var，使用的时候，通过$var即可使用</p>
+<p><strong>默认情况下shell赋值是字符串赋值</strong>：比如下面示例，说明var变量被当做字符串了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># var=1</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo $var+1</span></span><br><span class="line">1+1</span><br></pre></td></tr></table></figure>
+
+<p>在Bash中，如果要将算数表达式的数值赋给一个变量，可以使用<code>let</code>命令，如下示例(注意下面的区别)：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># let age=1</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo $age+1</span></span><br><span class="line">1+1</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># let age=1+1</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo $age</span></span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+
+<h4 id="将一个变量的值赋值给另一个变量："><a href="#将一个变量的值赋值给另一个变量：" class="headerlink" title="将一个变量的值赋值给另一个变量："></a><strong>将一个变量的值赋值给另一个变量</strong>：</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># a=3</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># b=$a</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo $b</span></span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+
+<h4 id="将命令的执行结果赋值给变量（注意命令使用倾斜的单引号括起来）："><a href="#将命令的执行结果赋值给变量（注意命令使用倾斜的单引号括起来）：" class="headerlink" title="将命令的执行结果赋值给变量（注意命令使用倾斜的单引号括起来）："></a><strong>将命令的执行结果赋值给变量</strong>（<strong>注意命令使用倾斜的单引号括起来</strong>）：</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># pwd</span></span><br><span class="line">/root</span><br><span class="line"><span class="comment">#下面例子没有使用倾斜双引号``，结果还是字符串赋值</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># var='pwd'</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo $var</span></span><br><span class="line"><span class="built_in">pwd</span></span><br><span class="line"><span class="comment">#下面例子是正确的赋值操作</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># var=`pwd`</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo $var</span></span><br><span class="line">/root</span><br><span class="line"><span class="comment">#使用$()将命令包起来也是正确的（推荐这种不容易写错）</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># var=$(pwd)</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo $var</span></span><br><span class="line">/root</span><br></pre></td></tr></table></figure>
+
+<h4 id="将bash的内置命令read读入的值赋值给变量"><a href="#将bash的内置命令read读入的值赋值给变量" class="headerlink" title="将bash的内置命令read读入的值赋值给变量"></a><strong>将bash的内置命令<code>read</code>读入的值赋值给变量</strong></h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo -n "Enter var:";read var</span></span><br><span class="line">Enter var:123</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo $var</span></span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+
+<p>上例的意思是打印内容”Enter var”,不换行，之后再将用户输入的值赋值给变量var，所以我们通过<code>echo $var</code>命令即得到变量var的值</p>
+<h4 id="变量命名规则"><a href="#变量命名规则" class="headerlink" title="变量命名规则"></a>变量命名规则</h4><p><strong>变量命名必须以字母，下划线_开头，后面跟字母，数字或者下划线字符，第一个字符不能为数字，中间不能使用？、*等特殊符号</strong></p>
+<p><strong>变量名大小写敏感，不同大小写是不同的变量</strong>，如下例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># var=123</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># Var=345</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo $var</span></span><br><span class="line">123</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># ?var=123</span></span><br><span class="line">-bash: ?var=123: <span class="built_in">command</span> not found</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># 1var=123</span></span><br><span class="line">-bash: 1var=123: <span class="built_in">command</span> not found</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># _var=111</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo $_var</span></span><br><span class="line">111</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用echo和printf打印变量的值"><a href="#使用echo和printf打印变量的值" class="headerlink" title="使用echo和printf打印变量的值"></a>使用<code>echo</code>和<code>printf</code>打印变量的值</h4><p>打印显示变量的值除了<code>echo</code>命令外还有<code>printf</code>命令，该命令语法格式如下：printf &lt;FORMAT&gt;  &lt;ARGUMENTS…&gt;即根据指定格式打印参数，具体的允许格式如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">分类符</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">%b</td>
+<td align="center">打印相关参数并解释其中带有反斜杠\的特殊字符</td>
+</tr>
+<tr>
+<td align="center">%q</td>
+<td align="center">以Shell引用的格式打印相关参数，使其可以在标准输入中重用</td>
+</tr>
+<tr>
+<td align="center">%d</td>
+<td align="center">以带符号十进制数的格式打印相关参数</td>
+</tr>
+<tr>
+<td align="center">%i</td>
+<td align="center">与%d相同</td>
+</tr>
+<tr>
+<td align="center">%o</td>
+<td align="center">以无符号八进制数的格式打印相关参数</td>
+</tr>
+<tr>
+<td align="center">%u</td>
+<td align="center">以无符号十进制数的格式打印相关参数</td>
+</tr>
+<tr>
+<td align="center">%x</td>
+<td align="center">以无符号小写十六进制数的格式打印相关参数</td>
+</tr>
+<tr>
+<td align="center">%X</td>
+<td align="center">与%x相同，只是十六进制数为大写</td>
+</tr>
+<tr>
+<td align="center">%f</td>
+<td align="center">以浮点数的格式解析并打印相关参数</td>
+</tr>
+<tr>
+<td align="center">%e</td>
+<td align="center">以双精度浮点数<N>±e<N>的格式打印相关参数</td>
+</tr>
+<tr>
+<td align="center">%E</td>
+<td align="center">与%e相同，只是用大写字母E</td>
+</tr>
+<tr>
+<td align="center">%g</td>
+<td align="center">以%f或%e的格式打印相关参数</td>
+</tr>
+<tr>
+<td align="center">%G</td>
+<td align="center">以%f或%E的格式打印相关参数</td>
+</tr>
+<tr>
+<td align="center">%c</td>
+<td align="center">以字符的格式打印相关参数，并且只打印参数中的第一个字符</td>
+</tr>
+<tr>
+<td align="center">%s</td>
+<td align="center">以字符串的格式打印相关参数</td>
+</tr>
+<tr>
+<td align="center">%n</td>
+<td align="center">指定打印的字符个数</td>
+</tr>
+<tr>
+<td align="center">%%</td>
+<td align="center">打印一个字符”%”</td>
+</tr>
+</tbody></table>
+<p>printf命令的格式用字符串&lt;Format&gt;中还可以使用一些转义字符，如下所示</p>
+<table>
+<thead>
+<tr>
+<th align="center">转义符</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">\&quot;</td>
+<td align="center">打印双引号</td>
+</tr>
+<tr>
+<td align="center">\NNN</td>
+<td align="center">用八进制的值表示一个ASCII字符，例如\101，即65，表示字符’A’</td>
+</tr>
+<tr>
+<td align="center">\\</td>
+<td align="center">打印一个反斜杠”\“</td>
+</tr>
+<tr>
+<td align="center">\a</td>
+<td align="center">发出告警音</td>
+</tr>
+<tr>
+<td align="center">\b</td>
+<td align="center">删除前一个字符</td>
+</tr>
+<tr>
+<td align="center">\f</td>
+<td align="center">换页符，在某些实现中会清屏，有些会换行</td>
+</tr>
+<tr>
+<td align="center">\n</td>
+<td align="center">换行</td>
+</tr>
+<tr>
+<td align="center">\r</td>
+<td align="center">从行头开始，和换行不一样，仍在本行</td>
+</tr>
+<tr>
+<td align="center">\t</td>
+<td align="center">Tab键</td>
+</tr>
+<tr>
+<td align="center">\v</td>
+<td align="center">竖直tab，和\f相似，不同机器显示有所不同，通常会引起换行</td>
+</tr>
+<tr>
+<td align="center">\xHH</td>
+<td align="center">用十六进制的值表示一个ASCII字符，例如/x41，即65，表示字符’A’</td>
+</tr>
+</tbody></table>
+<p>下面是一些示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># var=shell</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># printf "%s\n" $var</span></span><br><span class="line">shell</span><br><span class="line"><span class="comment">#指定长度小于实际长度时，按照实际长度打印</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># printf "%1s\n" $var</span></span><br><span class="line">shell</span><br><span class="line"><span class="comment">#原点符右边的数字表示打印参数中字符的个数，左边表示打印字符串的总长度</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># printf "%1.1s\n" $var</span></span><br><span class="line">s</span><br><span class="line"><span class="comment">#当左边要求打印的总长度超过输出实际长度时，左边用空格补全</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># printf "%10.4s\n" $var</span></span><br><span class="line">      shel</span><br><span class="line"> </span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># str=123.45678</span></span><br><span class="line"><span class="comment">#打印的数值长度为5，保留小数点后1位数字</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># printf "%5.1f\n" $str</span></span><br><span class="line">123.5</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># printf "%5.2f\n" $str</span></span><br><span class="line">123.46</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># printf "%5.3f\n" $str</span></span><br><span class="line">123.457</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># printf "%2.3f\n" $str</span></span><br><span class="line">123.457</span><br><span class="line"><span class="comment">#小数点后不够的补零</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># printf "%2.8f\n" $str</span></span><br><span class="line">123.45678000</span><br><span class="line"><span class="comment">#打印的数值长度为9，数值的实际长度为7，保留小数点后3位，左边用空格补齐</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># printf "%9.3f\n" $str</span></span><br><span class="line">  123.457</span><br></pre></td></tr></table></figure>
+
+<p>echo命令没有提供格式化的选项，但是支持转义符功能，在使用转义符时需要使用”-e”选项激活转义字符功能，如下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo -e "SHELL: $SHELL\n User：$USER\t"</span></span><br><span class="line">SHELL: /bin/bash</span><br><span class="line"> User：root</span><br></pre></td></tr></table></figure>
+
+<p>有时需要通过${}来避免一些歧义，如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo "the shell path is $SHELL haha"</span></span><br><span class="line">the shell path is /bin/bash haha</span><br><span class="line"><span class="comment">#下面的指令，shell会去查找SHELLhaha这个变量，没有找到所以打印出来为空</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo "the shell path is $SHELLhaha"</span></span><br><span class="line">the shell path is</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo "the shell path is $&#123;SHELL&#125;haha"</span></span><br><span class="line">the shell path is /bin/bashhaha</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo "the shell path is $&#123;SHELL&#125;/haha"</span></span><br><span class="line">the shell path is /bin/bash/haha</span><br></pre></td></tr></table></figure>
+
+<h4 id="变量的引用"><a href="#变量的引用" class="headerlink" title="变量的引用"></a>变量的引用</h4><p>引用变量时，最好将变量用双引号””括起来，比如”$var”以免变量中的特殊字符（除$、和\）被错误解释。使用双引号可以防止变量中由多个单词组成的字符串分离，一个用双引号括起来的变量使它自身变成一个单词，即使它包含空格，请看如下例子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将变量LIST的值分成了三个参数传递给了for循环</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># LIST="ONE TWO THREE"</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># for var in $LIST</span></span><br><span class="line"><span class="keyword">&gt; do</span></span><br><span class="line"><span class="keyword">&gt; echo</span> <span class="variable">$var</span></span><br><span class="line"><span class="keyword">&gt; done</span></span><br><span class="line">ONE</span><br><span class="line">TWO</span><br><span class="line">THREE</span><br><span class="line"><span class="comment">#将变量LIST的值作为一个整体传递给了for循环</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># for var in "$LIST"</span></span><br><span class="line"><span class="keyword">&gt; do</span></span><br><span class="line"><span class="keyword">&gt; echo</span> <span class="variable">$var</span></span><br><span class="line"><span class="keyword">&gt; done</span></span><br><span class="line">ONE TWO THREE</span><br></pre></td></tr></table></figure>
+
+<p><strong>只有变量的值中包含空格或要保留其中的空格时，将变量用双引号括起来才是必要的</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#$(echo '"')相当于'echo '"''</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo "$(echo '"')"</span></span><br><span class="line"><span class="string">"</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>单引号的操作类似于双引号，只是它不允许引用变量，因为在单引号中字符”$”的特殊含义会失效</strong></p>
+<h4 id="export语句的使用"><a href="#export语句的使用" class="headerlink" title="export语句的使用"></a>export语句的使用</h4><p><strong>用户登录到Linux系统后，系统将启动一个用户shell。在这个shell中，可以使用shell命令或声明变量，也可以创建并运行</strong>shell脚本程序。运行shell脚本程序时，系统将创建一个子shell。此时，系统中将有两个shell，一个是登录时系统启动的shell，另一个是系统为运行脚本程序创建的shell。当一个脚本程序运行完毕，脚本shell将终止，返回到执行该脚本之前的shell。</p>
+<p>从这种意义上来说，用户可以有许多 shell，每个shell都是由某个shell（称为父shell）派生的。在子shell中定义的变量只在该子shell内有效。如果在一个shell脚本程序中定义了一个变量，当该脚本程序运行时，这个定义的变量只是该脚本程序内的一个局部变量，其他的shell不能引用它，要使某个变量的值可以在其他shell中被改变，可以使用<code>export</code>命令对已定义的变量进行输出。</p>
+<p><code>export</code>命令将使系统在创建每一个新的shell时，定义这个变量的一个拷贝。这个过程称之为变量输出。</p>
+<p><code>export</code> <strong>功能说明：</strong>设置或显示环境变量。<br><strong>语　　法：</strong>export  -fnp  变量名称=变量设置值<br><strong>补充说明：</strong>在shell中执行程序时，shell会提供一组环境变量。export可新增，修改或删除环境变量，供后续执行的程序使用。export的效力仅限于该次登陆操作。<br><strong>参　　数：</strong><br>　-f 　代表[变量名称]中为函数名称。<br>　-n 　删除指定的变量。变量实际上并未删除，只是不会输出到后续指令的执行环境中。<br>　-p 　列出所有的shell赋予程序的环境变量。</p>
+<p>　所以得出的结论是：</p>
+<p>1、执行脚本时是在一个子shell环境运行的，脚本执行完后该子shell自动退出；</p>
+<p>2、一个shell中的系统环境变量会被复制到子shell中（用export定义的变量）；</p>
+<p>3、一个shell中的系统环境变量只对该shell或者它的子shell有效，该shell结束时变量消失（并不能返回到父shell中）。</p>
+<p>4、不用export定义的变量只对该shell有效，对子shell也是无效的。</p>
+<p>例如linux上配置java_home之后需要在/etc/profilewen文件尾部添加如下配置：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/<span class="built_in">local</span>/software/java/jdk1.8.0_231</span><br><span class="line"><span class="built_in">export</span> JRE_HOME=<span class="variable">$&#123;JAVA_HOME&#125;</span>/jre</span><br><span class="line"><span class="built_in">export</span> CLASSPATH=.:<span class="variable">$&#123;JAVA_HOME&#125;</span>/lib:<span class="variable">$&#123;JRE_HOME&#125;</span>/lib</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="如何删除变量"><a href="#如何删除变量" class="headerlink" title="如何删除变量"></a>如何删除变量</h4><p><code>unset</code>命令用来删除相应的变量或者函数，该命令会把变量从当前shell和后续命令的环境中删除，语法如下：unset  -fv  变量或函数名称</p>
+<p>-f     表示删除一个已定义的函数；-v    删除一个变量，使用 示例如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME= /usr/<span class="built_in">local</span>/jdk</span><br><span class="line"><span class="built_in">unset</span> JAVA_HOME</span><br><span class="line"></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># var=123</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo $var</span></span><br><span class="line">123</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># unset var</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo $var</span></span><br><span class="line"></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+<p>使用unset命令不能删除一个只读的变量，会报错，如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># readonly var=234</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo $var</span></span><br><span class="line">234</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># unset var</span></span><br><span class="line">-bash: <span class="built_in">unset</span>: var: cannot <span class="built_in">unset</span>: <span class="built_in">readonly</span> variable</span><br></pre></td></tr></table></figure>
+
+<h4 id="如何检查变量是否存在"><a href="#如何检查变量是否存在" class="headerlink" title="如何检查变量是否存在"></a>如何检查变量是否存在</h4><p>使用如下的语法来检查变量是否存在：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$&#123;varName?Error:The variable is not defined&#125;</span></span><br><span class="line"><span class="variable">$&#123;varName:?Error:The variable is not defined&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>上述第一句中，如果变量varName已定义且不为空，则该语句相当于$varName;<strong>如果变量置为空，则该语句也为空</strong>；如果变量未定义，则此语句返回一个错误，显示？和后面的错误信息”Error:The variable is not defined”</p>
+<p>第二句和第一句的唯一区别是，如果varName的值是空的，此语句也将返回一个错误</p>
+<p>这两句可以用来检查脚本的完整性，如果变量未定义，脚本将会停止执行，如下例子</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># age=123</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo $&#123;age?Error&#125;</span></span><br><span class="line">123</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># unset age</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo $&#123;age?Error&#125;</span></span><br><span class="line">-bash: age: Error</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># age=321</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo $&#123;age:?Error&#125;</span></span><br><span class="line">321</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># unset age</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo $&#123;age:?Error&#125;</span></span><br><span class="line">-bash: age: Error</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># age=456</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># age=""</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo $&#123;age?Error&#125;</span></span><br><span class="line"></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo $&#123;age:?Error&#125;   带冒号的语法当值为空时也会报错</span></span><br><span class="line">-bash: age: Error</span><br></pre></td></tr></table></figure>
+
+<h2 id="shell环境进阶"><a href="#shell环境进阶" class="headerlink" title="shell环境进阶"></a>shell环境进阶</h2><p>标准命令为什么在shell的任何路径都能执行？这是因为shell在path环境变量指定的全部路径中搜索任何可执行文件，一旦找到与输入项匹配的命令就执行，下面进行进一步了解。</p>
+<h3 id="回调命令历史"><a href="#回调命令历史" class="headerlink" title="回调命令历史"></a>回调命令历史</h3><p>曾经执行过的命令，会被保存在缓冲区或者默认文件~/.bash_history中，保存命令的多少由环境变量<code>HISTSIZE</code>定义。</p>
+<ul>
+<li>可以使用<code>history</code>命令显示你之前执行过的命令</li>
+<li>可以在命令行提示符下使用上下方向键查找之前执行的命令</li>
+<li>可以在命令行提示符下按ctrl+r组合键后输入相应的关键字，可以搜索历史命令</li>
+<li>可以简单的输入！！来重复执行上一条执行过的命令</li>
+<li>！关键字 可以查找最近一次执行的以关键字开头的命令</li>
+<li>可以使用history列出历史命令之后，使用对应的行号执行命令，如下：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># history</span></span><br><span class="line"> ...</span><br><span class="line"> 1041  <span class="built_in">echo</span> <span class="variable">$&#123;age?Error&#125;</span></span><br><span class="line"> 1042  <span class="built_in">echo</span> <span class="variable">$&#123;age:?Error&#125;</span></span><br><span class="line"> 1043  <span class="built_in">history</span></span><br><span class="line"> 1044  ls</span><br><span class="line"> 1045  uptime</span><br><span class="line"> 1046  <span class="built_in">unset</span> age</span><br><span class="line"> 1047  <span class="built_in">history</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># !1045</span></span><br><span class="line">uptime</span><br><span class="line"> 12:44:07 up 58 days, 19:18,  1 user,  load average: 0.00, 0.01, 0.05</span><br></pre></td></tr></table></figure>
+
+<h3 id="shell中的扩展"><a href="#shell中的扩展" class="headerlink" title="shell中的扩展"></a>shell中的扩展</h3><p>shell中扩展方式有八种（按照扩展的先后顺序排序）：大括号扩展、波浪号扩展、参数和变量扩展、命令替换、算数扩展、进程替换、单词拆分和文件名扩展，下面介绍几种扩展：</p>
+<h4 id="大括号扩展"><a href="#大括号扩展" class="headerlink" title="大括号扩展"></a><strong>大括号扩展</strong></h4><p>看如下例子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo a&#123;b,c,d&#125;e</span></span><br><span class="line">abe ace ade</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo &#123;1..10&#125;</span></span><br><span class="line">1 2 3 4 5 6 7 8 9 10</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo &#123;a..z&#125;</span></span><br><span class="line">a b c d e f g h i j k l m n o p q r s t u v w x y z</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo &#123;5..-3&#125;</span></span><br><span class="line">5 4 3 2 1 0<span class="params"> -1</span><span class="params"> -2</span><span class="params"> -3</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo &#123;g..z&#125;</span></span><br><span class="line">g h i j k l m n o p q r s t u v w x y z</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo &#123;1..3&#125; &#123;a..c&#125;</span></span><br><span class="line">1 2 3 a b c</span><br><span class="line"><span class="comment">#注意两个扩展之间有空格和没空格的区别</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo &#123;1..3&#125;&#123;a..c&#125;</span></span><br><span class="line">1a 1b 1c 2a 2b 2c 3a 3b 3c</span><br><span class="line"><span class="comment">#大括号还可以嵌套，嵌套结果按照顺序展示</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo a&#123;&#123;b,c,d&#125;a,&#123;e,f,g&#125;b,h&#125;i</span></span><br><span class="line">abai acai adai aebi afbi agbi ahi</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo &#123;a,b&#123;1..3&#125;,c&#125;</span></span><br><span class="line">a b1 b2 b3 c</span><br></pre></td></tr></table></figure>
+
+<p>此外bash还提供了一些按照固定步长扩展的功能，格式为{start，end，incre}</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo &#123;1..9..4&#125;</span></span><br><span class="line">1 5 9</span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo &#123;1..9..3&#125;</span></span><br><span class="line">1 4 7</span><br><span class="line"><span class="comment">#如果START和end为整数且有0先导时，输出的内容会通过在前面补零达到相同位数</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo &#123;0001..10..3&#125;</span></span><br><span class="line">0001 0004 0007 0010</span><br></pre></td></tr></table></figure>
+
+<p>大括号扩展在其他所有扩展之前进行，在其他扩展中的特殊字符都被保留下来。为了避免被认为是大括号拓展的一部分，”{“或者”,”可以用反斜杠转义，为了避免与参数扩展冲突，大括号扩展不会识别字符串中的”${“</p>
+<h4 id="波浪号扩展"><a href="#波浪号扩展" class="headerlink" title="波浪号扩展"></a><strong>波浪号扩展</strong></h4><p>波浪号前缀”<del>+”,会被SHELL变量PWD的值替代;”</del>-“会被LODPWD替代</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo ~+</span></span><br><span class="line">/root</span><br></pre></td></tr></table></figure>
+
+<h4 id="命令替换"><a href="#命令替换" class="headerlink" title="命令替换"></a><strong>命令替换</strong></h4><p>命令替换是指用命令的输出替换命令本身，命令替换有两种形式：<code>$(COMMAND)</code>或者`COMMAND`</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo $(pwd)</span></span><br><span class="line">/root</span><br><span class="line"><span class="comment">#注意此处是``倾斜的单括号，类似于前述的将命令的执行结果赋值给变量</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo 'pwd'</span></span><br><span class="line"><span class="built_in">pwd</span></span><br><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># echo `pwd`</span></span><br><span class="line">/root</span><br></pre></td></tr></table></figure>
+
+<p>命令替换可以嵌套，使用反引号形式”``”嵌套时，里面的反引号需要用反斜杠\转义</p>
+<h4 id="文件名扩展"><a href="#文件名扩展" class="headerlink" title="文件名扩展"></a><strong>文件名扩展</strong></h4><p> 如果bash中没有设置-f选项，就会支持文件名拓展。bash支持一下三种通配符来实现文件名拓展：</p>
+<ul>
+<li>* 匹配任何字符串也包括空字符串</li>
+<li>？匹配任意单个字符</li>
+<li>[…]匹配方括号内的任意字符</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23kwr96m6Z usr]<span class="comment"># ls</span></span><br><span class="line">a.txt  bin  b.txt  etc  games  include  lib  lib64  libexec  <span class="built_in">local</span>  logs  sbin  share  src  tmp  works</span><br><span class="line">[root@iZ23kwr96m6Z usr]<span class="comment"># ls *.txt</span></span><br><span class="line">a.txt  b.txt</span><br><span class="line">[root@iZ23kwr96m6Z usr]<span class="comment"># ls [ab].txt</span></span><br><span class="line">a.txt  b.txt</span><br><span class="line">[root@iZ23kwr96m6Z usr]<span class="comment"># ls [a].txt</span></span><br><span class="line">a.txt</span><br><span class="line">[root@iZ23kwr96m6Z usr]<span class="comment"># ls ?.txt</span></span><br><span class="line">a.txt  b.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建和使用别名"><a href="#创建和使用别名" class="headerlink" title="创建和使用别名"></a>创建和使用别名</h4><p>在文件<code>~/.bashrc</code>中可以为一些命令语句创建别名，一旦修改了这个文件必须重新登录shell才会生效</p>
+<p>创建别名通过内置命令<code>alias</code>，语法如下：alias name=’command’</p>
+<ul>
+<li>name—用户定义的别名     command—任意linux命令</li>
+</ul>
+<p>如下例子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> rm=<span class="string">'rm -i'</span></span><br><span class="line"><span class="built_in">alias</span> cp=<span class="string">'cp -i'</span></span><br><span class="line"><span class="built_in">alias</span> mv=<span class="string">'mv -i'</span></span><br></pre></td></tr></table></figure>
+
+<p>通过命令<code>alias</code>可以查看所有的别名</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># alias</span></span><br><span class="line"><span class="built_in">alias</span> cp=<span class="string">'cp -i'</span></span><br><span class="line"><span class="built_in">alias</span> egrep=<span class="string">'egrep --color=auto'</span></span><br><span class="line"><span class="built_in">alias</span> fgrep=<span class="string">'fgrep --color=auto'</span></span><br><span class="line"><span class="built_in">alias</span> grep=<span class="string">'grep --color=auto'</span></span><br><span class="line"><span class="built_in">alias</span> l.=<span class="string">'ls -d .* --color=auto'</span></span><br><span class="line"><span class="built_in">alias</span> ll=<span class="string">'ls -l --color=auto'</span></span><br><span class="line"><span class="built_in">alias</span> ls=<span class="string">'ls --color=auto'</span></span><br><span class="line"><span class="built_in">alias</span> mv=<span class="string">'mv -i'</span></span><br><span class="line"><span class="built_in">alias</span> rm=<span class="string">'rm -i'</span></span><br><span class="line"><span class="built_in">alias</span> <span class="built_in">which</span>=<span class="string">'alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde'</span></span><br></pre></td></tr></table></figure>
+
+<p>查看某个特定别名语法为：<code>alias  别名</code>,当想调用实际命令而暂停使用别名是，需要使用如下方法：<code>\aliasname</code>,删除一个别名的语法为：<code>unalias 别名</code>，删除当前环境中所有别名 <code>unalias -a</code></p>
+<p>注意别名请谨慎使用</p>
+<h4 id="修改bash提示符"><a href="#修改bash提示符" class="headerlink" title="修改bash提示符"></a>修改bash提示符</h4><p>登录shell后，bash前面的提示符<code>[root@iZ23kwr96m6Z ~]#</code>是可以定制修改的，通过export  变量PS1即可，非重点内容此处不详述了。</p>
+<h2 id="常用shell（bash）命令"><a href="#常用shell（bash）命令" class="headerlink" title="常用shell（bash）命令"></a>常用shell（bash）命令</h2><h3 id="查看文件和目录"><a href="#查看文件和目录" class="headerlink" title="查看文件和目录"></a>查看文件和目录</h3><h4 id="ls-ll"><a href="#ls-ll" class="headerlink" title="ls/ll"></a>ls/ll</h4><p><code>ls</code>列出当前目录下所有文件和目录，不带详细信息（文件类型，大小，修改日期和时间，权限等）</p>
+<p><code>ls -l</code>每行显示一条记录，包括文件类型，大小，修改日期和时间，权限等</p>
+<p><code>ls -lh</code> 文件大小显示为更符合人类阅读习惯的格式</p>
+<p><code>ls -a</code>列出包含隐藏文件或目录，包括”.”(当前目录)和”..”(父目录)</p>
+<p><code>ls -A</code>列出不包括”.”(当前目录)和”..”(父目录)的所有文件和目录</p>
+<p><code>ls -i</code>显示文件或目录的inode编号</p>
+<p><code>ll</code>命令同<code>ls -l</code></p>
+<h4 id="cd"><a href="#cd" class="headerlink" title="cd"></a>cd</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span>切换目录</span><br><span class="line">	<span class="built_in">cd</span> /usr	<span class="comment">#切换到usr目录</span></span><br><span class="line">	<span class="built_in">cd</span> ..	<span class="comment">#切换到上一层目录</span></span><br><span class="line">	<span class="built_in">cd</span> /	<span class="comment">#切换到系统根目录</span></span><br><span class="line">	<span class="built_in">cd</span> ~	<span class="comment">#切换到用户主目录</span></span><br><span class="line">	<span class="built_in">cd</span> -	<span class="comment">#切换到上一个所在目</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="pwd"><a href="#pwd" class="headerlink" title="pwd"></a>pwd</h4><p>pwd：显示当前的目录</p>
+<h4 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h4><p><code>cat</code>命令，cat可以查看文件，语法为<code>cat 文件名</code>，此外利用cat命令可以将两个文件合成一个文件输出：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23kwr96m6Z usr]<span class="comment"># ll</span></span><br><span class="line">total 184</span><br><span class="line">...</span><br><span class="line">-rw-r--r--.   1 root root     6 Jun 22 19:28 a.txt</span><br><span class="line">-rw-r--r--.   1 root root     4 Aug 14 17:02 b.txt</span><br><span class="line">[root@iZ23kwr96m6Z usr]<span class="comment"># cat a.txt b.txt &gt;c.txt</span></span><br><span class="line">[root@iZ23kwr96m6Z usr]<span class="comment"># ll</span></span><br><span class="line">-rw-r--r--.   1 root root     6 Jun 22 19:28 a.txt</span><br><span class="line">-rw-r--r--.   1 root root     4 Aug 14 17:02 b.txt</span><br><span class="line">-rw-r--r--.   1 root root    10 Aug 14 17:02 c.txt</span><br><span class="line">[root@iZ23kwr96m6Z usr]<span class="comment"># cat c.txt</span></span><br><span class="line">shfub</span><br><span class="line">haha</span><br></pre></td></tr></table></figure>
+
+<h4 id="less-more"><a href="#less-more" class="headerlink" title="less/more"></a>less/more</h4><p><code>less、more</code>命令示例：分屏显示文件</p>
+<p><code>more</code>命令一次查看一整屏内容，查看文件语法为<code>more 文件</code>，使用空格可以向下翻页<code>more -num 文件</code>可以控制一次显示num行；</p>
+<p><code>less</code>命令向前或者向后翻页都支持，less命令不需要在查看前加载整个文件，查看文件更快速，查看文件语法为<code>less 文件名</code></p>
+<p>当使用less命令打开文件后，可以使用搜索功能，搜索指定关键字，搜索到会高亮关键字：</p>
+<ul>
+<li><p><code>/关键字</code>回车后，自动跳转到关键字第一次出现的地方，并且高亮所有关键字</p>
+<p>n，向前跳转到上一个匹配关键字的地方</p>
+<p>N，向后跳转到下一个匹配关键字的地方</p>
+</li>
+<li><p><code>？关键字</code>回车后，向后搜索关键字</p>
+<p>n，向后跳转到上一个匹配关键字的地方</p>
+<p>N，向前跳转到下一个匹配关键字的地方</p>
+</li>
+</ul>
+<p><strong>使用less命令浏览较大文件时，可以使用如下屏幕导航命令：</strong></p>
+<p><code>Ctrl+F</code>—向前翻一个窗口的内容</p>
+<p><code>Ctrl+B</code>—向后翻一个窗口的内容</p>
+<p><code>Ctrl+D</code>—向前翻半个窗口的内容</p>
+<p><code>Ctrl+U</code>—向后翻半个窗口的内容</p>
+<p>g—跳转到文件的开头；G—跳转到文件的末尾；q或ZZ—退出less</p>
+<p><strong>less命令还可以打开多个文件，在多个文件中切换，以及标记某个位置以便后续返回，这里不详述</strong></p>
+<h4 id="head-tail"><a href="#head-tail" class="headerlink" title="head/tail"></a>head/tail</h4><p><code>head</code>命令用于打印前几行，默认打印前10行，可以通过-n指定打印多少行，语法为<code>head -n 5 文件</code>也可以不使用-n选项，直接<code>head -5 文件名</code> </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#打印出除最后五行外所有内容</span></span><br><span class="line">head<span class="params"> -n</span><span class="params"> -5</span> 文件</span><br><span class="line"><span class="comment">#打印文件前n个字节的数据</span></span><br><span class="line">head<span class="params"> -c</span> 10 文件</span><br><span class="line"><span class="comment">#打印文件除最后n个字节的数据</span></span><br><span class="line">head<span class="params"> -c</span><span class="params"> -10</span> 文件</span><br></pre></td></tr></table></figure>
+
+<p><code>tail</code>命令用于显示后几行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#打印文件的后N行</span></span><br><span class="line">tail<span class="params"> -n</span> 10 文件</span><br><span class="line"><span class="comment">#即时打印文件的后n行</span></span><br><span class="line">tail<span class="params"> -f</span> 文件</span><br><span class="line"><span class="comment">#在特定进程结束时终结tail命令</span></span><br><span class="line">tail<span class="params"> -f</span> 文件<span class="params"> --pid</span> pidnum</span><br></pre></td></tr></table></figure>
+
+<p>####file</p>
+<p><code>file</code>命令用于查看文件类型，语法<code>file 文件</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用-i，可以以MIME类型的格式显示文件类型的信息</span></span><br><span class="line">file<span class="params"> -i</span> 文件</span><br></pre></td></tr></table></figure>
+
+<h4 id="wc"><a href="#wc" class="headerlink" title="wc"></a>wc</h4><p><code>wc</code>命令用于查看文件的行数、单词数和字符数等信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wc 文件</span><br><span class="line"><span class="keyword">#X</span>表示行数 Y表示单词树 Z表示字节数</span><br><span class="line">X Y Z 文件名</span><br></pre></td></tr></table></figure>
+
+<p>此外，使用-l选项，可以值统计文件的行数，-w统计单词数，-c统计字节数，-L统计文件中最长的行的长度</p>
+<h4 id="find"><a href="#find" class="headerlink" title="find"></a>find</h4><p><code>find</code>命令用于查找文件或者目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">find 路径<span class="params"> -name</span> 文件名</span><br><span class="line">find /root<span class="params"> -name</span> redis.conf</span><br><span class="line"><span class="comment">#在当前目录下查找</span></span><br><span class="line">find .<span class="params"> -name</span> 文件名</span><br><span class="line"><span class="comment">#在当前目录下不区分大小写查找文件</span></span><br><span class="line">find .<span class="params"> -iname</span> 文件名</span><br><span class="line"><span class="comment">#在当前目录下查找文件类型是目录的文件</span></span><br><span class="line">find .<span class="params"> -type</span> d<span class="params"> -name</span> 文件名</span><br><span class="line"><span class="comment">#在当前目录下找到所有的sh文件</span></span><br><span class="line">find .<span class="params"> -type</span> f<span class="params"> -name</span> *.sh</span><br><span class="line"><span class="comment">#在当前目录下找到文件权限是777的文件</span></span><br><span class="line">find .<span class="params"> -type</span> f<span class="params"> -perm</span> 777</span><br><span class="line"><span class="comment">#在当前目录下找到文件权限不是777的文件</span></span><br><span class="line">find .<span class="params"> -type</span> f !<span class="params"> -perm</span> 777</span><br><span class="line"><span class="comment">#在当前目录下找到所有只读文件</span></span><br><span class="line">find .<span class="params"> -type</span> f !<span class="params"> -perm</span> /a+w</span><br><span class="line"><span class="comment">#在当前目录下找到所有可执行文件</span></span><br><span class="line">find .<span class="params"> -type</span> f<span class="params"> -perm</span> /a+x</span><br><span class="line"><span class="comment">#找到当前目录下的.log文件并将其删除</span></span><br><span class="line">find .<span class="params"> -type</span> f<span class="params"> -name</span> <span class="string">"*.log"</span><span class="params"> -exec</span> rm<span class="params"> -f</span> &#123;&#125; \</span><br><span class="line"><span class="comment">#找到当前目录下的所有空目录</span></span><br><span class="line">find .<span class="params"> -type</span> d<span class="params"> -empty</span></span><br><span class="line"><span class="comment">#找到当前目录下所有者是root的文件和目录</span></span><br><span class="line">find .<span class="params"> -user</span> root</span><br><span class="line"><span class="comment">#找到当前目录下所有者是root的文件和目录</span></span><br><span class="line">find .<span class="params"> -group</span> root</span><br><span class="line"><span class="comment">#找出当前目录下，三天前修改过的文件</span></span><br><span class="line">find .<span class="params"> -type</span> f<span class="params"> -mtime</span> 3</span><br><span class="line"><span class="comment">#找出当前目录下，三天内修改过的文件</span></span><br><span class="line">find .<span class="params"> -type</span> f<span class="params"> -mtime</span><span class="params"> -3</span></span><br><span class="line"><span class="comment">#找出当前目录下，三十天以前，六十天以内修改过的文件</span></span><br><span class="line">find .<span class="params"> -type</span> f<span class="params"> -mtime</span> +30<span class="params"> -mtime</span><span class="params"> -60</span></span><br><span class="line"><span class="comment">#找出当前目录下，一小时以内变更过的文件</span></span><br><span class="line">find .<span class="params"> -type</span> f<span class="params"> -cmin</span><span class="params"> -60</span></span><br><span class="line"><span class="comment">#找出当前目录下，一小时以内访问过的文件</span></span><br><span class="line">find .<span class="params"> -type</span> f<span class="params"> -amin</span><span class="params"> -60</span></span><br><span class="line"><span class="comment">#找出当前目录下，大于50MB小于100MB的所有文件</span></span><br><span class="line">find .<span class="params"> -type</span> f<span class="params"> -size</span> +50MB<span class="params"> -size</span><span class="params"> -100MB</span></span><br><span class="line"><span class="comment">#找出当前目录下，大于100MB的文件并将其删除</span></span><br><span class="line">find .<span class="params"> -type</span> f<span class="params"> -size</span> +100MB<span class="params"> -exec</span> rm<span class="params"> -rf</span> &#123;&#125; \</span><br></pre></td></tr></table></figure>
+
+<h4 id="touch"><a href="#touch" class="headerlink" title="touch"></a>touch</h4><p><code>touch</code>命令可用于创建文件，语法为<code>touch 文件名</code>，可以同时创建多个文件<code>touch 文件1 文件2 文件3</code>，touch命令有如下选项：</p>
+<ul>
+<li>-a：只改变访问时间 -c：不创建任何文件 -m：只改变修改时间 -r：使用指定文件的时间替代当前时间</li>
+</ul>
+<h4 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h4><p><code>mkdir</code> ：创建新的目录，语法为<code>mkdir 目录名</code>，使用-p可以递归创建目录（父目录不存在自动创建）<code>mkdir /a/b/c</code>,使用-m选项，可以设置创建的目录的权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir<span class="params"> -p</span><span class="params"> -m</span> 777 /a/b</span><br><span class="line">mkdir<span class="params"> -p</span><span class="params"> -m</span> a=rwx /a/b</span><br></pre></td></tr></table></figure>
+
+<h4 id="rmdir"><a href="#rmdir" class="headerlink" title="rmdir"></a>rmdir</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rmdir <span class="comment">#删除一个空的目录</span></span><br><span class="line">rmdir d <span class="comment">#删除目录 注意只能删除空目录</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="cp"><a href="#cp" class="headerlink" title="cp"></a>cp</h4><p><code>cp</code>复制文件或目录，语法为<code>cp /路径a/文件a   /路径b/文件名</code>，使用-p选项，可以保留源文件的所有者，用户组，权限，修改和访问时间等信息，使用-R或者-r可以递归复制一个目录</p>
+<h4 id="scp"><a href="#scp" class="headerlink" title="scp"></a>scp</h4><p>对于通过ssh连接的服务器，复制文件命令，比如登录跳板机将jar包赋值给其他服务器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp ./*****.jar  root@ip:/usr/works/target_***/</span><br></pre></td></tr></table></figure>
+
+<h4 id="mv"><a href="#mv" class="headerlink" title="mv"></a>mv</h4><p><code>mv</code>命令用于将文件和目录从一个位置移到另一个位置，还可以用于修改文件或目录的名字，语法为<code>mv source target</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将当前目录下的文件source.txt移动到/tmp下</span></span><br><span class="line">mv ./<span class="built_in">source</span>.txt /tmp</span><br><span class="line"><span class="comment">#将目录dir1，dir2移动到目录/target下</span></span><br><span class="line">mv dir1 dir2 /target</span><br><span class="line"><span class="comment">#将当前文件名更改</span></span><br><span class="line">mv old.txt new.txt</span><br></pre></td></tr></table></figure>
+
+<p><strong>默认情况下，如果目标文件已经存在，mv命令不会提示，会直接覆盖目标文件，使用-i可以让mv命令重写或覆盖目标文件之前给出提示</strong></p>
+<p>使用mv可以同时移动多个文件或目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将当前目录下的所有文件移动到目录/tmp下</span></span><br><span class="line">mv * /tmp</span><br></pre></td></tr></table></figure>
+
+<p>如果只想将源目录中有而目标目录中没有的文件，可以使用-u选项</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将dir1中有而dir2中没有的文件移动到dir2</span></span><br><span class="line">mv<span class="params"> -u</span> dir1/* dir2/</span><br></pre></td></tr></table></figure>
+
+<h4 id="ln"><a href="#ln" class="headerlink" title="ln"></a>ln</h4><p><code>ln</code> 建立软连接或硬连接的命令</p>
+<h4 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h4><p><code>rm</code> 删除文件或目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#同时删除多个文件</span></span><br><span class="line">rm file1 file2 file3</span><br><span class="line"><span class="comment">#使用-i 可以在删除前提示用户确认</span></span><br><span class="line">rm<span class="params"> -i</span> 文件名</span><br><span class="line"><span class="comment">#删除后缀为.doc的文件</span></span><br><span class="line">rm *.doc</span><br><span class="line"><span class="comment">#删除当前目录下所有文件名包含"movie"字符串的文件</span></span><br><span class="line">rm *movie*</span><br></pre></td></tr></table></figure>
+
+<p><strong>?号用于匹配一个字符</strong></p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#删除当前目录下整个文件名（包含扩展名）只有三个字符的所有文件</span></span><br><span class="line">rm ???</span><br><span class="line"><span class="comment">#删除当前目录下文件拓展名有两个字符的所有文件</span></span><br><span class="line">rm *.??</span><br></pre></td></tr></table></figure>
+
+<p>[]用于匹配包含括号内任意一个字符</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#删除当前目录下文件名中含有字母a，b，或c的文件</span></span><br><span class="line">rm * [abc]*</span><br><span class="line"><span class="comment">#删除当前目录下文件拓展名是字母c或h的所有文件</span></span><br><span class="line">rm *.[ch]y</span><br></pre></td></tr></table></figure>
+
+<h3 id="管理文件或目录权限"><a href="#管理文件或目录权限" class="headerlink" title="管理文件或目录权限"></a>管理文件或目录权限</h3><p>当我们使用ls -l或ll命令时，如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ23kwr96m6Z ~]<span class="comment"># ls -l</span></span><br><span class="line">total 1369044</span><br><span class="line">-rw-r--r--. 1 root root      66156 Jun 11 17:07 10596.txt</span><br><span class="line">-rw-r--r--. 1 root root      94831 Jun 27  2018 84.txt</span><br><span class="line">drwxr-xr-x. 9 root root       4096 Jan 18  2019 apache-tomcat-7.0.73</span><br><span class="line">drwxr-xr-x. 3 root root       4096 Nov 21  2016 data</span><br></pre></td></tr></table></figure>
+
+<p>上面输出的第一列的第一个字符表示文件类型（d目录-文件l链接）2-10九个字符（如第一行rw-r–r–）表示三种用户类型的权限，具体如下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.enjoyican.com/img/linux/per.png" alt="per" title="">
+                </div>
+                <div class="image-caption">per</div>
+            </figure>
+
+<p>从左至右用1-10这些数字来表示:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1、确定文件类型</span><br><span class="line">	当为[ d ]则是目录</span><br><span class="line">	当为[ - ]则是文件；</span><br><span class="line">	若是[ l ]则表示为链接文档(link file)；</span><br><span class="line">	若是[ b ]则表示为装置文件里面的可供储存的接口设备(可随机存取装置)；</span><br><span class="line">	若是[ c ]则表示为装置文件里面的串行端口设备，例如键盘、鼠标(一次性读取装置)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2、确定属主（该文件的所有者）拥有该文件的权限</span><br><span class="line">[ r ]代表可读(read)、[ w ]代表可写(write)、[ x ]代表可执行(execute),要注意的是，这三个权限的位置不会改变，如果没有权限，就会出现减号[ - ]而已</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">3、确定属组（所有者的同组用户）拥有该文件的权限</span><br><span class="line">4、确定其他用户拥有该文件的权限</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">其中，第1、4、7位表示读权限，如果用&quot;r&quot;字符表示，则有读权限，如果用&quot;-&quot;字符表示，则没有读权限；</span><br><span class="line">第2、5、8位表示写权限，如果用&quot;w&quot;字符表示，则有写权限，如果用&quot;-&quot;字符表示没有写权限；第3、6、9位表示可执行权限，如果用&quot;x&quot;字符表示，则有执行权限，如果用&quot;-&quot;字符表示，则没有执行权限。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">5、链接数</span><br><span class="line">6、文件所有者</span><br><span class="line">7、文件所属组</span><br><span class="line">8、文件字节大小</span><br><span class="line">9、文件最后修改日期</span><br><span class="line">10、文件名</span><br></pre></td></tr></table></figure>
+
+<h4 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h4><p><code>chmod</code>命令用于修改权限，语法可以采用符号表达式，也可以用八进制位模式</p>
+<p>使用符号表达式格式如下：</p>
+<blockquote>
+<p>chmod [option]…[ugoa][[+-=][rwxug]][,…] FILE…</p>
+</blockquote>
+<p>其中字母ugoa用于控制那些用户对文件的访问权限将被改变</p>
+<ul>
+<li>u：指文件或目录的所有者</li>
+<li>g：指文件或目录的用户组的成员</li>
+<li>o：指不在文件或目录的用户组中的其他用户</li>
+<li>a：指所有用户，即（ugo）</li>
+</ul>
+<p>当使用符号表达式，不给出ugoa组合时，相当于使用a</p>
+<p>操作符”+-=表示权限的授予或撤销”</p>
+<ul>
+<li>+：选定的权限将被添加</li>
+<li>-：选定的权限将被移除</li>
+<li>=：文件只拥有选定的权限</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#移除用户组成员的写权限</span></span><br><span class="line">chmod g-w 文件名</span><br><span class="line"><span class="comment">#赋予其他用户执行文件的权限</span></span><br><span class="line">chmod o+x 文件名</span><br><span class="line"><span class="comment">#只给文件的所有者写权限</span></span><br><span class="line">chmod u=w 文件名</span><br><span class="line"><span class="comment">#用文件的用户组权限替换文件的所有者权限</span></span><br><span class="line">chmod u=g 文件名</span><br><span class="line"><span class="comment">#赋予所有人对文件读、写和执行的权限</span></span><br><span class="line">chmod ugo+rwx 文件名</span><br></pre></td></tr></table></figure>
+
+<p>chmod命令的数字模式是用数字来表示读（4），写（2）和执行（1）的权限，每个用户权限组的值就是这三者组合相加得到的八进制数（0-7），如下：</p>
+<ul>
+<li>4：r（读权限）</li>
+<li>2：w（写权限）</li>
+<li>1：x（执行权限）</li>
+<li>表示rwx权限就是4+2+1=7，rw-权限就是4+2+0=6，r–权限就是4+0+0=4，r-x权限就是4+0+1=5</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#赋予所有人对文件读、写和执行的权限</span></span><br><span class="line">chmod 777 文件名</span><br><span class="line"><span class="comment">#赋予文件的所有者和用户组成员读写权限，其他用户只读权限</span></span><br><span class="line">chmod 664 文件名</span><br><span class="line"><span class="comment">#使用-R选项，可以递归修改文件的目录权限</span></span><br><span class="line">chmod<span class="params"> -R</span> 775 目录</span><br><span class="line"><span class="comment">#如果只想修改当前目录下所有智目录的权限，而不修改文件的权限，可以将chmod与find相结合</span></span><br><span class="line">find .<span class="params"> -type</span> d<span class="params"> -exec</span> chmod<span class="params"> -R</span> 775 &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
+<h4 id="vi-vim"><a href="#vi-vim" class="headerlink" title="vi/vim"></a>vi/vim</h4><p><code>vi&amp;vim</code> ：</p>
+<blockquote>
+<p>vi: 创建文件或编辑文件<br>vi a.txt 创建文件a.txt并进入文档，按下a或者i或者o进入编辑模式，内容写完之后，按下esc键，然后输入命令：<br>:wq 保存并退出<br>注意必须要使用:<br>在Linux下一般使用vi编辑器来编辑文件。vi既可以查看文件也可以编辑文件。<br>三种模式：命令行、插入、底行模式。切换到命令行模式：按Esc键；<br>切换到插入模式：按 i 、o、a键;<br>  i 在当前位置生前插入<br>  I 在当前行首插入<br>  a 在当前位置后插入<br>  A 在当前行尾插入<br>  o 在当前行之后插入一行<br>  O 在当前行之前插入一行</p>
+</blockquote>
+<h4 id="chown-chgrp"><a href="#chown-chgrp" class="headerlink" title="chown/chgrp"></a>chown/chgrp</h4><p><code>chown/chgrp</code>修改文件所有者和用户组</p>
+<h3 id="其他shell命令"><a href="#其他shell命令" class="headerlink" title="其他shell命令"></a>其他shell命令</h3><h4 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">grep:查找符合条件的字符串。用法: grep [选项]... PATTERN [FILE]..</span><br><span class="line">命令:</span><br><span class="line">grep str b.txt 			在文件中查找str			</span><br><span class="line">grep str b.txt –color 	高亮显示</span><br></pre></td></tr></table></figure>
+
+<h4 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h4><p><code>tar</code></p>
+<blockquote>
+<p>tar命令位于/bin目录下，它能够将用户所指定的文件或目录打包成一个文件，但不做压缩<br>一般Linux上常用的压缩方式是选用tar将许多文件打包成一个文件，再以gzip压缩命令压缩成xxx.tar.gz(或称为xxx.tgz)的文件<br>格式：tar [参数] 文件<br>常用参数：<br>    -c：创建一个新tar文件<br>    -v：显示运行过程的信息<br>    -f：指定文件名<br>    -z：调用gzip压缩命令进行压缩<br>    -t：查看压缩文件的内容<br>    -x：解开tar文件<br>命令：<br>tar -cvf test1.tar ./*             将当前目录下的所有文件打包为test1.tar<br>tar -cvf test2.tar  b.txt         将指定文件打包到test2.tar<br>tar -zcvf test3.tar.gz  ./*  将当前目录下的所有文件打包并且压缩到test3.tar.gz<br>tar -xvf  test1.tar  解压到当前目录<br>tar -xvf  test3.tar.gz -C aaa  将文件解压到 aaa目录</p>
+</blockquote>
+<h4 id="df"><a href="#df" class="headerlink" title="df"></a>df</h4><p><code>df</code> 用于显示文件系统的可用磁盘空间的数量</p>
+<blockquote>
+<p>df列出文件系统的整体磁盘使用量<br>df命令参数功能：检查文件系统的磁盘空间占用情况。可以利用该命令来获取硬盘被占用了多少空间，目前还剩下多少空间等信息。<br>格式：df [参数] [目录或文件名]<br>常用参数：<br>  -a ：列出所有的文件系统，包括系统特有的 /proc 等文件系统；<br>  -k ：以 KBytes 的容量显示各文件系统；<br>  -m ：以 MBytes 的容量显示各文件系统；<br>  -h ：以人们较易阅读的 GBytes, MBytes, KBytes 等格式自行显示；<br>  -H ：以 M=1000K 取代 M=1024K 的进位方式；<br>  -T ：显示文件系统类型, 连同该 partition 的 filesystem 名称 (例如 ext3) 也列出；<br>  -i ：不用硬盘容量，而以 inode 的数量来显示<br> 命令：<br> df -h     将容量结果以易读的容量格式显示出来<br> df -aT 将系统内的所有特殊文件格式及名称都列出来</p>
+</blockquote>
+<h4 id="du"><a href="#du" class="headerlink" title="du"></a>du</h4><p><code>du</code> ：评估文件空间利用率</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">du命令也是查看使用空间的，但是与df命令不同的是Linux du命令是对文件和目录磁盘使用的空间的查看</span><br><span class="line">格式：du [参数] 文件或目录名称</span><br><span class="line">常用参数：</span><br><span class="line">-a ：列出所有的文件与目录容量，因为默认仅统计目录底下的文件量而已。</span><br><span class="line">-h ：以人们较易读的容量格式 (G/M) 显示；</span><br><span class="line">-s ：列出总量而已，而不列出每个各别的目录占用容量；</span><br><span class="line">-S ：不包括子目录下的总计，与<span class="params"> -s</span> 有点差别。</span><br><span class="line">-k ：以 KBytes 列出容量显示；</span><br><span class="line">-m ：以 MBytes 列出容量显示；</span><br><span class="line">命令：</span><br><span class="line">du<span class="params"> -a</span>  			将文件的容量也列出来</span><br><span class="line">du<span class="params"> -sm</span> /* 		检查根目录底下每个目录所占用的容量</span><br></pre></td></tr></table></figure>
+
+<h4 id="fdisk"><a href="#fdisk" class="headerlink" title="fdisk"></a>fdisk</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fdisk 是 Linux 的磁盘分区表操作工具</span><br><span class="line">格式：fdisk [参数] 装置名称</span><br><span class="line">常用参数：</span><br><span class="line">-l ：输出后面接的装置所有的分区内容。若仅有 fdisk<span class="params"> -l</span> 时， 则系统将会把整个系统内能够搜寻到的装置的分区均列出来</span><br><span class="line">命令：</span><br><span class="line">fdisk<span class="params"> -l</span> 		列出所有分区信息</span><br></pre></td></tr></table></figure>
+
+<h4 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h4><p><code>ps</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ps 显示进程</span><br><span class="line">命令：</span><br><span class="line">ps -ef				显示所有进程		</span><br><span class="line">ps -ef | grep ssh   在所有的进程中搜索和ssh相关的</span><br></pre></td></tr></table></figure>
+
+<h4 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kill 杀掉某个进程,后面跟着进程的id	</span><br><span class="line">命令：</span><br><span class="line">kill 1234		</span><br><span class="line">kill -9 1234强制干掉1234</span><br></pre></td></tr></table></figure>
+
+<h4 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">将一个命令的输出结果作为另外一个命令的输入</span><br><span class="line">	ps 显示进程</span><br><span class="line">	ps<span class="params"> -ef</span>显示所有进程</span><br><span class="line">	ps<span class="params"> -ef</span> | grep ssh  在所有的进程中搜索和ssh相关的</span><br></pre></td></tr></table></figure>
+
+<h4 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">service iptables status   	查看防火墙状态</span><br><span class="line">service iptables start		启动防火墙</span><br><span class="line">service iptables stop		关闭防火墙</span><br><span class="line">service iptables restart	重启</span><br><span class="line">chkconfig iptables off		永久关闭防火墙</span><br><span class="line">chkconfig iptables on		永久关闭后重启</span><br></pre></td></tr></table></figure>
+
+<h4 id="关机"><a href="#关机" class="headerlink" title="关机"></a>关机</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">shutdown -r now 立刻重启</span><br><span class="line">shutdown -r 10 过10分钟自动重启</span><br><span class="line">shutdown -r 20:35 在时间为20:35时候重启</span><br><span class="line">shutdown -c 取消重启</span><br><span class="line">poweroff 立刻关机</span><br><span class="line">shutdown -h now 立刻关机</span><br><span class="line">shutdown -h 10 10分钟后自动关机</span><br></pre></td></tr></table></figure>
+
+<h4 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ifconfig 查看网络ip地址</span><br><span class="line">ping ip地址  查看是否可以连接某个ip</span><br></pre></td></tr></table></figure>
+
+<h4 id="后台执行命令"><a href="#后台执行命令" class="headerlink" title="后台执行命令"></a>后台执行命令</h4><h5 id="crontab"><a href="#crontab" class="headerlink" title="crontab"></a>crontab</h5><p>cron是执行定时任务的守护进程，在系统处于多用户运行级别时，cron进程会从/etc/init.d中自动启动，进程会在目录/var/spool/cron/crontabs下搜索定时计划任务文件（文件名为创建此任务的账户名），并将找到的定时计划任务载入内存</p>
+<p><strong>/var/spool/cron/crontabs中的定时任务文件不要直接用编译器编辑，使用<code>crontab</code>命令可以检查语法错误。cron进程还会读取/etc/crontab以及/etc/cron.d下的内容。</strong></p>
+<p><code>crontab</code>命令用于创建、修改、删除和查看定时任务。定时任务文件由每行命令组成，每行6个字段，由空格或者制表符分隔，前五个字段表示任务运行的时间，在最后一个字段是任务的命令。</p>
+<p>如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">01 * * * * root run-parts /etc/cron.hourly</span><br></pre></td></tr></table></figure>
+
+<p>前五个字段含义依次如下：</p>
+<ul>
+<li>分钟，0-59</li>
+<li>小时，0-23</li>
+<li>日期，1-31</li>
+<li>月份，1-12或Jan-Dec</li>
+<li>星期，0-6或Sun-Sat，0表示星期日</li>
+</ul>
+<p>前五个字段还可以使用如下字符</p>
+<ul>
+<li>星号（*） 匹配所有可能的值，比如”0 6 * * *”表示每天6点</li>
+<li>连字符（-）定义一个范围，比如”0 2 * * 1-5”表示每周一到周五的凌晨两点</li>
+<li>斜杠（/）表示每间隔多少时间，比如”*/5 * * * *”表示每5分钟</li>
+<li>逗号（，）表示或的含义，比如”0 0,6,12,18 * * *”表示每天的0点、6点、12点和18点</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用-l选项，可以列出当前用户的所有定时计划任务</span></span><br><span class="line">crontab<span class="params"> -l</span></span><br><span class="line"><span class="comment">#使用-e选项，可以创建或修改当前用户的定时计划任务</span></span><br><span class="line">crontab<span class="params"> -e</span></span><br><span class="line"><span class="comment">#使用-u选项，可以查看指定用户的定时计划任务</span></span><br><span class="line">crontab<span class="params"> -u</span> root<span class="params"> -l</span></span><br><span class="line"><span class="comment">#使用-r选项，将没有确认信息直接删除当前用户的定时计划任务</span></span><br><span class="line">crontab<span class="params"> -r</span></span><br><span class="line"><span class="comment">#将-i和-r结合在移除前可以提示用户确认</span></span><br><span class="line">crontab<span class="params"> -l</span></span><br><span class="line">00 00 * * * /bin/bash  /usr/<span class="built_in">local</span>/nginx/sbin/cut_nginx_log.sh</span><br><span class="line">crontab<span class="params"> -i</span><span class="params"> -r</span></span><br><span class="line">crontab: really delete root<span class="string">'s crontab?</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="at"><a href="#at" class="headerlink" title="at"></a>at</h5><p><code>at</code>命令用于安排一个任务在指定的时间运行。at命令可以从标准输入读入命令，也可以从指定的文件中读入，然后在指定的时间运行这些命令。语法如下：</p>
+<blockquote>
+<p>at -f file -q queue option time date</p>
+</blockquote>
+<p>at命令支持比较复杂的时间和日期，使用-f选项，可以从指定的文件中读取命令内容，然后在指定时间运行。如下示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">at<span class="params"> -f</span> myjob.txt now +1 minutes</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#列出当前用户</span></span><br><span class="line">at<span class="params"> -l</span>所有已创建但未执行或正在运行的任务</span><br><span class="line"><span class="keyword">#atq</span>命令功能同at<span class="params"> -l</span></span><br><span class="line"><span class="keyword">#atrm</span>命令可以删除现有的任务，其中1是任务的编号，使用at<span class="params"> -l</span>之后可以展示出来</span><br><span class="line">atrm 1</span><br></pre></td></tr></table></figure>
+
+<h5 id="amp"><a href="#amp" class="headerlink" title="&amp;"></a>&amp;</h5><p><code>&amp;</code>代表将任务放在后台运行</p>
+<p>该命令是bash内置的用于并行处理进程的一个控制操作符，在命令行的末尾添加<code>&amp;</code>将会在后台运行该命令，将在当前的shell进程下启动一个子进程</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> haha &amp;</span><br><span class="line">[1] 9533</span><br><span class="line">haha</span><br></pre></td></tr></table></figure>
+
+<p>其中[1]是这个后台任务的编号，9533为其对应的子进程号。</p>
+<p>使用<code>jobs</code>命令可以显示后台运行的进程号，运行状态等信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">jobs</span></span><br><span class="line">[1]+  Done                    <span class="built_in">echo</span> hah</span><br></pre></td></tr></table></figure>
+
+<p>如果需要将后台任务放到前台执行，使用如下命令，其中job-id为任务编号</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">%job</span>-id</span><br><span class="line">或<span class="built_in">fg</span> job-id</span><br></pre></td></tr></table></figure>
+
+<p>如果想将任务重新再放回后台执行，首先按Ctrl+Z，将上述放在前台的任务挂起，然后输入<code>%job-id &amp;或bg</code>，其中bg用于将挂起的任务放在后台继续运行。</p>
+<h5 id="nohup"><a href="#nohup" class="headerlink" title="nohup"></a>nohup</h5><p><code>nohup</code>命令：</p>
+<p>运行一个对挂起免疫的命令，使用该命令能让你运行的命令或脚本在你退出系统后继续在后台运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#运行一个jar包</span></span><br><span class="line">nohup java<span class="params"> -jar</span> xxx.jar &amp;</span><br><span class="line"><span class="comment">#运行一个脚本</span></span><br><span class="line">nohup sh xxx.sh &amp;</span><br><span class="line">[1] 12496</span><br><span class="line">nohup: appending output to <span class="string">'nohup.out'</span></span><br></pre></td></tr></table></figure>
+
+<p>上面例子中[1]为任务编号，12496是该后台任务的进程号，后面一句表示该脚本运行的所有输出内容被写入到当前目录下的nohup.out中</p>
+<p><code>sort</code>命令可以对文本进行排序，<code>uniq</code>命令可以文本去重，<code>tr</code>命令替换或删除字符，<code>diff</code>比较两个文件，<code>pwd</code>：显示目前的目录,<code>hostname</code> ：显示当前主机名，使用<code>hostname 新主机名</code>可以修改主机名（只在当前有效，系统重启后不再生效）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">uptime</span><br><span class="line">10:08:20 up 62 days, 16:43,  1 user,  load average: 0.01, 0.04, 0.05</span><br><span class="line"><span class="keyword">#uptime</span> 用于打印系统运行信息，10:08:20表示当前时间，后面表示已运行62天，16小时，43分，当前登录用户一位，load average分别显示过去1分钟，5分钟和15分钟的平均负载</span><br></pre></td></tr></table></figure>
+
+<h4 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Linux系统是一个多用户多任务的分时操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统。</span><br><span class="line">用户的账号一方面可以帮助系统管理员对使用系统的用户进行跟踪，并控制他们对系统资源的访问；另一方面也可以帮助用户组织文件，并为用户提供安全性保护。</span><br><span class="line">每个用户账号都拥有一个惟一的用户名和各自的口令。</span><br><span class="line">用户在登录时键入正确的用户名和口令后，就能够进入系统和自己的主目录。</span><br><span class="line">实现用户账号的管理，要完成的工作主要有如下几个方面：</span><br><span class="line">用户账号的添加、删除与修改。</span><br><span class="line">用户口令的管理。</span><br><span class="line">用户组的管理。</span><br></pre></td></tr></table></figure>
+
+<h5 id="useradd"><a href="#useradd" class="headerlink" title="useradd"></a>useradd</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">useradd新增用户</span><br><span class="line">格式：useradd [参数] 用户名称</span><br><span class="line">常用参数：</span><br><span class="line"><span class="params">    -c</span> comment 指定一段注释性描述。</span><br><span class="line"><span class="params">    -d</span> 目录 指定用户主目录，如果此目录不存在，则同时使用-m选项，可以创建主目录。</span><br><span class="line"><span class="params">    -g</span> 用户组 指定用户所属的用户组。</span><br><span class="line"><span class="params">    -G</span> 用户组，用户组 指定用户所属的附加组。</span><br><span class="line"><span class="params">    -s</span> Shell文件 指定用户的登录Shell。</span><br><span class="line"><span class="params">    -u</span> 用户号 指定用户的用户号，如果同时有-o选项，则可以重复使用其他用户的标识号。</span><br><span class="line">命令</span><br><span class="line">useradd stu    新增用户stu</span><br></pre></td></tr></table></figure>
+
+<h5 id="passwd"><a href="#passwd" class="headerlink" title="passwd"></a>passwd</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">passwd给指定的用户设置密码</span><br><span class="line">用户管理的一项重要内容是用户口令的管理。用户账号刚创建时没有口令，但是被系统锁定，无法使用，必须为其指定口令后才可以使用，即使是指定空口令。指定和修改用户口令的Shell命令是passwd。超级用户可以为自己和其他用户指定口令，普通用户只能用它修改自己的口令</span><br><span class="line">格式：passwd [参数] 用户名</span><br><span class="line">常用参数：</span><br><span class="line"><span class="params">  -l</span> 锁定口令，即禁用账号。</span><br><span class="line"><span class="params">  -u</span> 口令解锁。</span><br><span class="line"><span class="params">  -d</span> 使账号无口令。</span><br><span class="line"><span class="params">  -f</span> 强迫用户下次登录时修改口令。</span><br><span class="line">如果默认用户名，则修改当前用户的口令，比如centOS 默认的root账号没有密码，就可以直接使用passwd修改密码即可。</span><br><span class="line">命令：</span><br><span class="line">passwd stu  按下enter键 输入2次密码即可</span><br></pre></td></tr></table></figure>
+
+<h5 id="userdel"><a href="#userdel" class="headerlink" title="userdel"></a>userdel</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">userdel删除用户</span><br><span class="line">命令：</span><br><span class="line">userdel stu 			删除指定用户但是用户在home下面的目录保存</span><br><span class="line">userdel<span class="params"> -r</span> stu			删除指定用户并且删除对应的home目录</span><br></pre></td></tr></table></figure>
+
+<h5 id="usermod"><a href="#usermod" class="headerlink" title="usermod"></a>usermod</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> usermod修改用户信息</span><br><span class="line"> 格式：usermod [参数] </span><br><span class="line">  常用的参数包括-c,<span class="params"> -d</span>,<span class="params"> -m</span>,<span class="params"> -g</span>,<span class="params"> -G</span>,<span class="params"> -s</span>,<span class="params"> -u</span>以及-o等，这些选项的意义与useradd命令中的选项一样，可以为用户指定新的资源值。</span><br><span class="line">  另外，有些系统可以使用选项：-l 新用户名，这个选项指定一个新的账号，即将原来的用户名改为新的用户名。</span><br><span class="line">命令：</span><br><span class="line">usermod stu<span class="params"> -l</span> stu2   将用户名stu重命名为stu2</span><br></pre></td></tr></table></figure>
+
+<h4 id="用户组管理"><a href="#用户组管理" class="headerlink" title="用户组管理"></a>用户组管理</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">每个用户都有一个用户组，系统可以对一个用户组中的所有用户进行集中管理。不同Linux 系统对用户组的规定有所不同，如Linux下的用户属于与它同名的用户组，这个用户组在创建用户时同时创建。</span><br><span class="line">用户组的管理涉及用户组的添加、删除和修改。组的增加、删除和修改实际上就是对&#x2F;etc&#x2F;group文件的更新</span><br></pre></td></tr></table></figure>
+
+<h5 id="groupadd"><a href="#groupadd" class="headerlink" title="groupadd"></a>groupadd</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">groupadd增加一个新的用户组</span><br><span class="line">格式：groupadd [参数] 用户组名称</span><br><span class="line">常用参数：</span><br><span class="line"><span class="params">  -g</span> GID 指定新用户组的组标识号（GID）。</span><br><span class="line"><span class="params">  -o</span> 一般与-g选项同时使用，表示新用户组的GID可以与系统已有用户组的GID相同</span><br><span class="line">命令：</span><br><span class="line">groupadd gp1			新增用户组gp1</span><br><span class="line">groupadd<span class="params"> -g</span> 1111 gp2	新增用户组gp2,并且组标记号为1111</span><br></pre></td></tr></table></figure>
+
+<h5 id="groupdel"><a href="#groupdel" class="headerlink" title="groupdel"></a>groupdel</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">groupdel删除一个用户组</span><br><span class="line">格式：groupdel  用户组名称</span><br><span class="line">命令：</span><br><span class="line">groupdel gp1			删除用户组gp1</span><br></pre></td></tr></table></figure>
+
+<h5 id="groupmod"><a href="#groupmod" class="headerlink" title="groupmod"></a>groupmod</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">groupmod修改用户组信息</span><br><span class="line">格式：groupmod [参数] 用户组名称</span><br><span class="line">常用参数：</span><br><span class="line"><span class="params">  -g</span> GID 为用户组指定新的组标识号。</span><br><span class="line"><span class="params">  -o</span> 与-g选项同时使用，用户组的新GID可以与系统已有用户组的GID相同。</span><br><span class="line"><span class="params">  -n</span> 新用户组 将用户组的名字改为新名字</span><br><span class="line">  </span><br><span class="line">命令：</span><br><span class="line">groupmod gp2<span class="params"> -n</span> gp5			让gp2更名为gp5</span><br></pre></td></tr></table></figure>
+
+<h5 id="newgrp"><a href="#newgrp" class="headerlink" title="newgrp"></a>newgrp</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">newgrp切换到其他用户组</span><br><span class="line">格式：newgrp 用户组名称</span><br><span class="line">命令：</span><br><span class="line">new grp gp5  切换到gp5</span><br></pre></td></tr></table></figure>
+
+<h3 id="附图"><a href="#附图" class="headerlink" title="附图"></a>附图</h3><p>最后附一张我关注的一个博主<code>java3y</code>之前总结的脑图，我转成图片放在此处，比较简洁清晰，如有侵权，联系删除：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.enjoyican.com/img/linux/command.png" alt="常用命令脑图" title="">
+                </div>
+                <div class="image-caption">常用命令脑图</div>
+            </figure>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-08-17T13:19:30.000Z" itemprop="dateUpdated">2020-08-17 21:19:30</time>
+</span><br>
+
+
+        
+        每天一点成长，一点收获
+        
+    </div>
+    
+    <footer>
+        <a href="https://www.enjoyican.com">
+            <img src="/img/head.jpg" alt="enjoycodingfun">
+            enjoycodingfun
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/" rel="tag">shell</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.enjoyican.com/posts/shell-command/&title=《shell脚本常用命令》 — Running&pic=https://www.enjoyican.com/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.enjoyican.com/posts/shell-command/&title=《shell脚本常用命令》 — Running&source=本篇博文总结常用的shell命令，比较基础，作为备忘待使用时查阅吧，有问题可及时在本博客或CSDN下留言。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.enjoyican.com/posts/shell-command/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《shell脚本常用命令》 — Running&url=https://www.enjoyican.com/posts/shell-command/&via=https://www.enjoyican.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.enjoyican.com/posts/shell-command/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/shell-grammar/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">shell语法基础</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/the-beauty-of-design-pattern-two/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">设计模式之美学习笔记二</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'true' == 'true',
+            verify: 'false' == 'true',
+            appId: "ulrMiFi5yrRdTGP8FEHMehcm-gzGzoHsz",
+            appKey: "JjlHLHV0knhiDfaMJgjSgdYz",
+            avatar: "mm",
+            placeholder: "写点什么吧(*￣︶￣)",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢关注~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechatpay.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechatpay.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">CC BY-NC-SA 4.0</a>协议 转载请注明出处</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>enjoycodingfun &copy; 2015 - 2020</span>
+            <span>
+                
+                <a href="http://www.beian.miit.gov.cn" target="_blank">浙ICP备20006880号-1</a><br>
+                
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.enjoyican.com/posts/shell-command/&title=《shell脚本常用命令》 — Running&pic=https://www.enjoyican.com/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.enjoyican.com/posts/shell-command/&title=《shell脚本常用命令》 — Running&source=本篇博文总结常用的shell命令，比较基础，作为备忘待使用时查阅吧，有问题可及时在本博客或CSDN下留言。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.enjoyican.com/posts/shell-command/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《shell脚本常用命令》 — Running&url=https://www.enjoyican.com/posts/shell-command/&via=https://www.enjoyican.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.enjoyican.com/posts/shell-command/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKklEQVR42u3a2W3EMAwA0e2/aaeAxPLwcLCiRl+L+NJzAFoi+fngcd2M9fnk6O/f62tLQ4YMGdsyruW4O4dMd/0UcpTMTYYMGecwKmGRgHOhnMxNhgwZMu7OIX9ZL/jI1GXIkCGjzuCBmIdXGTJkyKhsYqNbU8Lmy9C2vbgMGTI2ZPBk2f//fqW+IUOGjK0YV3Dwq3LLxys1ZMiQMZvBA9w6ZdbbrpGcjwwZMoYyyO1yqbHoBjj6sv74P8iQIWM0g5MqpcpKiu0BI0OGjMMYZKHWldyPPiucC5QhQ8YIBi9G8raJF9spSNFUhgwZBzDeKDrWywaBNgsZMmSMY3SFRZ44izZ7oc+ADBkyRjP4qfwBFVJugShDhozZjOjUeVKMt3/l7okqsTJkyBjB6Aq4bR1qYINdKgnIkCFjW0albBlN2/GjDQVOGTJkjGBUGiCiTWB8A5wMrDJkyBjN4KGzqwxQ+SY8NFjIkCFjHCOa+o+ekzufp95kyJBxJoOHRZ4sq5cKUPCVIUPGAQxejOQb0Vz7V8M6V4YMGQcwePiLPpiE9WTJU4YMGUMZV3DUF3mVcsXtPWXIkDGaUQl20WUfD9A80IcxMmTI2JbBgyxZVkbLn7mSJ7pMhgwZ4xi5KUZfR2+B4bYwIEOGjOMZPNbxEibnPSTdZMiQIQOXOflCs/IKmr8bMmTI+HoGLwbwsMgXf7lmCxkyZJzDqOSyAgExOIloC4gMGTKGMn4AlLUD8ZgF7I4AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?b9131a5ca31e54205078b286dad06616";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+    } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s)
+  })();
+</script>
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '欢迎再来！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '悦码小站';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

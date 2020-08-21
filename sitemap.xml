@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.enjoyican.com/posts/shell-grammar/</loc>
+    
+    <lastmod>2020-08-21T10:01:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.enjoyican.com/posts/shell-command/</loc>
+    
+    <lastmod>2020-08-17T13:19:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.enjoyican.com/posts/the-beauty-of-design-pattern-two/</loc>
     
     <lastmod>2020-07-28T11:34:30.000Z</lastmod>
