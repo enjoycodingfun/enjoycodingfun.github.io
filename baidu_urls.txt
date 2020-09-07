@@ -1,6 +1,6 @@
+https://www.enjoyican.com/posts/mysql-1/
+https://www.enjoyican.com/posts/shell-improve/
 https://www.enjoyican.com/posts/shell-txt/
 https://www.enjoyican.com/posts/shell-grammar/
 https://www.enjoyican.com/posts/shell-command/
 https://www.enjoyican.com/posts/the-beauty-of-design-pattern-two/
-https://www.enjoyican.com/posts/the-beauty-of-design-pattern-one/
-https://www.enjoyican.com/posts/java-performance-tuning/

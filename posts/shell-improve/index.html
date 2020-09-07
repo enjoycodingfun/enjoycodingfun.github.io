@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=66530752"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+<!-- Baidu Push -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <link rel="canonical" href="https://www.enjoyican.com//posts/shell-improve/">
+    
+    
+    <title>shell进阶 | Running | Better Late Than Never</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="shell">
+    <meta name="description" content="这篇博文介绍shell进阶内容包括shell重定向，管道和过滤器，信号处理，sed和awk，有问题及时在本博客或csdn留言。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shell进阶">
+<meta property="og:url" content="https://www.enjoyican.com/posts/shell-improve/index.html">
+<meta property="og:site_name" content="Running">
+<meta property="og:description" content="这篇博文介绍shell进阶内容包括shell重定向，管道和过滤器，信号处理，sed和awk，有问题及时在本博客或csdn留言。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-29T16:38:30.000Z">
+<meta property="article:modified_time" content="2020-08-29T16:38:30.000Z">
+<meta property="article:author" content="enjoycodingfun">
+<meta property="article:tag" content="shell">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="Running" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/timg.jpg">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/head.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">enjoycodingfun</h5>
+          <a href="mailto:17364562230@163.com" title="17364562230@163.com" class="mail">17364562230@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/enjoycodingfun" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://blog.csdn.net/u010408502" target="_blank" rel="noopener"  >
+                <i class="icon icon-lg icon-link"></i>
+                CSDN
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/img/mywechat.png"  >
+                <i class="icon icon-lg icon-wechat"></i>
+                微信
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">shell进阶</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">shell进阶</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-08-29T16:38:30.000Z" itemprop="datePublished" class="page-time">
+  2020-08-30
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>大纲</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#shell重定向"><span class="post-toc-text">shell重定向</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#输入输出"><span class="post-toc-text">输入输出</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#标准输入"><span class="post-toc-text">标准输入</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#标准输出"><span class="post-toc-text">标准输出</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#标准错误"><span class="post-toc-text">标准错误</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#重定向"><span class="post-toc-text">重定向</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#从文件输入"><span class="post-toc-text">从文件输入</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#从文本或字符串输入"><span class="post-toc-text">从文本或字符串输入</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#空文件创建"><span class="post-toc-text">空文件创建</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#dev-null丢弃不需要的输出"><span class="post-toc-text">&#x2F;dev&#x2F;null丢弃不需要的输出</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#在单命令行进行标准输入输出重定向"><span class="post-toc-text">在单命令行进行标准输入输出重定向</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#文件描述符"><span class="post-toc-text">文件描述符</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用exec命令"><span class="post-toc-text">使用exec命令</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#指定用于输入的文件描述符"><span class="post-toc-text">指定用于输入的文件描述符</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#指定用于输出的文件描述符"><span class="post-toc-text">指定用于输出的文件描述符</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#关闭文件描述符"><span class="post-toc-text">关闭文件描述符</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#打开用于读和写的文件描述符"><span class="post-toc-text">打开用于读和写的文件描述符</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#管道和过滤器"><span class="post-toc-text">管道和过滤器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#管道"><span class="post-toc-text">管道</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#过滤器"><span class="post-toc-text">过滤器</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#信号处理"><span class="post-toc-text">信号处理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#子shell"><span class="post-toc-text">子shell</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#捕获"><span class="post-toc-text">捕获</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#trap语句"><span class="post-toc-text">trap语句</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#移除捕获"><span class="post-toc-text">移除捕获</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#sed和awk"><span class="post-toc-text">sed和awk</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#sed编辑器基础"><span class="post-toc-text">sed编辑器基础</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本的sed编辑命令"><span class="post-toc-text">基本的sed编辑命令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#追加、更改、插入编辑命令"><span class="post-toc-text">追加、更改、插入编辑命令</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#删除编辑命令"><span class="post-toc-text">删除编辑命令</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#替换编辑命令"><span class="post-toc-text">替换编辑命令</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#打印编辑命令"><span class="post-toc-text">打印编辑命令</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#打印行号编辑命令"><span class="post-toc-text">打印行号编辑命令</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#读取下一行编辑命令"><span class="post-toc-text">读取下一行编辑命令</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#读和写文件编辑命令"><span class="post-toc-text">读和写文件编辑命令</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#退出编辑命令"><span class="post-toc-text">退出编辑命令</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#sed与shell"><span class="post-toc-text">sed与shell</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#在sed中使用shell变量"><span class="post-toc-text">在sed中使用shell变量</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#从sed输出中设置shell变量"><span class="post-toc-text">从sed输出中设置shell变量</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#awk基础"><span class="post-toc-text">awk基础</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#awk基本语法"><span class="post-toc-text">awk基本语法</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用awk打印指定的列"><span class="post-toc-text">使用awk打印指定的列</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#从awk程序文件读取awk指令"><span class="post-toc-text">从awk程序文件读取awk指令</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#awk的BEGIN和END块"><span class="post-toc-text">awk的BEGIN和END块</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#awk中使用正则表达式"><span class="post-toc-text">awk中使用正则表达式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#awk的表达式和块"><span class="post-toc-text">awk的表达式和块</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#awk条件语句"><span class="post-toc-text">awk条件语句</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#awk中的变量和操作符"><span class="post-toc-text">awk中的变量和操作符</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#awk中的特殊变量"><span class="post-toc-text">awk中的特殊变量</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#awk中的循环结构"><span class="post-toc-text">awk中的循环结构</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#awk中的数组"><span class="post-toc-text">awk中的数组</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#awk与shell"><span class="post-toc-text">awk与shell</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#在awk中使用shell"><span class="post-toc-text">在awk中使用shell</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#从awk命令的输出中设置shell变量"><span class="post-toc-text">从awk命令的输出中设置shell变量</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-shell-improve"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">shell进阶</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-08-30 00:38:30" datetime="2020-08-29T16:38:30.000Z"  itemprop="datePublished">2020-08-30</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>这篇博文介绍shell进阶内容包括shell重定向，管道和过滤器，信号处理，sed和awk，有问题及时在本博客或<a href="https://blog.csdn.net/u010408502/article/details/108302032" target="_blank" rel="noopener">csdn</a>留言。</p>
+<a id="more"></a>
+
+<h2 id="shell重定向"><a href="#shell重定向" class="headerlink" title="shell重定向"></a>shell重定向</h2><h3 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h3><p>默认情况下，linux输入从键盘获取，输出到屏幕，我们也可以从文件读取输入内容，或者输出到文件，改变输入或输出默认路径就叫做重定向。</p>
+<p>linux中一切皆文件，所以硬件在linux中也表示为文件</p>
+<p>0-标准输入-键盘：从文件（默认是键盘）读取输入</p>
+<p>1-标准输出-屏幕：发送数据到文件（默认是屏幕）</p>
+<p>2-标准错误-屏幕：发送所有错误信息到一个文件（默认是屏幕）</p>
+<p>上面3个数字是标准的POSIX字符，也称为<strong>文件描述符</strong>，每个linux命令都会使用上述的流与用户或其他系统程序进行交互。</p>
+<h4 id="标准输入"><a href="#标准输入" class="headerlink" title="标准输入"></a>标准输入</h4><p>标准输入特点：</p>
+<ul>
+<li>是默认的输入方法，被所有命令使用来读取输入</li>
+<li>用数字0表示，也被称作stdin</li>
+<li>默认的标准输入设备是键盘</li>
+</ul>
+<p>操作符<code>&lt;</code>是输入重定向操作符，其语法如下：</p>
+<blockquote>
+<p>command &lt; input_filename</p>
+</blockquote>
+<h4 id="标准输出"><a href="#标准输出" class="headerlink" title="标准输出"></a>标准输出</h4><p>标准输出特点：</p>
+<ul>
+<li>被命令用来写入或显示命令自身的输出</li>
+<li>用数字1表示，也被称作stdout</li>
+<li>默认的标准输出设备是屏幕</li>
+</ul>
+<p>操作符<code>&gt;</code>是输出重定向操作符，语法如下：</p>
+<blockquote>
+<p>command &gt; output_filename || command 1 &gt; output_filename  1表示标准输出</p>
+</blockquote>
+<p>例如将ls的输出保存到文件output.txt：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls &gt; /tmp/output.txt</span><br></pre></td></tr></table></figure>
+
+<p><strong>如果文件不存在，会自动创建，如果文件存在，会被重写，要想保留源文件内容，使用&gt;&gt;操作符</strong></p>
+<h4 id="标准错误"><a href="#标准错误" class="headerlink" title="标准错误"></a>标准错误</h4><p>标准错误特点：</p>
+<ul>
+<li>是默认的错误输出方法，被用于写入所有系统错误信息</li>
+<li>用数字2表示，也被称作stderr</li>
+<li>默认的标准错误设备是屏幕或显示器</li>
+</ul>
+<p>操作符<code>2&gt;</code>是标准错误重定向操作符，语法如下：</p>
+<blockquote>
+<p>command 2&gt; errors_filename</p>
+</blockquote>
+<h3 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h3><h4 id="从文件输入"><a href="#从文件输入" class="headerlink" title="从文件输入"></a>从文件输入</h4><p>重定向简单说就是从文件、命令、程序、脚本或这脚本中的代码块获取输出并把它作为输入发送到另一个文件、程序、命令或脚本。每个打开的文件被指定一个描述符，比如上面的0,1,2,对于打开的另外的文件，余留了文件描述符3-9</p>
+<p>重定向操作符只对当前命令有效，下一个命令就会重新输出到标准输出（屏幕）</p>
+<p>while循环结合重定向输入或输出可以从文件循环读取内容或者输出内容到文件</p>
+<h4 id="从文本或字符串输入"><a href="#从文本或字符串输入" class="headerlink" title="从文本或字符串输入"></a>从文本或字符串输入</h4><p>除了上述重定向的方式外，还有一种重定向类型是here-documents，操作符是<code>&lt;&lt;MARKER</code>,语法格式如下：</p>
+<blockquote>
+<p>command &lt;&lt;-MARKER</p>
+<p>here document</p>
+<p>MARKER</p>
+</blockquote>
+<p>在这种语法中，使用一个单词作为标志，这个单词可以是任何一个，比如MARKER/END/EOF等等，但是需要选择一个不会在数据集合中出现的单词，防止冲突，在第一个标志（如&lt;&lt;MARKER）和第二个标志（MARKER）之间的所有行都会被作为命令的标准输入，<strong>而且第二个标志必须独占一行</strong>，比如下面将小写字母转换为大写字母的例子(例子中用haha作为标志)：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># tr a-z A-Z &lt;&lt;haha</span></span><br><span class="line"><span class="keyword">&gt; one</span> two three</span><br><span class="line"><span class="keyword">&gt; four</span> five six</span><br><span class="line"><span class="keyword">&gt; haha</span></span><br><span class="line">ONE TWO THREE</span><br><span class="line">FOUR FIVE SIX</span><br></pre></td></tr></table></figure>
+
+<p><strong>重定向操作符&lt;&lt;和定界标识符（haha）之间空格可有可无，在&lt;&lt;后面追加减号-将会忽略行首的制表符</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">tr a-z A-Z &lt;&lt;haha</span><br><span class="line">        one two three</span><br><span class="line">        four five six</span><br><span class="line">haha</span><br><span class="line"></span><br><span class="line">tr a-z A-Z &lt;&lt;-haha</span><br><span class="line">        one two three</span><br><span class="line">        four five six</span><br><span class="line">haha</span><br><span class="line"><span class="comment">#执行脚本结果如下</span></span><br><span class="line">./<span class="built_in">test</span>.sh</span><br><span class="line">        ONE TWO THREE</span><br><span class="line">        FOUR FIVE SIX</span><br><span class="line">ONE TWO THREE</span><br><span class="line">FOUR FIVE SIX</span><br></pre></td></tr></table></figure>
+
+<p>默认情况下，bash替换会在here-documents部分的内容上执行，即内容中的变量和命令会被求值或者运行，要想使替换失效，可以使用单引号或者双引号括起定界符，比如下面例子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;haha</span><br><span class="line">&gt; 当前路径是：$(<span class="built_in">pwd</span>)</span><br><span class="line"><span class="keyword">&gt; haha</span></span><br><span class="line">当前路径是：/root</span><br><span class="line">cat &lt;&lt;<span class="string">"haha"</span></span><br><span class="line">&gt; 当前路径是：$(<span class="built_in">pwd</span>)</span><br><span class="line"><span class="keyword">&gt; haha</span></span><br><span class="line">当前路径是：$(<span class="built_in">pwd</span>)</span><br></pre></td></tr></table></figure>
+
+<p>其实这种重定向最常用的还是用作注释功能，我们再之前已经提到过了，感兴趣可以参考<a href="https://www.enjoyican.com/posts/shell-grammar/#shell脚本注释">shell脚本注释</a></p>
+<p>还有另外一种重定向方式here-strings是here-documents的一个变种，它由操作符<code>&lt;&lt;&lt;</code>和作为标准输入的字符串构成（被shell认为是一个整体），语法如下：</p>
+<blockquote>
+<p>command &lt;&lt;&lt;WORD</p>
+</blockquote>
+<p>单个单词不需要使用引号，如果是有空格的字符串需要用引号括起来，还可以接收多行字符串，下面是例子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">tr a-z A-Z &lt;&lt;&lt; one</span><br><span class="line">ONE</span><br><span class="line">tr a-z A-Z &lt;&lt;&lt; one two three</span><br><span class="line">tr: extra operand ‘two’</span><br><span class="line">Try <span class="string">'tr --help'</span> <span class="keyword">for</span> more information.</span><br><span class="line">tr a-z A-Z &lt;&lt;&lt; <span class="string">"one two three"</span></span><br><span class="line">ONE TWO THREE</span><br><span class="line">tr a-z A-Z &lt;&lt;&lt; <span class="string">"one two</span></span><br><span class="line"><span class="string">&gt; three four"</span></span><br><span class="line">ONE TWO</span><br><span class="line">THREE FOUR</span><br></pre></td></tr></table></figure>
+
+<p>与here-documents相比，here-strings更方便，特别是发送变量内容（而非文件）到像grep或sed这样的过滤程序时。</p>
+<h4 id="空文件创建"><a href="#空文件创建" class="headerlink" title="空文件创建"></a>空文件创建</h4><p>创建空文件语法为</p>
+<blockquote>
+<p>&gt; filename</p>
+</blockquote>
+<h4 id="dev-null丢弃不需要的输出"><a href="#dev-null丢弃不需要的输出" class="headerlink" title="/dev/null丢弃不需要的输出"></a>/dev/null丢弃不需要的输出</h4><p>写入到/dev/null的所有数据都将被系统丢弃，所以我们可以将任何不想要的程序或命令的输出发送到/dev/null</p>
+<p>重定向命令的标准输出信息到/dev/null的语法如下：</p>
+<blockquote>
+<p>command  &gt;/dev/null</p>
+</blockquote>
+<p>重定向命令的标准错误信息到/dev/null的语法如下：</p>
+<blockquote>
+<p>command 2&gt;/dev/null</p>
+</blockquote>
+<p>同时重定向命令的标准输出和标准错误的信息到/dev/null的语法如下：</p>
+<blockquote>
+<p>command &amp;&gt; /dev/null或</p>
+<p>command &gt; &amp; /dev/null或</p>
+<p>command &gt;  /dev/null  2&gt;&amp;1</p>
+</blockquote>
+<p>当我们预料执行脚本可能失败，但并不希望用户被这些失败信息干扰，就可以将这些错误信息重定向到/dev/null</p>
+<h4 id="在单命令行进行标准输入输出重定向"><a href="#在单命令行进行标准输入输出重定向" class="headerlink" title="在单命令行进行标准输入输出重定向"></a>在单命令行进行标准输入输出重定向</h4><p>可以一条命令中完成标准输入和标准输出的重定向，语法如下：</p>
+<blockquote>
+<p>command input-file output-file或</p>
+<p>input-file command output-command</p>
+</blockquote>
+<p>例如我们将一个文件的内容都转换为小写，并将转换后的内容写入新的文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tr A-Z a-z filename new-filename</span><br></pre></td></tr></table></figure>
+
+<h3 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h3><p>文件描述符的范围一般是0-9，大于9的要谨慎使用，可能与shell内部使用的文件描述符冲突。文件描述符可以包含多个数字位，比如，文件描述符001,01和1都是相同的。多种操作（如exec）都可以将文件描述符与特定的文件联系起来</p>
+<h4 id="使用exec命令"><a href="#使用exec命令" class="headerlink" title="使用exec命令"></a>使用exec命令</h4><p>exec命令的功能之一是允许我们操作文件描述符。如果在exec命令之后没有指定命令，则exec命令之后的重定向将更改当前shell的文件描述符。</p>
+<p>比如命令exec 2&gt; file之后运行的所有命令，都会将其产生的错误信息发送到文件file中。</p>
+<p>下面是一个示例，假设我们有一个文件at.txt内容如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span></span><br><span class="line"><span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span> <span class="number">0</span></span><br><span class="line">a b c d e</span><br></pre></td></tr></table></figure>
+
+<p>现在我们有如下脚本：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#没有指定参数则执行if语句</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span><span class="params"> -lt</span> 1  ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"当前脚本使用方法为 <span class="variable">$0</span> filepath"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment">#将命令行第一个参数赋值给变量file</span></span><br><span class="line">file=<span class="variable">$1</span></span><br><span class="line"><span class="comment">#逐行读取文件内容，并存入变量line中</span></span><br><span class="line"><span class="keyword">while</span> <span class="built_in">read</span><span class="params"> -r</span> line;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$line</span></span><br><span class="line">  <span class="comment">#等待用户输入任意键</span></span><br><span class="line">  <span class="built_in">read</span><span class="params"> -p</span> <span class="string">"按任意键继续"</span><span class="params"> -n</span> 1</span><br><span class="line"><span class="comment">#将while循环的标准输入指向变量file所代表的文件</span></span><br><span class="line"><span class="keyword">done</span> &lt; <span class="variable">$file</span></span><br></pre></td></tr></table></figure>
+
+<p>执行脚本：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># ./test.sh</span></span><br><span class="line">当前脚本使用方法为 ./<span class="built_in">test</span>.sh filepath</span><br><span class="line">./<span class="built_in">test</span>.sh: line 15: <span class="variable">$file</span>: ambiguous redirect</span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># ./test.sh at.txt</span></span><br><span class="line">1 2 3 4 5</span><br><span class="line">7 8 9 0</span><br><span class="line">b c d e</span><br></pre></td></tr></table></figure>
+
+<p>上面脚本中read语句并没有执行，因为我们将指定的文件重定向到了while循环的标准输入（文件描述符0），即我们指定的文件将被打开以用于标准输入的读取，而循环中所有的命令包括read也会继承这个文件描述符（这里是标准输入），因此read将从重定向后的标准输入读取，而不是从默认的输入设备（键盘）读取。</p>
+<p>我们可以通过exec命令来对脚本稍加改动，来实现功能：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#没有指定参数则执行if语句</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span><span class="params"> -lt</span> 1  ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"当前脚本使用方法为 <span class="variable">$0</span> filepath"</span></span><br><span class="line">  <span class="built_in">exit</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment">#将脚本的第一个参数作为输入文件，并指定一个文件描述符3</span></span><br><span class="line"><span class="built_in">exec</span> 3&lt; <span class="variable">$1</span></span><br><span class="line"><span class="comment">#逐行读取文件内容，并存入变量line中,read -u选项表示从指定的文件描述符读取内容，替代从标准输入读取</span></span><br><span class="line"><span class="keyword">while</span> <span class="built_in">read</span><span class="params"> -u</span> 3 line;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$line</span></span><br><span class="line">  <span class="comment">#等待用户输入任意键</span></span><br><span class="line">  <span class="built_in">read</span><span class="params"> -p</span> <span class="string">"按任意键继续"</span><span class="params"> -n</span> 1</span><br><span class="line"><span class="comment">#将while循环的标准输入指向变量file所代表的文件</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment">#关闭文件描述符3</span></span><br><span class="line"><span class="built_in">exec</span> 3&lt;&amp;-</span><br><span class="line"><span class="comment">#执行脚本</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># ./test.sh at.txt</span></span><br><span class="line">1 2 3 4 5</span><br><span class="line">按任意键继续</span><br><span class="line">6 7 8 9 0</span><br><span class="line">按任意键继续</span><br><span class="line">a b c d e</span><br><span class="line">按任意键继续</span><br></pre></td></tr></table></figure>
+
+<p>read命令的-u选项可以让我们从指定的文件描述符上读取数据，在改动后的脚本上就是从文件描述符3上读取数据。</p>
+<h4 id="指定用于输入的文件描述符"><a href="#指定用于输入的文件描述符" class="headerlink" title="指定用于输入的文件描述符"></a>指定用于输入的文件描述符</h4><p>给一个输入文件指定一个文件描述符的语法如下：</p>
+<blockquote>
+<p>exec n&lt; file</p>
+</blockquote>
+<p>其中n就是文件描述符，如果不指定，则表示标准输入（0），上述的输入重定向会在文件描述符n上打开一个用于读取的文件file</p>
+<p><code>&lt;&amp;</code>也是一种重定向操作符，用于复制文件描述符，语法如下：</p>
+<blockquote>
+<p>n &lt;&amp;word</p>
+</blockquote>
+<p>如果word是一个数字，则用n表示的文件描述符被作为文件描述符word的副本，如果数字word指定的文件描述符没有打开以用于读取，则会发生重定向错误。如果没有指定n，则默认为标准输入。</p>
+<p>比如下面两个命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exec</span> 3&lt; /etc/passwd</span><br><span class="line">grep <span class="built_in">test</span> &lt;&amp; 3</span><br></pre></td></tr></table></figure>
+
+<p>上述grep命令是将文件描述符3复制到了标准输入，而文件/etc/passwd又是在文件描述符3上打开以用于被命令读取，因此grep命令读取的实际是文件描述符3的内容。</p>
+<h4 id="指定用于输出的文件描述符"><a href="#指定用于输出的文件描述符" class="headerlink" title="指定用于输出的文件描述符"></a>指定用于输出的文件描述符</h4><p>给一个输出文件指定一个文件描述符的语法如下：</p>
+<blockquote>
+<p>exec n&gt; file</p>
+</blockquote>
+<p>其中n就是文件描述符，如果不指定，则表示标准输出（1），<strong>上述的输出重定向会在文件描述符n上打开一个用于写入的文件file，如果不存在则会创建，如果存在，则会清空后写入</strong>。</p>
+<p>复制输出文件描述符的语法如下：</p>
+<blockquote>
+<p>n &gt;&amp;word</p>
+</blockquote>
+<h4 id="关闭文件描述符"><a href="#关闭文件描述符" class="headerlink" title="关闭文件描述符"></a>关闭文件描述符</h4><p>上面已经涉及到了，语法如下：</p>
+<blockquote>
+<p>n &lt;&amp;-或n&gt;&amp;-</p>
+</blockquote>
+<p>比如关闭标准输入就是<code>&lt;&amp;-</code>,关闭标准错误就是2&gt;&amp;-</p>
+<h4 id="打开用于读和写的文件描述符"><a href="#打开用于读和写的文件描述符" class="headerlink" title="打开用于读和写的文件描述符"></a>打开用于读和写的文件描述符</h4><p>如下语法可以在文件描述符上打开一个既可读取又可以写入的文件</p>
+<blockquote>
+<p>exec n&lt;&gt;file</p>
+</blockquote>
+<p>其中n就是文件描述符，如果不指定，则表示标准输入,如果file不存在，则会被创建，符号&lt;&gt;用于打开一个可读写的文件。这个语法常用于更新文件，如下</p>
+<p>还是我们刚才的文件at.txt其内容如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 2 3 4 5</span><br><span class="line">6 7 8 9 0</span><br><span class="line">a b c d e</span><br></pre></td></tr></table></figure>
+
+<p>接下来执行下面一系列命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在文件描述符4上打开用于读写的文件at.txt</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># exec 4&lt;&gt; at.txt</span></span><br><span class="line"><span class="comment">#从文件描述符4读取前三个字符</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># read -n 3 var &lt;&amp; 4</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># echo $var</span></span><br><span class="line">1 2</span><br><span class="line"><span class="comment">#向文件写入内容（一个+号）</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># echo -n + &gt;&amp; 4</span></span><br><span class="line"><span class="comment">#关闭文件描述符4</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># exec 4&gt;&amp;-</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># cat at.txt</span></span><br><span class="line">1 2+3 4 5</span><br><span class="line">6 7 8 9 0</span><br><span class="line">a b c d e</span><br></pre></td></tr></table></figure>
+
+<p>我们看到+号写在了2和3之间，这是因为我们先用read命令读取了前3个字符，而操作符&lt;&gt;会使后面的读写操作跟随先前读写操作的位置，所以会写在23之间。</p>
+<h2 id="管道和过滤器"><a href="#管道和过滤器" class="headerlink" title="管道和过滤器"></a>管道和过滤器</h2><h3 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h3><p>shell可以将两个或读个程序连接到一起，以使一个程序的输出变为下一个程序的输入，以这种方式连接的两个或多个程序就形成了管道，管道通常用于执行一些复杂的数据处理操作，这些命令之间使用控制操作符（管道符）”|”连接，大部分linux命令都可以用来形成管道。</p>
+<p>语法格式如下：</p>
+<blockquote>
+<p>command1|command2</p>
+</blockquote>
+<p>管道也可以连接重定向语句，可以使用重定向操作符&gt;或&gt;&gt;将管道中最后一个命令的标准输出进行重定向，语法如下：</p>
+<blockquote>
+<p>command1 |command2|…|commandN &gt;output.txt</p>
+</blockquote>
+<h3 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h3><p>将几个命令通过管道符组合在一起就形成一个管道，而这些组成管道的命令通常称为过滤器，过滤器会获取输入，修改内容，然后将其输出。</p>
+<p>常被用作过滤器使用的命令如下：</p>
+<ul>
+<li><code>awk</code>用于文本处理，通常被作为数据提取和报告的工具</li>
+<li><code>cut</code>用于将每个输入文件（如果没有指定文件则为标准输入）的每行的指定部分输出到标准输出</li>
+<li><code>grep</code>用于搜索一个或多个文件中匹配指定模式的行</li>
+<li><code>tar</code>用于归档文件的应用程序</li>
+<li><code>head</code>用于读取文件的开头部分（默认10行），如果没有指定文件，则从标准输入读取</li>
+<li><code>paste</code>用于合并文件的行</li>
+<li><code>sed</code>用于过滤和转换文本的流编辑器</li>
+<li><code>sort</code>用于对文本文件的行进行排序</li>
+<li><code>split</code>用于将文件分割成块</li>
+<li><code>strings</code>用于打印文件中可打印的字符串</li>
+<li><code>tac</code>与cat命令的功能相反，用于倒序的显示文件或连接文件</li>
+<li><code>tail</code>用于显示文件的结尾部分</li>
+<li><code>tee</code>用于从标准输入读取内容并写入到标准输出和文件,默认重写文件内容，使用-a选项可以追加写入。</li>
+<li><code>tr</code>用于转换或删除字符</li>
+<li><code>uniq</code>用于报告或忽略冲入的行</li>
+<li><code>wc</code>用于打印文件中的总行数、单词数或字节数</li>
+</ul>
+<p>下面列出一些例子</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#跨网络的复制一个目录的整体结构</span></span><br><span class="line">tar<span class="params"> -cf</span> - /home/<span class="built_in">test</span> | ssh remote_host <span class="string">"(cd /backup/;tar xf -)"</span></span><br><span class="line"><span class="comment">#替换打印输出的文本的内容,sed是流编辑器的简称，下面命令中使用echo产生一个单词文本流，通过管道发送到sed命令，最后进行替换</span></span><br><span class="line"><span class="built_in">echo</span> front | sed <span class="string">'s/front/back/'</span></span><br><span class="line">back</span><br><span class="line"><span class="comment">#显示文件at.txt中除第1-2行的内容</span></span><br><span class="line">cat<span class="params"> -n</span> at.txt |sed <span class="string">'1,2d'</span></span><br><span class="line">     3  a b c d e</span><br><span class="line"><span class="comment">#只显示文件at.txt第1-2行的内容</span></span><br><span class="line">cat<span class="params"> -n</span> at.txt |sed<span class="params"> -n</span> <span class="string">'1,2p'</span></span><br><span class="line">     1  1 2+3 4 5</span><br><span class="line">     2  6 7 8 9 0</span><br><span class="line"><span class="comment">#将ll命令列出的文件按照文件大小排序，k5指按照第五列（文件大小数字）排序</span></span><br><span class="line"> ll |sort<span class="params"> -r</span><span class="params"> -n</span><span class="params"> -k5</span></span><br><span class="line"><span class="comment">#将backup目录按每5兆大小进行打包压缩，生成的压缩文件名前缀为backup.tar.gz</span></span><br><span class="line">tar czf<span class="params"> -backup</span> | split<span class="params"> -b</span> 5m - backup.tar.gz</span><br><span class="line"><span class="comment">#删除前一行命令输出中的所有数字</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"my age is 18"</span>|tr<span class="params"> -d</span> <span class="string">'0-9'</span></span><br><span class="line">my age is</span><br><span class="line"><span class="comment">#显示输出中各重复的行出现的次数，并按次数多少倒序显示</span></span><br><span class="line">sort testfile |uniq<span class="params"> -c</span> |sort<span class="params"> -nr</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="信号处理"><a href="#信号处理" class="headerlink" title="信号处理"></a>信号处理</h2><h3 id="子shell"><a href="#子shell" class="headerlink" title="子shell"></a>子shell</h3><p> 如何在shell脚本中启动一个子shell，语法为<code>(command1,command2)</code>将想要启动子shell的部分用圆括号括起来即可。子shell中的变量在子shell的代码块之外是不可见的，它们不能被传到启动这个子shell的shell（父进程），同样即使是全局变量，也不能在子shell里面进行更改。   </p>
+<h3 id="捕获"><a href="#捕获" class="headerlink" title="捕获"></a>捕获</h3><p>要想使我们编写的脚本比较健壮，其中对于信号捕获处理的能力是需要考虑的，即当我们给执行中的脚本传递一个信号时，脚本能做出针对性的动作。</p>
+<h4 id="trap语句"><a href="#trap语句" class="headerlink" title="trap语句"></a>trap语句</h4><p>bash的内部命令<code>trap</code>让我们可以在shell脚本内捕获特定的信号并对它们进行处理，其语法如下：</p>
+<blockquote>
+<p>trap command signal [signal…]</p>
+</blockquote>
+<p>其中command可以是函数或者脚本，signal即可以用信号名，也可以用信号值（比如9）指定。也可以不指定任何参数，而直接使用trap命令，将会打印每个要捕获的信号相关的命令的列表。下面通过例子来了解下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用mktemp命令创建一个临时文件：使用-u选项表示并不真正创建文件，只是打印生成的文件名,XXXXXX表示生成6位随机字符</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># FILE=`mktemp -u /tmp/testtrap.$$.XXXXXX`</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># echo $FILE</span></span><br><span class="line">/tmp/testtrap.29566.3nnoUS</span><br><span class="line"><span class="comment">#定义捕获错误信号，这里是ERR</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># trap "some error" ERR</span></span><br><span class="line"><span class="comment">#查看已定义的捕获</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># trap</span></span><br><span class="line"><span class="built_in">trap</span> -- <span class="string">''</span> SIGTSTP</span><br><span class="line"><span class="built_in">trap</span> -- <span class="string">''</span> SIGTTIN</span><br><span class="line"><span class="built_in">trap</span> -- <span class="string">''</span> SIGTTOU</span><br><span class="line"><span class="built_in">trap</span> -- <span class="string">'some error'</span> ERR</span><br><span class="line"><span class="comment">#当我们删除不存在的文件时，会显示错误</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># rm $FILE</span></span><br><span class="line">rm: cannot remove ‘/tmp/testtrap.29566.3nnoUS’: No such file or directory</span><br><span class="line">some error</span><br></pre></td></tr></table></figure>
+
+<p>可以看到shell捕获到了我们定义的错误，并打印了相关信息</p>
+<p>当调试比较大的脚本时，可能想要赋予某个变量一个踪迹属性，并捕获变量的调试信息，我们可以如下定义：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#声明变量variable，赋予其踪迹属性</span></span><br><span class="line">declaer<span class="params"> -t</span> variable=value</span><br><span class="line"><span class="comment">#捕获DEBUG</span></span><br><span class="line"><span class="built_in">trap</span> <span class="string">"echo variable is being used"</span> DEBUG</span><br></pre></td></tr></table></figure>
+
+<p>有时接收到一个信号后，可能不想对其做任何处理，可以使用空字符串（””或’’）作为trap的命令参数，那么shell将忽略这些信号，用法如下：</p>
+<blockquote>
+<p>trap ‘ ‘ SIGHUP SIGINT [ signal … ]</p>
+</blockquote>
+<p>关于SIGHUP SIGINT可以查看posix标准信号表。</p>
+<h4 id="移除捕获"><a href="#移除捕获" class="headerlink" title="移除捕获"></a>移除捕获</h4><p>如果我们在脚本中应用了捕获，我们通常会在脚本的结尾处，将收到信号时的行为处理重置为默认模式。重置（移除）捕获的语法如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">trap</span> - signal [signal...]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#比如上面的脚本，可以在结尾移除捕获</span></span><br><span class="line"><span class="built_in">trap</span> <span class="string">"echo variable is being used"</span> DEBUG</span><br><span class="line"><span class="built_in">trap</span> - DEBUG</span><br></pre></td></tr></table></figure>
+
+<h2 id="sed和awk"><a href="#sed和awk" class="headerlink" title="sed和awk"></a>sed和awk</h2><p><code>sed</code>和<code>awk</code>是处理文本文件的有力工具，两者有很多共同点：</p>
+<ul>
+<li>它们都是用相似的语法来调用</li>
+<li>都是面向字符流的，都是从文本文件中每次一行地读取输入，并将输出直接送到标准输出端</li>
+<li>都使用正则表达式进行模式匹配，都允许用户将指令放在文件中一起执行</li>
+</ul>
+<h3 id="sed编辑器基础"><a href="#sed编辑器基础" class="headerlink" title="sed编辑器基础"></a>sed编辑器基础</h3><p>sed是非交互式的面向数据流的编辑器。使用sed可以做如下操作：</p>
+<ul>
+<li>自动化的编辑一个或多个文件</li>
+<li>简化在多个文件中执行相同编辑的任务</li>
+<li>编写转换程序</li>
+</ul>
+<p>sed同时只能编辑一行</p>
+<h3 id="基本的sed编辑命令"><a href="#基本的sed编辑命令" class="headerlink" title="基本的sed编辑命令"></a>基本的sed编辑命令</h3><p><strong>调用sed命令的语法有两种：在命令行指定sed指令，或者将sed指令放入一个文件中并将其文件名作为参数</strong>，语法如下：</p>
+<blockquote>
+<p>sed [OPTIONS]… ‘COMMAND’ [FILE]…</p>
+<p>sed [OPTIONS] -f SCRIPTFILE [FILE]…</p>
+</blockquote>
+<p>sed命令有如下常用的选项</p>
+<p><code>-e</code>告诉sed将下一个参数解释为sed指令，只有在命令行上给出多个sed指令时才需要使用-e选项</p>
+<p><code>-f</code>指定由sed指令促成的脚本的名称，如果sed脚本的第一行为”#n”，则sed的行为与指定-n选项相同</p>
+<p><code>-i</code>直接修改读取的内容，而不是输出到终端</p>
+<p><code>-n</code>取消默认输出。在一般sed用法中，所有来自标准输入的数据一般都会被显示到终端，使用-n参数后，只有经过sed处理的行才会被显示输出。</p>
+<p>sed指令的语法形式如下：</p>
+<blockquote>
+<p>[address[,address]][!]command</p>
+</blockquote>
+<p>sed指令由地址和编辑命令组成，其中编辑命令是可选的。它可以是一个模式，被描述为由斜杠、行号或行寻址符号括住的正则表达式。大多数sed命令能接收由逗号分隔的两个地址，这两个地址用来标识行的范围，这些指令的语法格式如下：</p>
+<blockquote>
+<p>[address1,address2]command</p>
+</blockquote>
+<p>有些编辑命令只接收单个地址，不能应用于某个范围的行，语法格式为</p>
+<blockquote>
+<p>[line-address]command</p>
+</blockquote>
+<p>编辑命令还可以用大括号进行分组以使其作用于同一个地址，期语法格式为：</p>
+<blockquote>
+<p>address {</p>
+<p>​    command1</p>
+<p>​    command2</p>
+<p>​    command3</p>
+<p>}</p>
+</blockquote>
+<p>上述命令中，第一个命令command1可以与左大括号在同一行，右大括号必须自己单独处于一行。如果命令之间用分号分隔，那么可以将多个sed命令放在同一行，但是不建议这么做。</p>
+<p>sed编辑命令有24个，详细信息可以参考sed的man手册，下面介绍几个常用的。</p>
+<h4 id="追加、更改、插入编辑命令"><a href="#追加、更改、插入编辑命令" class="headerlink" title="追加、更改、插入编辑命令"></a>追加、更改、插入编辑命令</h4><p>追加（a）、更改（c）、插入（i）命令在sed中并不常用，因为它们必须在多行上来指定。语法如下：</p>
+<blockquote>
+<p>[line-address]a\</p>
+<p>text</p>
+<p>[line-address]i\</p>
+<p>text</p>
+<p>[line-address]c\</p>
+<p>text</p>
+</blockquote>
+<p>追加命令将文本放置在当前行之后，更改命令（c）用所指定的文本取代模式空间（模式空间概念可以网上找下博客）的内容，插入指令将所提供的文本放置在模式空间的当前行之前，这些命令都要求后面跟一个反斜杠用于转义第一个行尾，text必须从下一行开始。如果要输入多行文本，每个连续的行都必须用反斜杠结束，最后一行除外，而且当文本包含一个字面含义的反斜杠时，需要再添加一个反斜杠来转义，如下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#待处理的文本at.txt</span></span><br><span class="line">&lt;Amy<span class="string">'s info&gt;</span></span><br><span class="line"><span class="string">&lt;Tom'</span>s info&gt;</span><br><span class="line"><span class="keyword">#sed</span>脚本</span><br><span class="line">/&lt;Tom<span class="string">'s info&gt;/a\</span></span><br><span class="line"><span class="string">full name : zhangsan</span></span><br><span class="line"><span class="string">tel:123456</span></span><br><span class="line"><span class="string">#使用sed命令处理文本</span></span><br><span class="line"><span class="string">[root@test ~]# sed -f sed.txt at.txt</span></span><br><span class="line"><span class="string">#因为没有在文本第一行后面加\，所以需要在full name : zhangsan后面加\</span></span><br><span class="line"><span class="string">sed: can'</span>t find label <span class="keyword">for</span> jump to `el:123456<span class="string">'</span></span><br><span class="line"><span class="string">[root@test ~]# vi sed.txt</span></span><br><span class="line"><span class="string">[root@test ~]# sed -f sed.txt at.txt</span></span><br><span class="line"><span class="string">&lt;Amy'</span>s info&gt;</span><br><span class="line">&lt;Tom<span class="string">'s info&gt;</span></span><br><span class="line"><span class="string">full name : zhangsan</span></span><br><span class="line"><span class="string">tel:123456</span></span><br></pre></td></tr></table></figure>
+
+<p>还可以指定在文件结尾处追加一行”any text”</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># cat at.txt</span></span><br><span class="line">&lt;Amy<span class="string">'s info&gt;</span></span><br><span class="line"><span class="string">&lt;Tom'</span>s info&gt;</span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># sed '$a"any text"' at.txt</span></span><br><span class="line">&lt;Amy<span class="string">'s info&gt;</span></span><br><span class="line"><span class="string">&lt;Tom'</span>s info&gt;</span><br><span class="line"><span class="string">"any text"</span></span><br></pre></td></tr></table></figure>
+
+<p>上述命令的$是行寻址符号，用于匹配文件的最后一行。</p>
+<p>追加命令和插入命令只应用于单个行地址，而不是一个范围内的行，更改命令可以处理一个范围内的行。使用我们提供的文本替换被寻址行的内容，也就是删除原来行内的内容替换为我们自己的内容。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#待处理的文本at.txt</span></span><br><span class="line">From:zhangsan@163.com</span><br><span class="line"></span><br><span class="line">To:<span class="built_in">test</span></span><br><span class="line">Subject:Test</span><br><span class="line"><span class="keyword">#sed</span>脚本，从FROM开头的文本到行尾替换为&lt;Mail Header Removed&gt;</span><br><span class="line">/^From/,/^$/c\</span><br><span class="line">&lt;Mail Header Removed&gt;</span><br><span class="line"><span class="comment">#执行sed脚本</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># sed -f sed.txt at.txt</span></span><br><span class="line">&lt;Mail Header Removed&gt;</span><br><span class="line">To:<span class="built_in">test</span></span><br><span class="line">Subject:Test</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除编辑命令"><a href="#删除编辑命令" class="headerlink" title="删除编辑命令"></a>删除编辑命令</h4><p>删除编辑命令采用一个地址，如果行匹配这个地址，就删除模式空间的内容。如果某行匹配这个地址，就删除整个行，而不只是删除行中匹配的部分。</p>
+<p>我们可以使用指令”/^$/d”来删除一个文件中的空行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># cat at.txt</span></span><br><span class="line">From:zhangsan@163.com</span><br><span class="line"></span><br><span class="line">To:<span class="built_in">test</span></span><br><span class="line">Subject:Test</span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># sed '/^$/d' at.txt</span></span><br><span class="line">From:zhangsan@163.com</span><br><span class="line">To:<span class="built_in">test</span></span><br><span class="line">Subject:Test</span><br></pre></td></tr></table></figure>
+
+<p>删除命令也可以用于删除一个范围内的行，例如，下面的命令删除了文件中从第50行到最后一行的所有行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">'50,$d'</span> file</span><br></pre></td></tr></table></figure>
+
+<h4 id="替换编辑命令"><a href="#替换编辑命令" class="headerlink" title="替换编辑命令"></a>替换编辑命令</h4><p>替换编辑命令（s）语法如下：</p>
+<blockquote>
+<p>[address]s/pattern/replacement/flags</p>
+</blockquote>
+<p>这里flags是替换命令（s）的修饰标志,有如下几个：</p>
+<ul>
+<li><code>n</code>1-512之间的数字，表示对文本模式pattern中指定模式第n次出现的情况进行替换</li>
+<li><code>g</code>对模式空间的所有出现的情况进行全局更改，没有g时通常只有第一次出现的情况被更改</li>
+<li><code>p</code>打印模式空间的内容</li>
+<li><code>w file</code>将模式空间的内容写入到文件file中</li>
+</ul>
+<p>修饰标志flags可以混合使用，只要有意义。</p>
+<p>替换命令应用于与地址匹配的行，如果没有指定地址，就应用于匹配的所有行。地址需要一个作为定界符的斜杠”/“，和地址不同的是，正则表达式可以用任意字符来分隔，只有换行符除外。因此，<strong>如果模式包含斜杠，那么可以选择另一个字符作为定界符，例如感叹号</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s!/usr/lib!/usr/lib64!</span><br></pre></td></tr></table></figure>
+
+<p>上面定界符揣想那了三次，而且在替代字符串之后是必需的。不管使用哪种定界符，如果它出现在正则表达式中，或者在替换文本中，那么就用反斜杠将它转义。</p>
+<p>replacement是一个字符串，用来替换与模式（正则表达式）匹配的内容。在replacement部分，只有如下字符具有特殊的含义：</p>
+<ul>
+<li><p><code>&amp;</code>由正则表达式匹配的字符串进行替换</p>
+</li>
+<li><p><code>\n</code>匹配第n个子字符串（n是一个数字），这个子字符串是在模式中使用”\(“和”\)”指定的。</p>
+</li>
+<li><p><code>\</code>用于转义字符”&amp;”、反斜线”\“等字符。另外，它用于转义换行符并创建多行replacement字符串。</p>
+</li>
+</ul>
+<p>因此，除了正则表达式中的元字符以外，sed的替换部分也有元字符。</p>
+<p>下面一个示例：假设我们有一个文件file，其中每行有3个制表符，然后我们使用换行符取代每行上的第二个制表符，如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#要处理的文本at.txt</span></span><br><span class="line">word1	word2	word3	word4</span><br><span class="line"><span class="keyword">#sed</span>脚本内容</span><br><span class="line">s/\t/\</span><br><span class="line">/2</span><br><span class="line"><span class="comment">#执行处理</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># sed -f sed.txt at.txt</span></span><br><span class="line">word1   word2</span><br><span class="line">word3   word4</span><br></pre></td></tr></table></figure>
+
+<p><strong>上述sed脚本中反斜杠后面不允许有空格</strong></p>
+<p>下面的示例中，我们使用反斜杠来转义&amp;,让它作为一个普通字符出现在替换部分，如下sed替换命令：</p>
+<p><code>s/haha/u &amp; me/g</code></p>
+<p>作用是将文本中的haha替换为u&amp;me</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#文本at.txt</span></span><br><span class="line">wordhahatesthaha</span><br><span class="line">haha12345haha</span><br><span class="line"><span class="comment">#执行处理</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># sed 's/haha/u &amp; me/g' at.txt</span></span><br><span class="line">wordu haha metestu haha me</span><br><span class="line">u haha me12345u haha me</span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># sed 's/haha/u \&amp; me/g' at.txt</span></span><br><span class="line">wordu &amp; metestu &amp; me</span><br><span class="line">u &amp; me12345u &amp; me</span><br></pre></td></tr></table></figure>
+
+<p>从上面可以看到当&amp;前面转义和不转义，得到的内容完全不一样。</p>
+<h4 id="打印编辑命令"><a href="#打印编辑命令" class="headerlink" title="打印编辑命令"></a>打印编辑命令</h4><p>打印编辑命令（p）输出模式空间的内容，既不清除模式空间，也不改变脚本的控制流。一般会用在改变流控制的命令（d，N，b）之前，除非抑制（使用-n选项）默认的输出，否则打印命令将输出行的重复复制。</p>
+<p>下面看一个例子，如何使用打印命令来进行调试，它用于显示在发生改变之前行是什么样的？脚本内容如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#要处理的文件at.txt</span></span><br><span class="line">HAHA<span class="params"> -new</span> line</span><br><span class="line">HAHA<span class="params"> -my</span> <span class="built_in">test</span></span><br><span class="line">HAHA dont replace</span><br><span class="line">YOU CAN DO IT</span><br><span class="line"><span class="keyword">#sed</span>脚本内容</span><br><span class="line">/^HAHA/&#123;</span><br><span class="line">  p</span><br><span class="line">  s/-//</span><br><span class="line">  s/^HAHA //p</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">#处理后的结果</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># sed -nf sed.txt at.txt</span></span><br><span class="line">HAHA<span class="params"> -new</span> line</span><br><span class="line">new line</span><br><span class="line">HAHA<span class="params"> -my</span> <span class="built_in">test</span></span><br><span class="line">my <span class="built_in">test</span></span><br><span class="line">HAHA dont replace</span><br><span class="line">dont replace</span><br></pre></td></tr></table></figure>
+
+<p>上例子中，打印标志被提供给替换命令，替换命令的打印标志不同于打印命令，替换成功了才打印，所以最后一句YOU CAN DO IT，没有被替换，所以也没有打印出来。上面每个受影响的行被打印了两次，sed脚本的大括号用于在同一个地址应用多个命令。</p>
+<h4 id="打印行号编辑命令"><a href="#打印行号编辑命令" class="headerlink" title="打印行号编辑命令"></a>打印行号编辑命令</h4><p>跟在地址后面的等号”=”用来打印被匹配的行的行号，除非抑制行的自动输出，行号和行本身将被打印，语法如下：</p>
+<blockquote>
+<p>[line-address]=</p>
+</blockquote>
+<p><strong>该命令不能对一个范围内的行做操作</strong></p>
+<p>我们可以使用该命令来打印源文件中某些行，比如，下面的脚本会打印源文件中for语句所在的行号和行本身</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#要处理的文本at.txt</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;1..5&#125;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> &#123;1..5&#125; ;</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"haha"</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">    <span class="built_in">echo</span> i</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="keyword">#sed</span>脚本内容</span><br><span class="line">/ *<span class="keyword">for</span>/&#123;</span><br><span class="line">  =</span><br><span class="line">  p</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">#执行处理</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># sed -nf sed.txt at.txt</span></span><br><span class="line">1</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;1..5&#125;</span><br><span class="line">3</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> &#123;1..5&#125; ;</span><br></pre></td></tr></table></figure>
+
+<h4 id="读取下一行编辑命令"><a href="#读取下一行编辑命令" class="headerlink" title="读取下一行编辑命令"></a>读取下一行编辑命令</h4><p>读取下一行编辑命令(n)用于读取输入的下一行到模式空间，语法如下：</p>
+<blockquote>
+<p>[address]n</p>
+</blockquote>
+<p>读取下一行命令（n）改变了正常的流控制，导致输入的下一行取代了模式空间中的当前行，脚本中的后续命令应用于替换后的行，而不是当前行。如果没有默认输出，那么在替换发生之前会打印当前行。</p>
+<p>下面是一个例子，脚本的作用是删除From之后的一行空格</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#要处理的文本at.txt</span></span><br><span class="line">From:zhangsan@163.com</span><br><span class="line"></span><br><span class="line">To:<span class="built_in">test</span></span><br><span class="line">Subject:Test</span><br><span class="line"></span><br><span class="line">end</span><br><span class="line"><span class="keyword">#sed</span>脚本</span><br><span class="line">/From/&#123;</span><br><span class="line">  n</span><br><span class="line">  /^$/d</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">#处理过程</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># sed -f sed.txt at.txt</span></span><br><span class="line">From:zhangsan@163.com</span><br><span class="line">To:<span class="built_in">test</span></span><br><span class="line">Subject:Test</span><br><span class="line"></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<p>在sed脚本中，出现在读取下一行命令之前的命令不会应用于模式空间中新的输入行，出现在后面的命令也不应用与模式空间中旧的输入行。</p>
+<h4 id="读和写文件编辑命令"><a href="#读和写文件编辑命令" class="headerlink" title="读和写文件编辑命令"></a>读和写文件编辑命令</h4><p>读文件编辑命令（r）和写文件编辑命令（w）用于直接处理文件，语法如下：</p>
+<blockquote>
+<p>[line-address]r file</p>
+<p>[address]w file</p>
+</blockquote>
+<p>读文件编辑命令和文件名之间必须有空格，如果文件不存在，读文件命令不会报错，写文件命令将创建一个文件，如果文件已经存在，将会被改写。</p>
+<p>使用读文件命令对于将一个文件的内容插入到另一个文件的特定位置是很有用的，比如在所有 txt文件尾部插入一个内容，语句如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed<span class="params"> -i</span> <span class="string">'$r file'</span> *.txt</span><br></pre></td></tr></table></figure>
+
+<p>其中file中是一些要插入的文本内容（可以使另一个文件）。字符”$”是指定文件最后一行的寻址符号 ，下面看一个示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#要修改文本内容at.txt</span></span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;tag&gt;</span><br><span class="line">&lt;/tag&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"><span class="comment">#要添加的文本内容sed.txt</span></span><br><span class="line">This is a <span class="built_in">test</span> line.</span><br><span class="line">Hello World!</span><br><span class="line"><span class="keyword">#sed</span>读文件命令,含义是当sed匹配到以字符串&lt;tag&gt;开始的行时，将文件sed.txt的内容附件在被匹配的行的末尾。</span><br><span class="line">/^&lt;tag&gt;/r sed.txt</span><br><span class="line"><span class="comment">#针对文件at.txt执行该指令</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># sed '/^&lt;tag&gt;/r sed.txt' at.txt</span></span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;tag&gt;</span><br><span class="line">This is a <span class="built_in">test</span> line.</span><br><span class="line">Hello World!</span><br><span class="line">&lt;/tag&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到tag标签后面添加了我们要添加的内容。</p>
+<p>需要注意，如果上面的指令/^&lt;tag&gt;/r sed.txt还有其他指令，那么后续指令不能对从文件sed.txt中读取的内容做任何改变，比如如果我们在指令后面还有一句，删除以Hello开头的一行（我们可以看到sed.txt中有这么一行），但是这个指令不会对从sed.txt中读取出来的内容有任何改变，也就是最终输出还是上面那样，Hello World那一行不会被删除，如下，我们保持刚才的sed.txt和at.txt不变，但是将sed指令改为使用sedtest.txt。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用如下sedtest.txt代替刚才的sed指令/^&lt;tag&gt;/r sed.txt，其实就是在后面追加了一句删除Hello World!行的指令</span></span><br><span class="line">/^&lt;tag&gt;/r sed.txt</span><br><span class="line">/Hello World!/d</span><br><span class="line"><span class="comment">#执行指令</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># sed -f sedtest.txt at.txt</span></span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;tag&gt;</span><br><span class="line">This is a <span class="built_in">test</span> line.</span><br><span class="line">Hello World!</span><br><span class="line">&lt;/tag&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到上面的内容并没有变化，因为虽然sed指令中有一行删除Hello World!行的指令，但是对我们读取的文件内容（sed.txt）不会起作用，这一点演示了<strong>读文件后面的编辑命令不会影响读文件命令从文件中读取的行</strong>。</p>
+<p>使用-n选项或#n脚本语法可以取消抑制自动输出，阻止模式空间的初始行被输出，但是读命令的结果仍然会转到标准输出。</p>
+<p>下面看一个写文件编辑命令的例子，这个例子的目标是将原文件中的四家公司按照国家分类写到不同的文件中：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#要读取的原文件，分别是四家公司，两家美国公司，两家中国公司</span></span><br><span class="line">DIDI CHINA</span><br><span class="line">TENCENT CHINA</span><br><span class="line">APPLE USA</span><br><span class="line">GOOGLE USA</span><br><span class="line"><span class="keyword">#sed</span>脚本，将四家公司分类并写到对应的文件中</span><br><span class="line">/CHINA/w CHINA.txt</span><br><span class="line">/USA/w USA.txt</span><br><span class="line"><span class="comment">#现在针对源文件执行sed脚本</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># sed -f sed.txt at.txt</span></span><br><span class="line">DIDI CHINA</span><br><span class="line">TENCENT CHINA</span><br><span class="line">APPLE USA</span><br><span class="line">GOOGLE USA</span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># ll 可以看到多了两个文件CHINA.txt和USA.txt</span></span><br><span class="line">total 1369068</span><br><span class="line">...</span><br><span class="line">-rw-r--r--. 1 root root         25 Aug 28 10:10 CHINA.txt</span><br><span class="line">-rw-r--r--. 1 root root         21 Aug 28 10:10 USA.txt</span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># cat CHINA.txt</span></span><br><span class="line">DIDI CHINA</span><br><span class="line">TENCENT CHINA</span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># cat USA.txt</span></span><br><span class="line">APPLE USA</span><br><span class="line">GOOGLE USA</span><br></pre></td></tr></table></figure>
+
+<p>写文件命令在被调用时就写出模式空间的内容，而不是等到到达脚本的结尾时才进行写操作。</p>
+<p>假如我们想在写入文件之前去掉后面的国家，可以对上面的sed.txt做如下改动：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">#sed</span>.txt 匹配与地址相同的模式并删除</span><br><span class="line">/CHINA$/&#123;</span><br><span class="line">s///</span><br><span class="line">w CHINA.txt</span><br><span class="line">&#125;</span><br><span class="line">/USA$/&#123;</span><br><span class="line">S///</span><br><span class="line">w USA.txt</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">#执行新的脚本</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># sed -f sed.txt at.txt</span></span><br><span class="line">DIDI</span><br><span class="line">TENCENT</span><br><span class="line">APPLE</span><br><span class="line">GOOGLE</span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># cat CHINA.txt</span></span><br><span class="line">DIDI</span><br><span class="line">TENCENT</span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># cat USA.txt</span></span><br><span class="line">APPLE</span><br><span class="line">GOOGLE</span><br></pre></td></tr></table></figure>
+
+<h4 id="退出编辑命令"><a href="#退出编辑命令" class="headerlink" title="退出编辑命令"></a>退出编辑命令</h4><p>退出编辑命令（q）会使sed脚本立即退出，停止处理新的输入行，语法如下：</p>
+<blockquote>
+<p>[line-address]q</p>
+</blockquote>
+<p>只适用于单行的地址，一旦找到匹配行，就结束运行。</p>
+<p>几个实例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用退出命令打印文件前10行</span></span><br><span class="line">sed <span class="string">'10q'</span> file(效率更高)</span><br><span class="line">sed<span class="params"> -n</span> <span class="string">'1,10p'</span> file</span><br></pre></td></tr></table></figure>
+
+<h3 id="sed与shell"><a href="#sed与shell" class="headerlink" title="sed与shell"></a>sed与shell</h3><h4 id="在sed中使用shell变量"><a href="#在sed中使用shell变量" class="headerlink" title="在sed中使用shell变量"></a>在sed中使用shell变量</h4><p>在shell中，$用来引用环境变量，而在sed中，用于指示输入文件的最后一行，或是行的末尾（在LHS中），或是字面意义的符号（在RHS中）。sed不能直接访问shell中的变量，所以必须用双引号来扩展shell的变量。LHS(left-hand side )和RHS(right-hand side)分别指sed指令中的左侧部分和右侧部分，比如替换命令”s/LHS/RHS”</p>
+<p><strong>要让shell正确的解释sed命令中的shell变量，需要将sed指令放在双引号内</strong>，比如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">"s/_terminal-type_./<span class="variable">$TERM</span>/g"</span> input.file</span><br></pre></td></tr></table></figure>
+
+<p>下面这个需求，假如我们需要将文件中路径为/old/path的内容全部替换为/new/path,当我们用sed脚本实现这个更改的时候，脚本中先定义两个变量：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">OLDPATH=/old/path</span><br><span class="line">NEWPATH=/new/path</span><br><span class="line"><span class="comment">#运行脚本</span></span><br><span class="line">sed<span class="params"> -i</span> <span class="string">"s/<span class="variable">$OLDPATH</span>/<span class="variable">$NEWPATH</span>/"</span> file</span><br><span class="line"><span class="comment">#此时脚本实际执行的是s//old/path//new/path/ 这样会报错</span></span><br><span class="line"><span class="comment">#替换编辑命令一节中提到过如果模式包含斜杠，那么可以选择另一个字符作为定界符，例如感叹号，所以可以这么写指令</span></span><br><span class="line">sed<span class="params"> -i</span> <span class="string">"s#<span class="variable">$OLDPATH</span>#<span class="variable">$NEWPATH</span>#"</span> file</span><br></pre></td></tr></table></figure>
+
+<p>下面是sed中使用shell的示例：</p>
+<p><strong>移除文件中的空白行</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#检查参数，如果没有指定参数，则打印脚本使用方法</span></span><br><span class="line"><span class="keyword">if</span> [<span class="params"> -z</span> <span class="string">"<span class="variable">$1</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"当前脚本使用方法为：'basename <span class="variable">$0</span>' target-file"</span></span><br><span class="line">  <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">sed - e <span class="string">"/^$/d"</span> <span class="string">"<span class="variable">$1</span>"</span></span><br><span class="line"><span class="comment">#-e选项之前说过，表示后面跟一个sed编辑命令</span></span><br><span class="line"><span class="comment">#"^"表示一行的开始，"$"表示一行的结束，匹配在行的开始和结束之间没有任何内容的行</span></span><br><span class="line"><span class="keyword">#d</span>是删除命令</span><br><span class="line"></span><br><span class="line"><span class="comment">#用双引号括起来的命令行参数允许文件名中有空格或特殊字符</span></span><br><span class="line"><span class="comment">#这个脚本并不真正修改目标文件，如果需要修改目标文件，需要重定向脚本输出，或在sed命令中加入-i选项</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>替换文件中的字符串</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#定义参数个数</span></span><br><span class="line">ARGS=3</span><br><span class="line"><span class="comment">#检测参数个数是否符合是3个，不是则打印脚本的使用方法</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span><span class="params"> -ne</span> <span class="string">"<span class="variable">$ARGS</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"当前脚本使用方法为：<span class="variable">$0</span> oldpattern newpattern filename"</span></span><br><span class="line">  <span class="built_in">exit</span> 2</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line">oldpattern=<span class="variable">$1</span></span><br><span class="line">newpattern=<span class="variable">$2</span></span><br><span class="line"><span class="comment">#检查指定文件是否存在</span></span><br><span class="line"><span class="keyword">if</span> [<span class="params"> -f</span> <span class="string">"<span class="variable">$3</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">    filename=<span class="variable">$3</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"文件 \"<span class="variable">$3</span>\"不存在"</span></span><br><span class="line">  <span class="built_in">exit</span> 3</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line">sed<span class="params"> -e</span> <span class="string">"s#<span class="variable">$oldpattern</span>#<span class="variable">$newpattern</span>/g"</span> <span class="variable">$filename</span></span><br><span class="line"><span class="comment">#"s"是sed中的替换命令,/pattren/引用地址匹配 "#"是sed指令的定界符</span></span><br><span class="line"><span class="comment">#"g"会使命令替换每一行中所有匹配$oldpattern的字符串，而不只是第一个匹配的字符串</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></figure>
+
+<h4 id="从sed输出中设置shell变量"><a href="#从sed输出中设置shell变量" class="headerlink" title="从sed输出中设置shell变量"></a>从sed输出中设置shell变量</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">ARGS=2</span><br><span class="line"><span class="comment">#检查传递给脚本的参数个数，不为2则打印使用方法</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span><span class="params"> -ne</span> <span class="string">"<span class="variable">$ARGS</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"当前脚本使用方法为：<span class="variable">$0</span> oldpattern newpattern"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line">number=0</span><br><span class="line"><span class="comment">#循环遍历当前目录下所有文件名中包含字符串$1的文件</span></span><br><span class="line"><span class="keyword">for</span> filename <span class="keyword">in</span> *<span class="variable">$1</span>* ; <span class="keyword">do</span></span><br><span class="line">    <span class="comment">#如果指定的文件存在</span></span><br><span class="line">    <span class="keyword">if</span> [<span class="params"> -f</span> <span class="variable">$filename</span> ]; <span class="keyword">then</span></span><br><span class="line">      <span class="comment">#去除文件的路径</span></span><br><span class="line">      fname=<span class="string">'basename "$filename"'</span></span><br><span class="line">      <span class="comment">#用新的文件名替换旧的</span></span><br><span class="line">      newname=<span class="string">'echo $fname | sed -e "s/$1/$2/g"'</span></span><br><span class="line">      <span class="comment">#将文件重命名</span></span><br><span class="line">      mv <span class="string">"<span class="variable">$fname</span>"</span> <span class="string">"<span class="variable">$newname</span>"</span></span><br><span class="line">      <span class="built_in">let</span> <span class="string">"number += 1"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></figure>
+
+<h3 id="awk基础"><a href="#awk基础" class="headerlink" title="awk基础"></a>awk基础</h3><p>awk被用于文本处理，通常用作数据提取和报告工具的解释性程序设计语言，awk不能处理非文本文件。和sed类似，awk的基本功能也是搜索文件中包含某些模式的行，当某行匹配一个模式时，awk就在那一行上执行指定的操作，awk持续的使用这种方式处理输入的行，直到处理到输入文件的结尾处为止。</p>
+<p>下面是awk的一些功能点：</p>
+<ul>
+<li>使用变量操作由文本记录和字段组成的文本文件</li>
+<li>具有算术和字符串操作符</li>
+<li>具有普通的程序设计结构，例如循环和条件</li>
+<li>生成格式化报告</li>
+<li>定义函数</li>
+<li>从awk脚本中执行linux命令</li>
+<li>处理linux命令结果</li>
+<li>更加巧妙的处理命令行的参数</li>
+<li>更容易的处理多个输入流</li>
+</ul>
+<h4 id="awk基本语法"><a href="#awk基本语法" class="headerlink" title="awk基本语法"></a>awk基本语法</h4><p>运行awk时，需要指定一个awk程序，这个程序由一系列指令组成，每条指令指定一个用于搜索的模式和找到模式要执行的动作。一个awk指令由一个模式（pattern）后跟一个动作（action）组成。动作被括在花括号内，用来与模式分隔。每个awk指令之间通常用换行符分隔。一个awk程序的语法类似如下：</p>
+<blockquote>
+<p>pattern {action}</p>
+<p>pattern {action}</p>
+<p>……</p>
+</blockquote>
+<p>运行awk的方式有两种，如果awk程序很短，可以直接把它写在运行awk的命令行中，其语法如下所示：</p>
+<blockquote>
+<p>awk options – program-text file…</p>
+</blockquote>
+<p>如果程序较长，就放在一个文件中更为方便，语法如下：</p>
+<blockquote>
+<p>awk options -f  program-file – file …</p>
+</blockquote>
+<p>一个awk命令行是有选项，awk程序文件或指令以及输入文件名组成的，输入是从指定的文件中读取的，如果没有指定输入文件名或指定为-，那么awk命令将从标准输入中读取。</p>
+<p>awk命令中常用的选项如下：</p>
+<p><code>-F fs</code>指定用于输入数据的列分隔符fs</p>
+<p><code>-v var=value</code>在awk程序执行之前指定一个值value给变量var，这些变量值用于awk程序的BEGIN块。</p>
+<p><code>-f program-file</code>指定一个awk程序文件，代替在命令行指定awk指令</p>
+<p><code>--</code>选项根据POSIX参数解析约定，此选项表示命令行选项的结束。利用这个选项可以指定以”-“开头的输入文件，否则它将被解析为一个命令行选项。</p>
+<p>下面是awk使用的一个示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># cat at.txt</span></span><br><span class="line">DIDI CHINA</span><br><span class="line">TENCENT CHINA</span><br><span class="line">APPLE USA</span><br><span class="line">GOOGLE USA</span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># awk '&#123; print &#125;' at.txt</span></span><br><span class="line">DIDI CHINA</span><br><span class="line">TENCENT CHINA</span><br><span class="line">APPLE USA</span><br><span class="line">GOOGLE USA</span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># awk '&#123; print $0 &#125;' at.txt</span></span><br><span class="line">DIDI CHINA</span><br><span class="line">TENCENT CHINA</span><br><span class="line">APPLE USA</span><br><span class="line">GOOGLE USA</span><br></pre></td></tr></table></figure>
+
+<p>上面示例中，我们调用awk时，指定at.txt为输入文件，然后awk会在此文件的每一行上按顺序执行print命令，所有输出都送到标准输出，所以我们看到结果和cat命令一样。在awk中使用花括号<code>{}</code>将代码块集合起来，类似于shell函数，在示例中代码块只有一个print函数，在awk中当print不带参数，就会打印当前行的所有内容。</p>
+<p>我们看到第三个指定结果和第二个一样，这是因为在awk中，变量$0表示当前的一整行，所以两个指令结果一样。</p>
+<h4 id="使用awk打印指定的列"><a href="#使用awk打印指定的列" class="headerlink" title="使用awk打印指定的列"></a>使用awk打印指定的列</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># cat at.txt</span></span><br><span class="line">DIDI CHINA</span><br><span class="line">TENCENT CHINA</span><br><span class="line">APPLE USA</span><br><span class="line">GOOGLE USA</span><br><span class="line"><span class="comment">#使用awk打印第一列</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># awk '&#123; print $1 &#125;' at.txt</span></span><br><span class="line">DIDI</span><br><span class="line">TENCENT</span><br><span class="line">APPLE</span><br><span class="line">GOOGLE</span><br></pre></td></tr></table></figure>
+
+<p>在不指定分隔符的情况下，awk默认采用空白作为分隔符，-F可以用于指定分隔符</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk<span class="params"> -F</span><span class="string">'-'</span> <span class="string">'&#123;print $2&#125;'</span> at.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="从awk程序文件读取awk指令"><a href="#从awk程序文件读取awk指令" class="headerlink" title="从awk程序文件读取awk指令"></a>从awk程序文件读取awk指令</h4><p>语法：</p>
+<blockquote>
+<p>awk -f myscript.awk myfile</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#假如我们修改上面的指令为从文件读取awk -F'-' '&#123;print $2&#125;' at.txt，如下,文件名secCol.awk</span></span><br><span class="line">BEGIN &#123;</span><br><span class="line">	FS=<span class="string">"-"</span></span><br><span class="line">&#125;</span><br><span class="line">&#123; <span class="built_in">print</span> <span class="variable">$2</span> &#125;</span><br><span class="line"><span class="comment">#执行脚本</span></span><br><span class="line">awk<span class="params"> -f</span> secCol.awk at.txt</span><br></pre></td></tr></table></figure>
+
+<p>主要区别在于设置分隔符的方式不同。</p>
+<h4 id="awk的BEGIN和END块"><a href="#awk的BEGIN和END块" class="headerlink" title="awk的BEGIN和END块"></a>awk的BEGIN和END块</h4><p>当需要在awk开始处理输入文件中的文本前执行一些初始化代码的时候，可以定义一个BEGIN块；同样在输入文件中所有行都被处理之后想要执行代码，可以定义一个END块，通常，end块用于执行最后的运算或是打印要在输出流的结尾处显示的概要。</p>
+<h4 id="awk中使用正则表达式"><a href="#awk中使用正则表达式" class="headerlink" title="awk中使用正则表达式"></a>awk中使用正则表达式</h4><p>awk中可以使用正则表达式来对匹配的行做操作，比如下面示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#打印输出文件中包含字符串"DIDI"的行</span></span><br><span class="line">awk <span class="string">'/DIDI/&#123; print &#125;'</span> at.txt</span><br><span class="line">DIDI CHINA</span><br><span class="line"><span class="comment">#打印输出文件中包含字符串"DIDI"的行的第一列</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># awk '/DIDI/&#123; print $1 &#125;' at.txt</span></span><br><span class="line">DIDI</span><br></pre></td></tr></table></figure>
+
+<p><strong>正则表达式必须放在斜线内，用法与sed类似</strong>，我们也可以使用操作符<code>~</code>或<code>!~</code>来指定任意列或变量匹配（或不匹配）一个正则表达式，比如打印文件中匹配字符”-“的行的第一列</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">'$2 ~ /-/ &#123; print $1 &#125;'</span> filename</span><br></pre></td></tr></table></figure>
+
+<h4 id="awk的表达式和块"><a href="#awk的表达式和块" class="headerlink" title="awk的表达式和块"></a>awk的表达式和块</h4><p>awk还可以有选择的执行代码块，可以把任意类型的布尔表达式放在代码块之前来控制特定的块什么时候可以执行，即只有当布尔表达式的值为真，awk才会执行此代码块，下面示例输出/etc/passwd中第一列等于root的所有行的第三列</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">'BEGIN &#123; FS=":" &#125; $1 == "root" &#123; print $3 &#125;'</span> /etc/passwd</span><br></pre></td></tr></table></figure>
+
+<p>awk支持的比较操作符有，”==”、”&lt;”、”&gt;”、”&lt;=”、”&gt;=”和”!=”，此外还有”<del>“和”!</del>“,下面示例打印文件中匹配字符串”etc”的所有行的第一列</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">'BEGIN &#123; FS="-" &#125; $2 ~ "etc" &#123; print $1 &#125;'</span> file</span><br></pre></td></tr></table></figure>
+
+<p>表达式可以对打印的，测试的或者传递给一个函数的内容进行求值，一个表达式还可以使用赋值操作符给一个变量或一列赋予一个新的值。</p>
+<h4 id="awk条件语句"><a href="#awk条件语句" class="headerlink" title="awk条件语句"></a>awk条件语句</h4><p>awk支持条件if语句，比如上面的语句可以改造为if语句如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">'BEGIN &#123; FS="-" &#125; &#123; if ($2 ~ "etc" ) &#123; print $1 &#125; &#125;'</span> file</span><br></pre></td></tr></table></figure>
+
+<p>上述语句中，块中指定对输入的每一行都执行一次</p>
+<p>if-else是awk的决策语句，语法如下：</p>
+<blockquote>
+<p>if (condition) then-body [else else-body]</p>
+</blockquote>
+<p><strong>当条件condition的值为0或者空字符串时，条件被认为假，否则条件为真</strong>，同时condition支持||（逻辑或）和&amp;&amp;（逻辑与）来创建更复杂的布尔表达式。</p>
+<h4 id="awk中的变量和操作符"><a href="#awk中的变量和操作符" class="headerlink" title="awk中的变量和操作符"></a>awk中的变量和操作符</h4><p>awk可以进行整数和浮点数的运算，下面是一个例子,计算文本中空白行的awk程序：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#待统计的文本at.txt</span></span><br><span class="line">DIDI CHINA</span><br><span class="line"></span><br><span class="line">TENCENT CHINA</span><br><span class="line">APPLE USA</span><br><span class="line"></span><br><span class="line">GOOGLE USA</span><br><span class="line"><span class="keyword">#awk</span>脚本文件awk.txt</span><br><span class="line">BEGIN &#123; x=0 &#125;</span><br><span class="line">/^$/ &#123; x=x+1 &#125;</span><br><span class="line">END &#123; <span class="built_in">print</span> <span class="string">"找到 "</span>x<span class="string">" 个空白行"</span> &#125;</span><br><span class="line"><span class="comment">#执行指令</span></span><br><span class="line">[root@<span class="built_in">test</span> ~]<span class="comment"># awk -f awk.txt at.txt</span></span><br><span class="line">找到 2 个空白行</span><br></pre></td></tr></table></figure>
+
+<p>当在变量上执行数学运算时，只要变量包含有效的数字串，awk会自动的进行转换（这一点与bash不同）在bash中我们执行任何数学运算，都需要将我们的算式用<code>&quot;$(())&quot;</code>包起来</p>
+<p>假如我们在进行运算时，指定的变量不包含数字，awk会将其作为数字0处理。awk支持完整的运算符。</p>
+<h4 id="awk中的特殊变量"><a href="#awk中的特殊变量" class="headerlink" title="awk中的特殊变量"></a>awk中的特殊变量</h4><p><code>FS</code>允许你设置希望awk在列之间查找的字符序列，其值并不局限于单个字符，同样可以是正则表达式，或任意长度的字符模式</p>
+<p><code>NF</code>当前记录中列的数量，比如如下脚本将只显示文件中列数是3的行<code>awk &#39;NF == 3 { print }&#39; file</code></p>
+<p><code>NR</code>当前记录是第几行，比如awk将第一条记录标记为1，下面的awk指令用于打印输出文件中第三行以后输入的记录：</p>
+<p><code>awk &#39;{ if ( NR &gt; 3 ) { print NR &quot;.\t&quot;$0 } }&#39; file</code>，其中<code>print NR &quot;.\t&quot;$0</code>表示在当前记录编号后面打印字符”.”和一个制表符，然后打印当前记录的内容。</p>
+<h4 id="awk中的循环结构"><a href="#awk中的循环结构" class="headerlink" title="awk中的循环结构"></a>awk中的循环结构</h4><p>while循环，语法如下：</p>
+<blockquote>
+<p>while(condition) body</p>
+</blockquote>
+<p>body代表任意awk语句</p>
+<p>do-while循环</p>
+<blockquote>
+<p>do</p>
+<p>   body</p>
+<p>while(condition)</p>
+</blockquote>
+<p>for循环</p>
+<blockquote>
+<p>for (init;condition;increment)</p>
+<p>body</p>
+</blockquote>
+<p>for语句中init，condition和increment部分是任意的awk表达式，比如<code>for(i = 1; i &lt;= 3; i++)</code>，body是任意的awk语句。</p>
+<h4 id="awk中的数组"><a href="#awk中的数组" class="headerlink" title="awk中的数组"></a>awk中的数组</h4><p>在awk中数组索引一般从1开始，可以使用如下方式定义一个数组：</p>
+<blockquote>
+<p>arr[1]=”one”</p>
+<p>arr[2]=”123”</p>
+</blockquote>
+<p>在第一个赋值语句时awk数组被创建。awk迭代数组语法如下,<strong>但是awk迭代数组不保证顺序</strong>：</p>
+<blockquote>
+<p>for ( x in arr ) {</p>
+<p>​    print arr[x]</p>
+<p>}</p>
+</blockquote>
+<p>awk的数组除了支持数字索引外，还支持使用字符串索引，比如</p>
+<blockquote>
+<p>arr[“name”]=”Tom”</p>
+</blockquote>
+<p><strong>删除数组中元素</strong></p>
+<blockquote>
+<p>delete arr[1]</p>
+</blockquote>
+<p>查看数组中指定下标是否有元素存在，可以用in布尔操作符：</p>
+<blockquote>
+<p>if( 1 in arr) {</p>
+<p>}else{</p>
+<p>}</p>
+</blockquote>
+<h3 id="awk与shell"><a href="#awk与shell" class="headerlink" title="awk与shell"></a>awk与shell</h3><p>通常我们会将信息传入awk脚本，再将信息以对shell有用的格式传回。</p>
+<h4 id="在awk中使用shell"><a href="#在awk中使用shell" class="headerlink" title="在awk中使用shell"></a>在awk中使用shell</h4><p>有两种方法来在awk程序中获取shell变量的值：</p>
+<p>最常见的方法是使用shell引用来替换变量的值到shell脚本内部的awk程序中，例如下面的脚本：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#从标准输入读取变量pattern的值</span></span><br><span class="line"><span class="built_in">read</span><span class="params"> -p</span> <span class="string">"请输入匹配的关键词："</span> pattern</span><br><span class="line"><span class="comment">#打印输出匹配变量pattern的值的行，并记录匹配的次数，在处理完所有行后，打印匹配的总次数</span></span><br><span class="line">awk <span class="string">"/<span class="variable">$pattern</span>/"</span> <span class="string">'&#123; nmatches++; print &#125; END &#123; print nmatches, "found." &#125;'</span> file</span><br></pre></td></tr></table></figure>
+
+<p>上述awk脚本由两块引用文本连接起来，第一部分用双引号括起来，这样允许引号内的shell变量的替换。</p>
+<p>另外的一种方法是使用awk的变量赋值功能将shell变量的值指定为awk变量的值，比如下面这个脚本是对上面脚本的改进版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#从标准输入读取变量pattern的值</span></span><br><span class="line"><span class="built_in">read</span><span class="params"> -p</span> <span class="string">"请输入匹配的关键词："</span> pattern</span><br><span class="line"><span class="comment">#使用awk的-v选项指定变量pat，并将shell变量的值赋值给pat变量，之后执行其他指令</span></span><br><span class="line">awk<span class="params"> -v</span> pat=<span class="string">"<span class="variable">$pattern</span>"</span> <span class="string">'$0 ~ pat &#123; nmatches++; print &#125; END &#123; print nmatches, "found." &#125;'</span> file</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>-v pat=&quot;$pattern&quot;</code>使用双引号主要是防止pattern中有空格，当我们将变量赋值给awk变量后，可以在各个地方使用而不必再加双引号。</p>
+<p>awk程序还可以访问shell环境变量，awk解释器会在以环境变量名为索引的ENVIRON数组中存储shell环境变量的一个拷贝，例如下面示例，在awk程序中使用shell的PATH环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">'path=ENVIRON["PATH"] &#123; print "The PATH is: " path &#125;'</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="从awk命令的输出中设置shell变量"><a href="#从awk命令的输出中设置shell变量" class="headerlink" title="从awk命令的输出中设置shell变量"></a>从awk命令的输出中设置shell变量</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#给单个变量赋值</span></span><br><span class="line">x=<span class="string">'awk -F'</span>-<span class="string">' '</span>/Linux/&#123; <span class="built_in">print</span> <span class="variable">$2</span> &#125;<span class="string">' file'</span></span><br><span class="line"><span class="comment">#给多个变量赋值</span></span><br><span class="line"><span class="keyword">$ z</span>=<span class="string">'awk -F "-" '</span>&#123; <span class="keyword">if</span>( <span class="variable">$1</span> ~ <span class="string">"Linux"</span> ) <span class="built_in">print</span> <span class="string">"x="</span><span class="variable">$2</span>; <span class="keyword">if</span>( <span class="variable">$1</span> ~ <span class="string">"Cool"</span>) <span class="built_in">print</span> <span class="string">"y="</span><span class="variable">$2</span> &#125;<span class="string">' file'</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$z</span></span><br><span class="line">x=123 y=abc</span><br><span class="line"><span class="built_in">eval</span> <span class="variable">$z</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$z</span></span><br><span class="line">x=123 y=abc</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$x</span></span><br><span class="line">123</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$y</span></span><br><span class="line">abc</span><br></pre></td></tr></table></figure>
+
+<p>上例子中，通过awk命令的输出将变量x和y赋值语句放到变量z中，然后通过eval命令将变量z的值作为一条命令被shell执行，这样x,y就成为了shell变量并完成了赋值</p>
+<p>我们还可以利用source命令来从awk命令的输出中设置shell变量，修改如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk<span class="params"> -F</span> <span class="string">"-"</span> <span class="string">'&#123; if( $1 ~ "Linux" ) print "x="$2; if( $1 ~ "Cool") print "y="$2 &#125;'</span> file &gt;defvar</span><br></pre></td></tr></table></figure>
+
+<p>上例中我们将awk命令的输出重定向到了文件defVar中，此时查看defVar可以看到</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat defVar</span><br><span class="line">x=123</span><br><span class="line">y=abc</span><br></pre></td></tr></table></figure>
+
+<p>然后使用source命令在当前shell下读取并执行文件defVar中的命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> defVar</span><br></pre></td></tr></table></figure>
+
+<p>这样x,y也变成了shell变量，并完成了赋值。</p>
+<p>一个通过进程号查看进程启动路径的例子，其中使用awk来获取进程pid和对应的完整路径</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#定义脚本的参数个数</span></span><br><span class="line">ARG=1</span><br><span class="line"><span class="comment">#定义退出状态码</span></span><br><span class="line">WRONGARGS=65</span><br><span class="line">BADPID=66</span><br><span class="line">NOSUCHPROCESS=67</span><br><span class="line">NOPERMISSION=69</span><br><span class="line"></span><br><span class="line">PROCFILE=exe</span><br><span class="line"><span class="comment">#检查传递给脚本的参数个数</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span><span class="params"> -ne</span> <span class="variable">$ARG</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"当前脚本使用方法为：<span class="variable">$0</span> pid-no"</span> &gt;&amp;2</span><br><span class="line">  <span class="built_in">exit</span> WRONGARGS</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment">#确认指定的pid</span></span><br><span class="line">pidno=$( ps ax | grep <span class="variable">$1</span> | awk <span class="string">'&#123; print $1 &#125;'</span> | grep <span class="variable">$1</span>)</span><br><span class="line"><span class="comment">#如果经过上面管道过滤得到字符串长度为0，则指定的pid不存在</span></span><br><span class="line"><span class="keyword">if</span> [<span class="params"> -z</span> <span class="variable">$pidno</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"输入的进程号对应进程不存在"</span></span><br><span class="line">  <span class="built_in">exit</span> NOSUCHPROCESS</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment">#检查文件的读权限</span></span><br><span class="line"><span class="keyword">if</span> [ !<span class="params"> -r</span> <span class="string">"/proc/<span class="variable">$1</span>/<span class="variable">$PROCFILE</span>"</span>  ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"当前进程<span class="variable">$1</span>无法读取相关信息"</span></span><br><span class="line">  <span class="comment">#普通用户不能访问/proc目录下的某些文件</span></span><br><span class="line">  <span class="built_in">exit</span> NOPERMISSION</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">exe_file=$( ls<span class="params"> -l</span> /proc/<span class="variable">$1</span>/exe | awk <span class="string">'&#123; print $11 &#125;'</span>)</span><br><span class="line"><span class="comment">#如果软连接/proc/pidno/exe存在，则显示执行对应的可执行文件的全路径</span></span><br><span class="line"><span class="keyword">if</span> [<span class="params"> -e</span> <span class="string">"<span class="variable">$exe_file</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"进程 #<span class="variable">$1</span> 启动路径为 <span class="variable">$exe_file</span>"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"没有找到当前进行号对应进程信息"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-08-29T16:38:30.000Z" itemprop="dateUpdated">2020-08-30 00:38:30</time>
+</span><br>
+
+
+        
+        每天一点成长，一点收获
+        
+    </div>
+    
+    <footer>
+        <a href="https://www.enjoyican.com">
+            <img src="/img/head.jpg" alt="enjoycodingfun">
+            enjoycodingfun
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/" rel="tag">shell</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.enjoyican.com/posts/shell-improve/&title=《shell进阶》 — Running&pic=https://www.enjoyican.com/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.enjoyican.com/posts/shell-improve/&title=《shell进阶》 — Running&source=这篇博文介绍shell进阶内容包括shell重定向，管道和过滤器，信号处理，sed和awk，有问题及时在本博客或csdn留言。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.enjoyican.com/posts/shell-improve/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《shell进阶》 — Running&url=https://www.enjoyican.com/posts/shell-improve/&via=https://www.enjoyican.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.enjoyican.com/posts/shell-improve/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/mysql-1/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">mysql实战45讲学习笔记一</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/shell-txt/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">shell中使用正则及脚本输入处理</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'true' == 'true',
+            verify: 'false' == 'true',
+            appId: "ulrMiFi5yrRdTGP8FEHMehcm-gzGzoHsz",
+            appKey: "JjlHLHV0knhiDfaMJgjSgdYz",
+            avatar: "mm",
+            placeholder: "写点什么吧(*￣︶￣)",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢关注~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechatpay.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechatpay.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">CC BY-NC-SA 4.0</a>协议 转载请注明出处</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>enjoycodingfun &copy; 2015 - 2020</span>
+            <span>
+                
+                <a href="http://www.beian.miit.gov.cn" target="_blank">浙ICP备20006880号-1</a><br>
+                
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://www.enjoyican.com/posts/shell-improve/&title=《shell进阶》 — Running&pic=https://www.enjoyican.com/img/head.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.enjoyican.com/posts/shell-improve/&title=《shell进阶》 — Running&source=这篇博文介绍shell进阶内容包括shell重定向，管道和过滤器，信号处理，sed和awk，有问题及时在本博客或csdn留言。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.enjoyican.com/posts/shell-improve/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《shell进阶》 — Running&url=https://www.enjoyican.com/posts/shell-improve/&via=https://www.enjoyican.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://www.enjoyican.com/posts/shell-improve/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACK0lEQVR42u3aS3KDQAxFUe9/06QqI0+A+6QmFdS3Ry6IiY8Hsn6fDz7H7/l+/X3l+jp/DnlC68iQIeO1jOPynP3N9cc6QxLS9fVTqgwZMjZgrAqOaRglPPIuGTJkyFgVZAlAhgwZMlYxSBgl5SgJ6zJkyJDBi1iSupHgy+8+UovLkCHjhYzaYOBvXj8+35AhQ8a/ZxzhIekauZsOCW4+lQwZMkYz+HiyX9ymrTcSXdH3JEOGjBGMzpCys1SxqqknQ4aM2QySkNXaYbV1DX5FhgwZ+zA6a1tPL43FIwEZMmSMZvBBIwmytQYcX7aQIUPGnoza6gNv/ddWN+KVCxkyZGzD6DToO+UrHxjcFLEyZMgYx3iigIwLzlIaerozIkOGjKEMXprWksJOkEUppgwZMrZh8If2179IQ438FxkyZOzDIMPLNNT2m3f8CTJkyJjN4IG11mhbNaoMCmMZMmQMZaRttVUrFOkg84YkQ4aMzRhkiEhWK1YVySTplCFDxlRGLcmrDSCDRn+YYsqQIWM3Bh9J8nKUJ47FtQ8ZMmSMZqRlKmmKpcGa3K0V2zJkyJjBOMJDis/OyKEW7mXIkDGbwU/ahutT48GADBkyRjNIkCV3eXLJB5zBGpkMGTI2YPAgmBa9JATzXwAZMmTIqBWftaKXfx3oOTJkyJCB08faGCBdIzstYmXIkDGaUStieVLYWb+IN0dkyJAxjpGWjqRZtmrouAwgQ4aMtzJ+AMo89RuVK9eMAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?b9131a5ca31e54205078b286dad06616";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+    } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s)
+  })();
+</script>
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '欢迎再来！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '悦码小站';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
